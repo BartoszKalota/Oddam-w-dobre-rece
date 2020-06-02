@@ -12,7 +12,10 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     textTransform: 'none',
-    marginLeft: theme.spacing(1.5)
+    padding: theme.spacing(0.62, 2.5),
+    fontSize: '1.1rem',
+    color: theme.palette.text.primary,
+    borderRadius: 0
   }
 }));
 
@@ -22,6 +25,10 @@ const HomeNav = () => {
     <Grid item container className={classes.navSection}>
       <Grid item container justify="flex-end" xs={11}>
         <LinkScroll
+          to="section1"
+          spy={true}
+          smooth={true}
+          duration={500}
           style={{ display: 'flex' }}
         >
           <Button variant="outlined" className={classes.button}>
@@ -29,6 +36,10 @@ const HomeNav = () => {
           </Button>
         </LinkScroll>
         <LinkScroll
+          to="section2"
+          spy={true}
+          smooth={true}
+          duration={500}
           style={{ display: 'flex' }}
         >
           <Button variant="text" className={classes.button}>
@@ -36,6 +47,10 @@ const HomeNav = () => {
           </Button>
         </LinkScroll>
         <LinkScroll
+          to="section3"
+          spy={true}
+          smooth={true}
+          duration={500}
           style={{ display: 'flex' }}
         >
           <Button variant="text" className={classes.button}>
@@ -43,6 +58,10 @@ const HomeNav = () => {
           </Button>
         </LinkScroll>
         <LinkScroll
+          to="section4"
+          spy={true}
+          smooth={true}
+          duration={500}
           style={{ display: 'flex' }}
         >
           <Button variant="text" className={classes.button}>
@@ -50,6 +69,10 @@ const HomeNav = () => {
           </Button>
         </LinkScroll>
         <LinkScroll
+          to="section5"
+          spy={true}
+          smooth={true}
+          duration={500}
           style={{ display: 'flex' }}
         >
           <Button variant="text" className={classes.button}>

@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
 const HomeHeader = () => {
   const classes = useStyles();
   return (
-    <Grid item container className={classes.headerSection}>
+    <Grid item container className={classes.headerSection} id="section1">
       <Grid item xs={6} className={classes.headerImage} />
       <Grid item container xs={5} alignItems="center" className={classes.headerContent}>
         <Grid item container direction="column" alignItems="center">
