@@ -4,7 +4,7 @@ export const globalStyle = {
       fontFamily: `'Open Sans', sans-serif`
     },
     a: {
-      color: 'inherit', // !important zaburzało działanie activeClassName w navbarze aplikacji
+      color: 'inherit',
       textDecoration: [['none'], '!important']
     }
   }
