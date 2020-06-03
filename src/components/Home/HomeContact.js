@@ -1,8 +1,11 @@
 import React from 'react';
+import { Grid } from '@material-ui/core';
 
 const HomeContact = () => {
   return (
-    <h1>HomeContact</h1>
+    <Grid item container id="section5">
+      <h1>HomeContact</h1>
+    </Grid>
   );
 }
  

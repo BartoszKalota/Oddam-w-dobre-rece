@@ -1,8 +1,11 @@
 import React from 'react';
+import { Grid } from '@material-ui/core';
 
 const HomeThreeColumns = () => {
   return (
-    <h1>HomeThreeColumns</h1>
+    <Grid item container id="section2">
+      <h1>HomeThreeColumns</h1>
+    </Grid>
   );
 }
  
