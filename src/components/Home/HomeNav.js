@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Link as LinkScroll } from 'react-scroll';
 import { makeStyles } from '@material-ui/core/styles';
@@ -61,8 +61,35 @@ const AuthNavigation = () => {
 
 const HomeNav = () => {
   const classes = useStyles();
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const navSection = document.getElementById('section0');
+    const headerSection = document.getElementById('section1');
+    const threeColsSection = document.getElementById('section1+');
+    let startActiveHeight = headerSection.offsetHeight;
+    let finishActiveHeight = headerSection.offsetHeight + threeColsSection.offsetHeight - navSection.offsetHeight;
+    // Aktualizacja wysokości sekcji w przypadku zmiany szerokości viewportu
+    const windowEl = window;
+    windowEl.addEventListener('resize', () => {
+      startActiveHeight = headerSection.offsetHeight;
+      finishActiveHeight = headerSection.offsetHeight + threeColsSection.offsetHeight - navSection.offsetHeight;
+    });
+    // Zarządzenie klasą 'active' dla przycisku 'Start' względem sekcji 'ThreeColumns' (drobna korekta działania react-scroll)
+    windowEl.addEventListener('scroll', () => {
+      if (
+        windowEl.pageYOffset > startActiveHeight &&
+        windowEl.pageYOffset < finishActiveHeight
+      ) {
+        setIsActive(true);
+      } else {
+        setIsActive(false);
+      }
+    });
+  }, []);
+
   return (
-    <Grid item container className={classes.navSection}>
+    <Grid item container className={classes.navSection} id="section0">
       <AuthNavigation />
       <Grid item xs={12} style={{ marginTop: 8 }}>
         <Grid item container justify="flex-end" xs={11}>
@@ -74,6 +101,7 @@ const HomeNav = () => {
             offset={0}
             duration={500}
             style={{ display: 'flex' }}
+            className={isActive ? classes.activeBtn : ''}
           >
             <Button variant="text" className={classes.button}>
               Start
