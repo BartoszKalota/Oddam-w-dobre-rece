@@ -23,11 +23,17 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary,
     borderRadius: 0
   },
+  activeBtn: {
+    '& > button': {
+      border: `1px solid ${theme.palette.text.primary}`
+    }
+  },
   button: {
     textTransform: 'none',
     padding: theme.spacing(0.62, 2.5),
     fontSize: '1.1rem',
     color: theme.palette.text.primary,
+    border: '1px solid rgba(0, 0, 0, 0)',  // przezroczysta ramka (bez tego, tekst przycisku lekko się podnosi, gdy otrzyma klasę active)
     borderRadius: 0
   }
 }));
@@ -61,6 +67,7 @@ const HomeNav = () => {
       <Grid item xs={12} style={{ marginTop: 8 }}>
         <Grid item container justify="flex-end" xs={11}>
           <LinkScroll
+            activeClass={classes.activeBtn}
             to="section1"
             spy={true}
             smooth={true}
@@ -68,14 +75,16 @@ const HomeNav = () => {
             duration={500}
             style={{ display: 'flex' }}
           >
-            <Button variant="outlined" className={classes.button}>
+            <Button variant="text" className={classes.button}>
               Start
             </Button>
           </LinkScroll>
           <LinkScroll
+            activeClass={classes.activeBtn}
             to="section2"
             spy={true}
             smooth={true}
+            offset={-130}
             duration={500}
             style={{ display: 'flex' }}
           >
@@ -84,6 +93,7 @@ const HomeNav = () => {
             </Button>
           </LinkScroll>
           <LinkScroll
+            activeClass={classes.activeBtn}
             to="section3"
             spy={true}
             smooth={true}
@@ -95,6 +105,7 @@ const HomeNav = () => {
             </Button>
           </LinkScroll>
           <LinkScroll
+            activeClass={classes.activeBtn}
             to="section4"
             spy={true}
             smooth={true}
@@ -106,6 +117,7 @@ const HomeNav = () => {
             </Button>
           </LinkScroll>
           <LinkScroll
+            activeClass={classes.activeBtn}
             to="section5"
             spy={true}
             smooth={true}
