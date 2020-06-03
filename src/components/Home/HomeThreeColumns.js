@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 const HomeThreeColumns = () => {
   const classes = useStyles();
   return (
-    <Grid item container className={classes.threeColumnsSection} id="section2">
+    <Grid item container className={classes.threeColumnsSection}>
       <Grid item xs={1} />
       <Grid item container xs={10} justify="space-between">
         <Grid item container direction="column" alignItems="center" className={classes.singleColumn}>
