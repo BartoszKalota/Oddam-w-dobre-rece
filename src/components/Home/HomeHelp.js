@@ -1,10 +1,28 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography } from '@material-ui/core';
+
+import decoration from '../../assets/Decoration.svg';
+
+const useStyles = makeStyles(theme => ({
+  helpSection: {
+    padding: theme.spacing(9, 0, 10, 0)
+  },
+  decoration: {
+    margin: theme.spacing(3, 0, 4, 0)
+  }
+}));
 
 const HomeHelp = () => {
+  const classes = useStyles();
   return (
-    <Grid item container id="section4">
-      <h1>HomeHelp</h1>
+    <Grid item container className={classes.helpSection} id="section4">
+      <Grid item container direction="column" alignItems="center">
+        <Typography variant="h4" component="h3" color="textPrimary">
+          Komu pomagamy?
+        </Typography>
+        <img src={decoration} alt="Decoration" className={classes.decoration} />
+      </Grid>
     </Grid>
   );
 }
