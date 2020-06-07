@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(9, 0, 10, 0)
   },
   decoration: {
-    margin: theme.spacing(3, 0, 4, 0)
+    margin: theme.spacing(3, 0, 8, 0)
   }
 }));
 

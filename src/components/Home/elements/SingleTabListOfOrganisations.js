@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography } from '@material-ui/core';
 
-const SingleTabListOfOrganisations = ({ currTab: { title, descr, entity } }) => {
+const useStyles = makeStyles(theme => ({
+  descr: {
+    maxWidth: 640,
+    margin: 'auto',
+    marginBottom: theme.spacing(8),
+    color: theme.palette.text.primary,
+    lineHeight: 1.2,
+    fontSize: '1.4rem'
+  }
+}));
+
+const SingleTabListOfOrganisations = ({ currTab: { descr, entity } }) => {
+  const classes = useStyles();
   const [ counter, setCounter ] = useState(0);
 
   const itemsPerPage = 3;
   const entityToShow = entity.slice(counter * itemsPerPage, (counter + 1) * itemsPerPage);
-  
   const numOfPages = [];
   for (let i = 1; i <= Math.ceil(entity.length / itemsPerPage); i++) {
     numOfPages.push(i);
@@ -15,12 +28,13 @@ const SingleTabListOfOrganisations = ({ currTab: { title, descr, entity } }) => 
     setCounter(target.innerText - 1);
   };
 
-  useEffect(() => setCounter(0), [title]);  // po kliknięciu w inną zakładkę (zmiana title), wyświetla się pierwsza strona (domyślna wartość counter)
+  useEffect(() => setCounter(0), [descr]);  // po kliknięciu w inną zakładkę (zmiana descr), wyświetla się pierwsza strona (domyślna wartość counter)
 
   return (
-    <div>
-      <div>{title}</div>
-      <div>{descr}</div>
+    <Grid container direction="column">
+      <Typography component="div" align="center" className={classes.descr}>
+        {descr}
+      </Typography>
       <ul>
         {entityToShow.map(({ name, descr, tags }, i) => (
           <li key={i}>
@@ -32,12 +46,15 @@ const SingleTabListOfOrganisations = ({ currTab: { title, descr, entity } }) => 
       </ul>
       <div>
         {numOfPages.map(num => (
-          <button key={num} onClick={handleClickPagination}>
+          <button
+            key={num}
+            onClick={handleClickPagination}
+          >
             {num}
           </button>
         ))}
       </div>
-    </div>
+    </Grid>
   );
 }
  
