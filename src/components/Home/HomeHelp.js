@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 
@@ -13,8 +16,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HomeHelp = () => {
+const HomeHelp = ({ firebaseData }) => {
   const classes = useStyles();
+  console.log(firebaseData)
   return (
     <Grid item container className={classes.helpSection} id="section4">
       <Grid item container direction="column" alignItems="center">
@@ -25,6 +29,15 @@ const HomeHelp = () => {
       </Grid>
     </Grid>
   );
-}
- 
-export default HomeHelp;
+};
+
+const mapStateToProps = (state) => ({
+  firebaseData: state.firestore.data.home_listOfOrganisations
+});
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    { collection: 'home_listOfOrganisations' }
+  ])
+)(HomeHelp);
