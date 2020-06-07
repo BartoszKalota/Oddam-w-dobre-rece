@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 
 import decoration from '../../assets/Decoration.svg';
+import ListOfOrganisations from './elements/ListOfOrganisations';
 
 const useStyles = makeStyles(theme => ({
   helpSection: {
@@ -18,7 +19,6 @@ const useStyles = makeStyles(theme => ({
 
 const HomeHelp = ({ firebaseData }) => {
   const classes = useStyles();
-  console.log(firebaseData)
   return (
     <Grid item container className={classes.helpSection} id="section4">
       <Grid item container direction="column" alignItems="center">
@@ -26,6 +26,13 @@ const HomeHelp = ({ firebaseData }) => {
           Komu pomagamy?
         </Typography>
         <img src={decoration} alt="Decoration" className={classes.decoration} />
+      </Grid>
+      <Grid item container>
+        <Grid item xs={2} />
+        <Grid item container xs={8}>
+          <ListOfOrganisations data={firebaseData} />
+        </Grid>
+        <Grid item xs={2} />
       </Grid>
     </Grid>
   );
