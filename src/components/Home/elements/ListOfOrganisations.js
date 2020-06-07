@@ -10,6 +10,7 @@ const ListOfOrganisations = ({ data }) => {
     // Utworzenie tablicy z zakładkami
     const tabs = Object.values({ ...data });
     setTabs(tabs);
+    setCurrTab(tabs[0]);
   }, [data]); // po wyrenderowaniu, dane są puste, później zostają pobrane z Firebase i następuje ponowne renderowanie z danymi (stąd update na data)
   
   const handleClickTab = ({ target }) => {
@@ -17,7 +18,6 @@ const ListOfOrganisations = ({ data }) => {
     const titleOfSeekTab = target.id;
     const currTab = tabs.find(tab => tab.title === titleOfSeekTab);
     setCurrTab(currTab);
-    console.log(currTab);
   };
 
   return (

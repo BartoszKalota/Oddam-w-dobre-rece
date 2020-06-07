@@ -22,7 +22,7 @@ const HomeHelp = ({ firebaseData }) => {
   return (
     <Grid item container className={classes.helpSection} id="section4">
       <Grid item container direction="column" alignItems="center">
-        <Typography variant="h4" component="h3" color="textPrimary">
+        <Typography variant="h4" component="h5" color="textPrimary">
           Komu pomagamy?
         </Typography>
         <img src={decoration} alt="Decoration" className={classes.decoration} />
