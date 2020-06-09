@@ -6,8 +6,7 @@ import HomeThreeColumns from './HomeThreeColumns';
 import HomeEasySteps from './HomeEasySteps';
 import HomeAbout from './HomeAbout';
 import HomeHelp from './HomeHelp';
-import HomeContact from './HomeContact';
-import HomeFooter from './HomeFooter';
+import HomeContactAndFooter from './HomeContact';
 
 const Home = () => {
   return (
@@ -18,8 +17,7 @@ const Home = () => {
       <HomeEasySteps />
       <HomeAbout />
       <HomeHelp />
-      <HomeContact />
-      <HomeFooter />
+      <HomeContactAndFooter />
     </>
   );
 }

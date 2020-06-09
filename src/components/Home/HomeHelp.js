@@ -15,7 +15,6 @@ import ListOfOrganisations from './elements/ListOfOrganisations';
 
 const useStyles = makeStyles(theme => ({
   backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
     top: 'unset',
     left: 'unset',
     right: 'unset',

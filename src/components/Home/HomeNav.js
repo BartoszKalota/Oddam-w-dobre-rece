@@ -170,6 +170,7 @@ const HomeNav = () => {
             to="section5"
             spy={true}
             smooth={true}
+            offset={-130}
             duration={500}
             style={{ display: 'flex' }}
           >
