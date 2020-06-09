@@ -1,16 +1,16 @@
-export const FETCHING_STARTED = 'FETCHING_STARTED';
-export const FETCHING_SUCCESS = 'FETCHING_SUCCESS';
-export const FETCHING_ERROR = 'FETCHING_ERROR';
+export const FETCHING_ORGANISATIONS_STARTED = 'FETCHING_ORGANISATIONS_STARTED';
+export const FETCHING_ORGANISATIONS_SUCCESS = 'FETCHING_ORGANISATIONS_SUCCESS';
+export const FETCHING_ORGANISATIONS_ERROR = 'FETCHING_ORGANISATIONS_ERROR';
 
 export const fetchingStarted = () => ({
-  type: FETCHING_STARTED
+  type: FETCHING_ORGANISATIONS_STARTED
 });
 export const fetchingSuccess = (payload) => ({
-  type: FETCHING_SUCCESS,
+  type: FETCHING_ORGANISATIONS_SUCCESS,
   payload
 });
 export const fetchingError = (payload) => ({
-  type: FETCHING_ERROR,
+  type: FETCHING_ORGANISATIONS_ERROR,
   payload
 });
 

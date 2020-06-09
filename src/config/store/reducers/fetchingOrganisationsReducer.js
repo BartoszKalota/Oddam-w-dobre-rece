@@ -1,7 +1,7 @@
 import {
-  FETCHING_STARTED,
-  FETCHING_SUCCESS,
-  FETCHING_ERROR
+  FETCHING_ORGANISATIONS_STARTED,
+  FETCHING_ORGANISATIONS_SUCCESS,
+  FETCHING_ORGANISATIONS_ERROR
 } from '../actions/fetchingOrganisationsActions';
 
 const initState = {
@@ -12,18 +12,18 @@ const initState = {
 
 const fetchingOrganisationsReducer = (state = initState, { type, payload }) => {
   switch (type) {
-    case FETCHING_STARTED:
+    case FETCHING_ORGANISATIONS_STARTED:
       return {
         ...state,
         isFetching: true
       };
-    case FETCHING_SUCCESS:
+    case FETCHING_ORGANISATIONS_SUCCESS:
       return {
         isFetching: false,
         data: payload,
         error: null
       };
-    case FETCHING_ERROR:
+    case FETCHING_ORGANISATIONS_ERROR:
       return {
         isFetching: false,
         data: null,
