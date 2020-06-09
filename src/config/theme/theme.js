@@ -3,13 +3,11 @@ import { createMuiTheme } from '@material-ui/core/styles';
 // Pozostałe kolory do przypisania w poszczególne sekcje:
 // #737373 - ciemny szary
 
-// Pozostałe fonty:
-// 'Merriweather', sefir
-
 const theme = createMuiTheme({
   palette: {
     backgroundAltColor: '#F0F1F1', // jasny szary
     dividerColor: '#707070',
+    fontFamilyAlt: 'Merriweather',
     primary: {
       main: '#FAD648' // jasny żółty
     },
