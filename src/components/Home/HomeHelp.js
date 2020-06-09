@@ -65,8 +65,6 @@ const HomeHelp = ({ getOrganisations, isPending, firebaseError, firebaseData }) 
         {/* Ekran ładowania i komunikowania o błędzie dopasowany do sekcji*/}
         <Backdrop className={classes.backdrop} open={!!(isPending || firebaseError)}> {/* zmienne isPending i firebaseError gdy są nieaktywne stanowią null, wtedy wykrzacza błąd w konsoli; dlatego konieczna była tu konwersja na booleana */}
           {isPending && <CircularProgress color="primary" />}
-          {/* firebaseError - błąd ze strony Firebase
-          errorCond - błąd w przypadku pustych danych (błąd kodu) */}
           {firebaseError && (
             <div stlye={{ display: 'flex', flexDirection: 'column' }}>
               <Typography variant="h4" component="p" style={{ color: 'red' }} gutterBottom>
