@@ -34,7 +34,7 @@ const ListOfOrganisations = ({ data }) => {
     const tabs = Object.values({ ...data });
     setTabs(tabs);
     setCurrTab(tabs[0]);
-  }, [data]); // po wyrenderowaniu, dane są puste, później zostają pobrane z Firebase i następuje ponowne renderowanie z danymi (stąd update na data)
+  }, []);
   
   const handleClickTab = ({ target }) => {
     // Kilknięty przycisk ustanawia bieżącą zakładkę

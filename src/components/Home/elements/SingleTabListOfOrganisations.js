@@ -59,8 +59,8 @@ const SingleTabListOfOrganisations = ({ currTab: { descr, entity } }) => {
   const handleClickPagination = ({ target }) => {
     setCounter(target.innerText - 1);
   };
-
-  useEffect(() => setCounter(0), [descr]);  // po kliknięciu w inną zakładkę (zmiana descr), wyświetla się pierwsza strona (domyślna wartość counter)
+  // Po kliknięciu w inną zakładkę (zmiana descr), wyświetla się pierwsza strona (domyślna wartość counter)
+  useEffect(() => setCounter(0), [descr]);
 
   return (
     <Grid container direction="column">
@@ -70,7 +70,7 @@ const SingleTabListOfOrganisations = ({ currTab: { descr, entity } }) => {
       <Grid container direction="column" className={classes.entityListContainer}>
         {entityToShow.map(({ name, descr, tags }, i) => (
           <Fragment key={i}>
-            <Grid item container xs={12} spacing={3} className={classes.entityContainer}>
+            <Grid item container spacing={3} className={classes.entityContainer}>
               <Grid item xs={7}>
                 <Typography variant="h5" component="p" color="textPrimary" className={classes.entityName}>
                   {name}
@@ -91,7 +91,7 @@ const SingleTabListOfOrganisations = ({ currTab: { descr, entity } }) => {
         ))}
       </Grid>
       <Grid container justify="center">
-        {numOfPages.length > 1 && numOfPages.map((num) => (
+        {numOfPages.length > 1 && numOfPages.map(num => (
           <Button
             key={num}
             onClick={handleClickPagination}
