@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(20)
   },
   decoration: {
-    margin: theme.spacing(3, 0, 8, 0)
+    margin: theme.spacing(3, 0, 9, 0)
   },
   footerSection: {
     bottom: 0
@@ -49,14 +49,14 @@ const HomeContactAndFooter = () => {
     <Grid item container className={classes.sectionContainer} id="section5">
       <Grid container className={clsx(classes.sectionContainerOver, classes.contactSection)}>
         <Grid item xs={7} />
-        <Grid item xs={5}>
-          <Grid container direction="column" alignItems="center">
+        <Grid item xs={5} container spacing={5}>
+          <Grid item container direction="column" alignItems="center">
             <Typography variant="h4" component="h6" color="textPrimary">
               Skontaktuj się z nami
             </Typography>
             <img src={decoration} alt="Decoration" className={classes.decoration} />
           </Grid>
-          <Grid container justify="center">
+          <Grid item container justify="center">
             <ContactForm />
           </Grid>
         </Grid>
