@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute'
   },
   helpSection: {
-    padding: theme.spacing(9, 0, 10, 0)
+    padding: theme.spacing(9, 0, 15, 0)
   },
   decoration: {
     margin: theme.spacing(3, 0, 8, 0)

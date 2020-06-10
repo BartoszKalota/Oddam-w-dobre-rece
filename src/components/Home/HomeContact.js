@@ -10,7 +10,6 @@ import HomeFooter from './HomeFooter';
 
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
-    marginTop: theme.spacing(5),
     height: 940,  // dopasowanie do wysokości sekcji z Adobe XD
     backgroundImage: `url(${bgrImg})`,
     backgroundRepeat: 'no-repeat',
@@ -33,8 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
   contactSection: {
     top: 0,
-    paddingTop: theme.spacing(20),
-    paddingRight: theme.spacing(5)
+    paddingTop: theme.spacing(18)
   },
   decoration: {
     marginTop: theme.spacing(3)
@@ -50,7 +48,7 @@ const HomeContactAndFooter = () => {
     <Grid item container className={classes.sectionContainer} id="section5">
       <Grid container className={clsx(classes.sectionContainerOver, classes.contactSection)}>
         <Grid item xs={7} />
-        <Grid item xs={5} container>
+        <Grid item xs={4} container>
           <Grid container direction="column" alignItems="center">
             <Typography variant="h4" component="h6" color="textPrimary">
               Skontaktuj się z nami
@@ -61,8 +59,9 @@ const HomeContactAndFooter = () => {
             <ContactForm />
           </Grid>
         </Grid>
+        <Grid item xs={1} />
       </Grid>
-      <Grid container justify="center" className={clsx(classes.sectionContainerOver, classes.footerSection)}>
+      <Grid container className={clsx(classes.sectionContainerOver, classes.footerSection)}>
         <HomeFooter />
       </Grid>
     </Grid>
