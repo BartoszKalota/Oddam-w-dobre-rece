@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, IconButton, Typography, Icon } from '@material-ui/core';
+import { Grid, IconButton, Typography } from '@material-ui/core';
 
 import fbIcon from '../../assets/Facebook.svg';
 import instIcon from '../../assets/Instagram.svg';
@@ -47,12 +47,6 @@ const HomeFooter = () => {
             <img src={instIcon} alt="Instagram" />
           </a>
         </IconButton>
-        {/* <a href="https://www.facebook.com/" className={classes.icon}>
-          <img src={fbIcon} alt="Facebook" />
-        </a>
-        <a href="https://www.instagram.com/" className={classes.icon}>
-          <img src={instIcon} alt="Instagram" />
-        </a> */}
       </Grid>
       <Grid item xs={1} />
     </Grid>
