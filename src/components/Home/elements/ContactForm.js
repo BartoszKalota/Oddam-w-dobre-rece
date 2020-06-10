@@ -3,10 +3,24 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Button, Grid, TextField } from '@material-ui/core';
+import {
+  Button,
+  Grid,
+  TextField,
+  Typography
+} from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 
+const FORM_API = 'https://fer-api.coderslab.pl/v1/portfolio/contact';
+
 const useStyles = makeStyles(theme => ({
+  submitSuccInfo: {
+    width: 250,
+    minHeight: 50,
+    margin: theme.spacing(3, 0, 3, 0),
+    color: theme.palette.success.main,
+    fontWeight: 600
+  },
   contactForm: {
     width: 530
   },
@@ -18,8 +32,23 @@ const useStyles = makeStyles(theme => ({
   textarea: {
     marginTop: theme.spacing(4),
     '& > div': {
-      width: '100%'
+      width: '100%',
+      '& > div > textarea': {
+        height: [[77], '!important'],
+        overflow: [['auto'], '!important']
+      }
     }
+  },
+  button: {
+    width: 150,
+    minHeight: 50,
+    color: '#000',
+    textTransform: 'none',
+    fontWeight: 300,
+    fontSize: '1.2rem',
+    border: `1px solid ${theme.palette.text.primary}`,
+    borderRadius: 0,
+    marginTop: theme.spacing(4)
   }
 }));
 
@@ -47,7 +76,8 @@ const renderField = ({
   label,
   type,
   meta: { touched, error },
-  placeholder
+  placeholder,
+  disabled
 }) => (
   <>
     <CssTextField
@@ -56,6 +86,7 @@ const renderField = ({
       type={type}
       placeholder={placeholder}
       multiline
+      disabled={disabled}
     />
     {touched && error && <span>{error}</span>}
   </>
@@ -78,71 +109,106 @@ const validate = ({ name, email, msg }) => {
   return errors;
 };
 
-const onSubmit = (values) => {
-  console.log('dupa');
+const onSubmit = ({ name, email, msg }) => {
+  fetch(FORM_API, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      message: msg
+    })
+  })
+    .then(res => {
+      console.log(res);
+      if (res.ok) {
+        return res.json();
+      }
+      throw new Error('Błąd połączenia przy próbie wysłania formularza');
+    })
+    .catch(err => console.log(err));
 };
 
-const ContactForm = ({ handleSubmit, submitting, inputError }) => {
+const ContactForm = ({ handleSubmit, submitting, submitSucceeded, inputError }) => {
   const classes = useStyles();
   return (
-    <form onSubmit={handleSubmit} className={classes.contactForm}>
-      <Grid container>
-        <Grid
-          item container xs={6}
-          direction="column"
-          alignItems="flex-start"
-          style={{ paddingRight: 8 }}
-          className={
-            !!inputError ? classes.showError : ''
-          }
-        >
-          <Field 
-            // Field przyjmuje tylko określone atrybuty - className nie przyjmuje.
-            // Dlatego poziom wyżej używany jest Grid do przepuszczenia styli klasy.
-            name="name"
-            type="text"
-            component={renderField}
-            label="Wpisz swoje imię"
-            placeholder="Krzysztof"
-          />
+    <>
+      <Typography component="p" align="center" className={classes.submitSuccInfo}>
+        {submitSucceeded ? 'Wiadomość została wysłana! Wkrótce się skontaktujemy.' : ''}
+      </Typography>
+      <form onSubmit={handleSubmit} className={classes.contactForm}>
+        <Grid container>
+          <Grid
+            item container xs={6}
+            direction="column"
+            alignItems="flex-start"
+            style={{ paddingRight: 8 }}
+            className={
+              !!inputError ? classes.showError : ''
+            }
+          >
+            <Field 
+              // Field przyjmuje tylko określone atrybuty - className nie przyjmuje.
+              // Dlatego poziom wyżej używany jest Grid do przepuszczenia styli klasy.
+              name="name"
+              type="text"
+              component={renderField}
+              label="Wpisz swoje imię"
+              placeholder="Krzysztof"
+              disabled={submitSucceeded}
+            />
+          </Grid>
+          <Grid
+            item container xs={6}
+            direction="column"
+            alignItems="flex-start"
+            style={{ paddingLeft: 8 }}
+            className={
+              !!inputError ? classes.showError : ''
+            }
+          >
+            <Field
+              name="email"
+              type="email"
+              component={renderField}
+              label="Wpisz swój email"
+              placeholder="abc@xyz.pl"
+              disabled={submitSucceeded}
+            />
+          </Grid>
         </Grid>
         <Grid
-          item container xs={6}
-          direction="column"
-          alignItems="flex-start"
-          style={{ paddingLeft: 8 }}
+          container
+          justify="flex-start"
           className={
-            !!inputError ? classes.showError : ''
+            !!inputError
+              ? clsx(classes.textarea, classes.showError)
+              : classes.textarea
           }
         >
           <Field
-            name="email"
-            type="email"
+            name="msg"
+            type="text"
             component={renderField}
-            label="Wpisz swój email"
-            placeholder="abc@xyz.pl"
+            label="Wpisz swoją wiadomość"
+            placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            disabled={submitSucceeded}
           />
         </Grid>
-      </Grid>
-      <Grid
-        container
-        justify="flex-start"
-        className={
-          !!inputError
-            ? clsx(classes.textarea, classes.showError)
-            : classes.textarea
-        }
-      >
-        <Field
-          name="msg"
-          type="text"
-          component={renderField}
-          label="Wpisz swoją wiadomość"
-          placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-        />
-      </Grid>
-      <button disabled={submitting}>Wyślij</button>
-    </form>
+        <Grid container justify="flex-end">
+          <Button
+            type="submit"
+            disabled={submitting || submitSucceeded}
+            variant="text"
+            className={classes.button}
+          >
+            Wyślij
+          </Button>
+        </Grid>
+      </form>
+    </>
   );
 };
 
