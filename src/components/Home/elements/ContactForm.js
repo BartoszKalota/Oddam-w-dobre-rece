@@ -5,11 +5,14 @@ import clsx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   Button,
+  CircularProgress,
   Grid,
   TextField,
   Typography
 } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
+
+import { sendMessage } from '../../../config/store/actions/sendMessageAction';
 
 const FORM_API = 'https://fer-api.coderslab.pl/v1/portfolio/contact';
 
@@ -109,26 +112,8 @@ const validate = ({ name, email, msg }) => {
   return errors;
 };
 
-const onSubmit = ({ name, email, msg }) => {
-  fetch(FORM_API, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name,
-      email,
-      message: msg
-    })
-  })
-    .then(res => {
-      console.log(res);
-      if (res.ok) {
-        return res.json();
-      }
-      throw new Error('Błąd połączenia przy próbie wysłania formularza');
-    })
-    .catch(err => console.log(err));
+const onSubmit = (values, dispatch) => {  // values: name, email, msg
+  dispatch(sendMessage(values, FORM_API));  // bezpośrednia implementacja akcji (bez przechodzenia przez propsa), bo potrzebne dane przychodzą z values
 };
 
 const ContactForm = ({ handleSubmit, submitting, submitSucceeded, inputError }) => {
@@ -203,8 +188,12 @@ const ContactForm = ({ handleSubmit, submitting, submitSucceeded, inputError }) 
             disabled={submitting || submitSucceeded}
             variant="text"
             className={classes.button}
+            style={{
+              backgroundColor: submitting ? 'darkgrey' : 'unset'
+            }}
           >
             Wyślij
+            {submitting && <CircularProgress color="primary" style={{ position: 'absolute' }} />}
           </Button>
         </Grid>
       </form>
@@ -212,8 +201,7 @@ const ContactForm = ({ handleSubmit, submitting, submitSucceeded, inputError }) 
   );
 };
 
-// Używane tylko do przeniesienia pewnych danych ze store (z pola reduxForm) do zarządzania klasą showError w komponencie
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ // używane tylko do przeniesienia pewnych danych ze store (z pola reduxForm) do zarządzania klasą showError w komponencie
   inputError: state.form.contactForm.syncErrors
 });
 
