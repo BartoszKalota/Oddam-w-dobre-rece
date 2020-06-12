@@ -2,7 +2,7 @@ import {
   FETCHING_ORGANISATIONS_STARTED,
   FETCHING_ORGANISATIONS_SUCCESS,
   FETCHING_ORGANISATIONS_ERROR
-} from '../actions/fetchingOrganisationsActions';
+} from '../actions/fetchingOrganisationsAction';
 
 const initState = {
   isFetching: false,

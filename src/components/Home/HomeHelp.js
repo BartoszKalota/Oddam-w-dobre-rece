@@ -8,7 +8,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-import { fetchingOrganisations } from '../../config/store/actions/fetchingOrganisationsActions'
+import { fetchingOrganisations } from '../../config/redux/actions/fetchingOrganisationsAction'
 
 import decoration from '../../assets/Decoration.svg';
 import ListOfOrganisations from './elements/ListOfOrganisations';

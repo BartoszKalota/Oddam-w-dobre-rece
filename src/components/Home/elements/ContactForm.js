@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 
-import { sendMessage } from '../../../config/store/actions/sendMessageAction';
+import { sendMessage } from '../../../config/redux/actions/sendMessageAction';
 
 const FORM_API = 'https://fer-api.coderslab.pl/v1/portfolio/contact';
 
