@@ -10,7 +10,7 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset } from 'redux-form';
 
 import { sendMessage } from '../../../config/redux/actions/sendMessageAction';
 
@@ -114,6 +114,7 @@ const validate = ({ name, email, msg }) => {
 
 const onSubmit = (values, dispatch) => {  // values: name, email, msg
   dispatch(sendMessage(values, FORM_API));  // bezpośrednia implementacja akcji (bez przechodzenia przez propsa), bo potrzebne dane przychodzą z values
+  dispatch(reset('contactForm'));
 };
 
 const ContactForm = ({ handleSubmit, submitting, submitSucceeded, inputError }) => {
