@@ -1,19 +1,40 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
-  TextField,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  IconButton,
+  TextField,
+  Typography
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+
+const useStyles = makeStyles(theme => ({
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500]
+  }
+}));
 
 const DialogLogout = ({ isOpened, closeDialog }) => {
+  const classes = useStyles();
   const handleClick = () => closeDialog();
   return (
     <Dialog open={isOpened} onClose={handleClick} aria-labelledby="logout-dialog">
-      <DialogTitle id="logout-dialog">Logout</DialogTitle>
+      <DialogTitle id="logout-dialog">
+        <Typography>
+          Wylogowanie nastąpiło pomyślnie!
+        </Typography>
+        <IconButton aria-label="close" onClick={handleClick} className={classes.closeButton}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
           To subscribe to this website, please enter your email address here. We will send updates

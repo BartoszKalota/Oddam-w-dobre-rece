@@ -1,19 +1,40 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
-  TextField,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  IconButton,
+  TextField,
+  Typography
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+
+const useStyles = makeStyles(theme => ({
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500]
+  }
+}));
 
 const DialogRegister = ({ isOpened, closeDialog }) => {
+  const classes = useStyles();
   const handleClick = () => closeDialog();
   return (
-    <Dialog open={isOpened} onClose={handleClick} aria-labelledby="login-dialog">
-      <DialogTitle id="login-dialog">Zarejestruj się</DialogTitle>
+    <Dialog open={isOpened} onClose={handleClick} aria-labelledby="register-dialog">
+      <DialogTitle id="register-dialog">
+        <Typography>
+          Zarejestruj się
+        </Typography>
+        <IconButton aria-label="close" onClick={handleClick} className={classes.closeButton}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
           To subscribe to this website, please enter your email address here. We will send updates
