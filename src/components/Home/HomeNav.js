@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Link as LinkScroll } from 'react-scroll';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -7,7 +6,7 @@ import {
   Grid
 } from '@material-ui/core';
 
-import * as ROUTES from '../../config/routes';
+import AuthNavigation from './elements/AuthNavigation';
 
 const useStyles = makeStyles(theme => ({
   navSection: isGradient => {
@@ -25,12 +24,6 @@ const useStyles = makeStyles(theme => ({
     }
     return style;
   },
-  authNavSection: {
-    textTransform: 'none',
-    padding: theme.spacing(0.62, 2.5),
-    color: theme.palette.text.primary,
-    borderRadius: 0
-  },
   activeBtn: {
     '& > button': {
       border: `1px solid ${theme.palette.text.primary}`
@@ -45,27 +38,6 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 0
   }
 }));
-
-const AuthNavigation = () => {
-  const classes = useStyles();
-  return (
-    <Grid item xs={12}>
-      <Grid item container justify="flex-end" xs={11}>
-        <Link to={ROUTES.LOGIN} style={{ display: 'flex' }}>
-          <Button variant="text" className={classes.authNavSection}>
-            Zaloguj
-          </Button>
-        </Link>
-        <Link to={ROUTES.REGISTER} style={{ display: 'flex' }}>
-          <Button variant="outlined" color="primary" className={classes.authNavSection}>
-            Załóż konto
-          </Button>
-        </Link>
-      </Grid>
-      <Grid item xs={1} />
-    </Grid>
-  );
-};
 
 const HomeNav = () => {
   const [isActive, setIsActive] = useState(false);
