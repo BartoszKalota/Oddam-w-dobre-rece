@@ -30,8 +30,8 @@ const AuthNavigation = ({
   const props = { isOpened, closeDialog };
   let dialogToRender;
   if (mode === LOGIN_MODE) {
-    dialogToRender = <DialogLogin {...props} />;
-  } 
+    dialogToRender = <DialogLogin {...props} registerDisplayed={registerDisplayed} />;
+  }
   if (mode === REGISTER_MODE) {
     dialogToRender = <DialogRegister {...props} />;
   }
