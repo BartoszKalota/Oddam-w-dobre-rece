@@ -39,9 +39,6 @@ const useStyles = makeStyles(theme => ({
       marginTop: theme.spacing(4)
     }
   },
-  bottomInput: {
-    marginTop: theme.spacing(4)
-  },
   showError: {
     height: 40,
     lineHeight: 2.5,
@@ -129,7 +126,7 @@ const DialogLogin = ({
           />
         </form>
         <Typography component="p" align="center" className={classes.showError}>
-          {errorMsg ? 'Niepoprawny adres email lub hasło' : ''}
+          {errorMsg && errorMsg}
         </Typography>
       </DialogContent>
       <DialogActions style={{ justifyContent: 'space-between' }}>

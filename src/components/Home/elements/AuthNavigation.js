@@ -26,7 +26,7 @@ const AuthNavigation = ({
     dialogToRender = <DialogLogin {...props} registerDisplayed={registerDisplayed} />;
   }
   if (mode === REGISTER_MODE) {
-    dialogToRender = <DialogRegister {...props} />;
+    dialogToRender = <DialogRegister {...props} loginDisplayed={loginDisplayed} />;
   }
   if (mode === LOGOUT_MODE) {
     dialogToRender = <DialogLogout {...props} />;

@@ -28,7 +28,7 @@ const fetchingUserReducer = (state = initState, { type, payload }) => {
       return {
         isFetchingUser: false,
         userEmail: '',
-        userError: 'Niepoprawny adres email lub hasło.'
+        userError: payload
       };
     case LOGOUT_USER_SUCCESS:
       return initState;

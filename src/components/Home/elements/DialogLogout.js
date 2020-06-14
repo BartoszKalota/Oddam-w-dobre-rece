@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 300,
     padding: theme.spacing(1, 2),
     color: '#000',
-    border: `1px solid ${theme.palette.text.primary}`,  // przezroczysta ramka (bez tego, tekst przycisku lekko się podnosi, gdy otrzyma klasę active)
+    border: `1px solid ${theme.palette.text.primary}`,
     borderRadius: 0
   }
 }));
