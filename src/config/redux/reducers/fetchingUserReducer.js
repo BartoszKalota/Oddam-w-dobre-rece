@@ -1,7 +1,8 @@
 import {
   FETCHING_USER_STARTED,
   FETCHING_USER_SUCCESS,
-  FETCHING_USER_ERROR
+  FETCHING_USER_ERROR,
+  LOGOUT_USER_SUCCESS
 } from '../actions/fetchingUserAction';
 
 const initState = {
@@ -15,20 +16,22 @@ const fetchingUserReducer = (state = initState, { type, payload }) => {
     case FETCHING_USER_STARTED:
       return {
         ...state,
-        isFetching: true
+        isFetchingUser: true
       };
     case FETCHING_USER_SUCCESS:
       return {
-        isFetching: false,
+        isFetchingUser: false,
         userEmail: payload,
         userError: ''
       };
     case FETCHING_USER_ERROR:
       return {
-        isFetching: false,
+        isFetchingUser: false,
         userEmail: '',
         userError: 'Niepoprawny adres email lub hasło.'
       };
+    case LOGOUT_USER_SUCCESS:
+      return initState;
     default:
       return state;
   }

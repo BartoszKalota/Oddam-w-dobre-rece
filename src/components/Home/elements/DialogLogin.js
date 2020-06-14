@@ -13,7 +13,7 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import { Field, reduxForm, reset } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 
 import { loginUser } from '../../../config/redux/actions/fetchingUserAction';
 
@@ -92,8 +92,9 @@ const renderField = ({ input, label, type, disabled }) => (
 );
 
 const onSubmit = (values, dispatch) => {
-  dispatch(loginUser(values));
-  dispatch(reset('loginForm'));
+  if (values.email && values.password) {
+    dispatch(loginUser(values));
+  }
 };
 
 const DialogLogin = ({
@@ -158,7 +159,7 @@ const DialogLogin = ({
 };
 
 const mapStateToProps = (state) => ({
-  isLoading: state.user.isFetching,
+  isLoading: state.user.isFetchingUser,
   errorMsg: state.user.userError
 });
 
