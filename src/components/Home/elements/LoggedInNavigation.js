@@ -33,7 +33,7 @@ const LoggedInNavigation = ({ userEmail, logout }) => {
       <Typography variant="body1" component="p" className={classes.userText}>
         {`Cześć ${userEmail}!`}
       </Typography>
-      <Link to={ROUTES.LOGIN}>
+      <Link to={ROUTES.FORM}>
         <Button
           variant="outlined"
           color="primary"

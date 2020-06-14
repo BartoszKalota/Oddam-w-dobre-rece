@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -8,7 +8,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-import * as ROUTES from '../../config/routes';
+import { loginDisplayed } from '../../config/redux/actions/dialogSwitcherAction';
 
 import decoration from '../../assets/Decoration.svg';
 import icon1 from '../../assets/Icon-1.svg';
@@ -43,8 +43,7 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 1.3
   },
   button: {
-    width: '100%',
-    maxWidth: 310,
+    width: 310,
     minHeight: 120,
     fontSize: '2.2rem',
     fontWeight: 300,
@@ -57,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HomeEasySteps = () => {
+const HomeEasySteps = ({ loginDisplayed }) => {
   const classes = useStyles();
   return (
     <Grid className={classes.easyStepsSection} id="section2">
@@ -161,15 +160,21 @@ const HomeEasySteps = () => {
         </Grid>
         <Grid item xs={1} />
       </Grid>
-      <Grid item container justify="center">
-        <Link to={ROUTES.LOGIN}>
-          <Button variant="outlined" className={classes.button}>
-            Oddaj rzeczy
-          </Button>
-        </Link>
+      <Grid item container justify="center" style={{ display: 'grid' }}>
+        <Button
+          variant="outlined"
+          onClick={() => loginDisplayed()}
+          className={classes.button}
+        >
+          Oddaj rzeczy
+        </Button>
       </Grid>
     </Grid>
   );
-}
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  loginDisplayed: () => dispatch(loginDisplayed())
+});
  
-export default HomeEasySteps;
+export default connect(null, mapDispatchToProps)(HomeEasySteps);

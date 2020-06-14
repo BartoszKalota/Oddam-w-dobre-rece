@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid,
@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import clsx from 'clsx';
 
-import * as ROUTES from '../../config/routes';
+import { loginDisplayed } from '../../config/redux/actions/dialogSwitcherAction';
 
 import headerImg from '../../assets/Home-Hero-Image.jpg';
 import decoration from '../../assets/Decoration.svg';
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HomeHeader = () => {
+const HomeHeader = ({ loginDisplayed }) => {
   const classes = useStyles();
   return (
     <Grid item container className={classes.headerSection} id="section1">
@@ -77,18 +77,22 @@ const HomeHeader = () => {
           <img src={decoration} alt="Decoration" />
           <Grid item container spacing={5} className={classes.buttonsSection}>
             <Grid item xs={6}>
-              <Link to={ROUTES.LOGIN}>
-                <Button variant="outlined" className={classes.button}>
-                  Oddaj rzeczy
-                </Button>
-              </Link>
+              <Button
+                variant="outlined"
+                onClick={() => loginDisplayed()}
+                className={classes.button}
+              >
+                Oddaj rzeczy
+              </Button>
             </Grid>
             <Grid item xs={6}>
-              <Link to={ROUTES.LOGIN}>
-                <Button variant="outlined" className={classes.button}>
-                  Zorganizuj zbiórkę
-                </Button>
-              </Link>  
+              <Button
+                variant="outlined"
+                onClick={() => loginDisplayed()}
+                className={classes.button}
+              >
+                Zorganizuj zbiórkę
+              </Button>
             </Grid>
           </Grid>
         </Grid>
@@ -96,6 +100,10 @@ const HomeHeader = () => {
       <Grid item xs={1} />
     </Grid>
   );
-}
+};
 
-export default HomeHeader;
+const mapDispatchToProps = (dispatch) => ({
+  loginDisplayed: () => dispatch(loginDisplayed())
+});
+
+export default connect(null, mapDispatchToProps)(HomeHeader);
