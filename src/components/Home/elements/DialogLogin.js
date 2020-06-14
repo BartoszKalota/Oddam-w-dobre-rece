@@ -1,8 +1,11 @@
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import {
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -11,6 +14,8 @@ import {
   Typography
 } from '@material-ui/core';
 import { Field, reduxForm, reset } from 'redux-form';
+
+import { loginUser } from '../../../config/redux/actions/fetchingUserAction';
 
 import decoration from '../../../assets/Decoration.svg';
 import CloseButton from './CloseButton';
@@ -77,20 +82,24 @@ const CssTextField = withStyles(theme => ({
   } 
 }))(TextField);
 
-const renderField = ({ input, label, type }) => (
+const renderField = ({ input, label, type, disabled }) => (
   <CssTextField
     {...input}
     label={label}
     type={type}
+    disabled={disabled}
   />
 );
 
 const onSubmit = (values, dispatch) => {
-  console.warn(values);
+  dispatch(loginUser(values));
   dispatch(reset('loginForm'));
 };
 
-const DialogLogin = ({ isOpened, closeDialog, registerDisplayed, handleSubmit }) => {
+const DialogLogin = ({
+  isOpened, closeDialog, registerDisplayed,
+  handleSubmit, isLoading, errorMsg
+}) => {
   const classes = useStyles();
   return (
     <Dialog open={isOpened} onClose={() => closeDialog()} aria-labelledby="login-dialog">
@@ -108,16 +117,18 @@ const DialogLogin = ({ isOpened, closeDialog, registerDisplayed, handleSubmit })
             type="email"
             component={renderField}
             label="Email"
+            disabled={isLoading}
           />
           <Field 
             name="password"
             type="password"
             component={renderField}
             label="Hasło"
+            disabled={isLoading}
           />
         </form>
         <Typography component="p" align="center" className={classes.showError}>
-          Niepoprawny adres email lub hasło
+          {errorMsg ? 'Niepoprawny adres email lub hasło' : ''}
         </Typography>
       </DialogContent>
       <DialogActions style={{ justifyContent: 'space-between' }}>
@@ -132,16 +143,29 @@ const DialogLogin = ({ isOpened, closeDialog, registerDisplayed, handleSubmit })
           type="submit"
           form="loginForm"
           variant="text"
+          disabled={isLoading}
           className={clsx(classes.button, classes.buttonMain)}
+          style={{
+            backgroundColor: isLoading ? 'darkgrey' : 'unset'
+          }}
         >
           Zaloguj się
+          {isLoading && <CircularProgress color="primary" style={{ position: 'absolute' }} />}
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default reduxForm({
-  form: 'loginForm',
-  onSubmit
-})(DialogLogin);
+const mapStateToProps = (state) => ({
+  isLoading: state.user.isFetching,
+  errorMsg: state.user.userError
+});
+
+export default compose(
+  reduxForm({
+    form: 'loginForm',
+    onSubmit
+  }),
+  connect(mapStateToProps)
+)(DialogLogin);
