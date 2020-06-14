@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 
-import { loginUser } from '../../../config/redux/actions/fetchingUserAction';
+import { loginUser, clearUserError } from '../../../config/redux/actions/fetchingUserAction';
 
 import decoration from '../../../assets/Decoration.svg';
 import CloseButton from './CloseButton';
@@ -117,9 +117,15 @@ const onSubmit = (values, dispatch) => {
 
 const DialogLogin = ({
   isOpened, closeDialog, registerDisplayed,
-  handleSubmit, isLoading, errorMsg
+  handleSubmit, isLoading, errorMsg,
+  clearUserError
 }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    return () => clearUserError();
+  }, []);
+
   return (
     <Dialog open={isOpened} onClose={() => closeDialog()} aria-labelledby="login-dialog">
       <DialogTitle id="login-dialog">
@@ -180,6 +186,9 @@ const mapStateToProps = (state) => ({
   isLoading: state.user.isFetchingUser,
   errorMsg: state.user.userError
 });
+const mapDispatchToProps = (dispatch) => ({
+  clearUserError: () => dispatch(clearUserError())
+});
 
 export default compose(
   reduxForm({
@@ -187,5 +196,5 @@ export default compose(
     validate,
     onSubmit
   }),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(DialogLogin);

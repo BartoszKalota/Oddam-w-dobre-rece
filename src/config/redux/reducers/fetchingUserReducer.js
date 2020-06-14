@@ -2,6 +2,7 @@ import {
   FETCHING_USER_STARTED,
   FETCHING_USER_SUCCESS,
   FETCHING_USER_ERROR,
+  CLEAR_USER_ERROR,
   LOGOUT_USER_SUCCESS
 } from '../actions/fetchingUserAction';
 
@@ -29,6 +30,11 @@ const fetchingUserReducer = (state = initState, { type, payload }) => {
         isFetchingUser: false,
         userEmail: '',
         userError: payload
+      };
+    case CLEAR_USER_ERROR:
+      return {
+        ...state,
+        userError: ''
       };
     case LOGOUT_USER_SUCCESS:
       return initState;

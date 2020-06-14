@@ -3,6 +3,7 @@ import { logoutDisplayed, closeDialog } from './dialogSwitcherAction';
 export const FETCHING_USER_STARTED = 'FETCHING_USER_STARTED';
 export const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS';
 export const FETCHING_USER_ERROR = 'FETCHING_USER_ERROR';
+export const CLEAR_USER_ERROR = 'CLEAR_USER_ERROR';
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
 
 export const fetchingUserStarted = () => ({
@@ -15,6 +16,9 @@ export const fetchingUserSuccess = (payload) => ({
 export const fetchingUserError = (payload) => ({
   type: FETCHING_USER_ERROR,
   payload
+});
+export const clearUserError = () => ({
+  type: CLEAR_USER_ERROR
 });
 export const logoutUserSuccess = () => ({
   type: LOGOUT_USER_SUCCESS
