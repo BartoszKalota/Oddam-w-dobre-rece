@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -9,6 +10,7 @@ import {
 } from '@material-ui/core';
 
 import { loginDisplayed } from '../../config/redux/actions/dialogSwitcherAction';
+import * as ROUTES from '../../config/routes';
 
 import decoration from '../../assets/Decoration.svg';
 import icon1 from '../../assets/Icon-1.svg';
@@ -56,8 +58,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HomeEasySteps = ({ loginDisplayed }) => {
+const HomeEasySteps = ({ loggedIn, loginDisplayed }) => {
   const classes = useStyles();
+  const history = useHistory();
   return (
     <Grid className={classes.easyStepsSection} id="section2">
       <Grid item container direction="column" alignItems="center">
@@ -163,7 +166,9 @@ const HomeEasySteps = ({ loginDisplayed }) => {
       <Grid item container justify="center" style={{ display: 'grid' }}>
         <Button
           variant="outlined"
-          onClick={() => loginDisplayed()}
+          onClick={
+            () => loggedIn ? history.push(ROUTES.FORM) : loginDisplayed()
+          }
           className={classes.button}
         >
           Oddaj rzeczy
@@ -173,8 +178,11 @@ const HomeEasySteps = ({ loginDisplayed }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  loggedIn: state.user.userEmail
+});
 const mapDispatchToProps = (dispatch) => ({
   loginDisplayed: () => dispatch(loginDisplayed())
 });
  
-export default connect(null, mapDispatchToProps)(HomeEasySteps);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeEasySteps);

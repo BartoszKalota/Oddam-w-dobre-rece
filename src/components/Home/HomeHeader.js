@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -9,6 +10,7 @@ import {
 import clsx from 'clsx';
 
 import { loginDisplayed } from '../../config/redux/actions/dialogSwitcherAction';
+import * as ROUTES from '../../config/routes';
 
 import headerImg from '../../assets/Home-Hero-Image.jpg';
 import decoration from '../../assets/Decoration.svg';
@@ -51,8 +53,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const HomeHeader = ({ loginDisplayed }) => {
+const HomeHeader = ({ loggedIn, loginDisplayed }) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleClick = () => {
+    loggedIn ? history.push(ROUTES.FORM) : loginDisplayed();
+  };
+
   return (
     <Grid item container className={classes.headerSection} id="section1">
       <Grid item xs={6} className={classes.headerImage} />
@@ -79,7 +87,7 @@ const HomeHeader = ({ loginDisplayed }) => {
             <Grid item xs={6}>
               <Button
                 variant="outlined"
-                onClick={() => loginDisplayed()}
+                onClick={handleClick}
                 className={classes.button}
               >
                 Oddaj rzeczy
@@ -88,7 +96,7 @@ const HomeHeader = ({ loginDisplayed }) => {
             <Grid item xs={6}>
               <Button
                 variant="outlined"
-                onClick={() => loginDisplayed()}
+                onClick={handleClick}
                 className={classes.button}
               >
                 Zorganizuj zbiórkę
@@ -102,8 +110,11 @@ const HomeHeader = ({ loginDisplayed }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  loggedIn: state.user.userEmail
+});
 const mapDispatchToProps = (dispatch) => ({
   loginDisplayed: () => dispatch(loginDisplayed())
 });
 
-export default connect(null, mapDispatchToProps)(HomeHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
