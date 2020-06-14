@@ -79,19 +79,40 @@ const CssTextField = withStyles(theme => ({
   } 
 }))(TextField);
 
-const renderField = ({ input, label, type, disabled }) => (
-  <CssTextField
-    {...input}
-    label={label}
-    type={type}
-    disabled={disabled}
-  />
+const renderField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error },
+  disabled
+}) => (
+  <>
+    <CssTextField
+      {...input}
+      label={label}
+      type={type}
+      disabled={disabled}
+    />
+    {touched && error && <span>{error}</span>}
+  </>
 );
 
-const onSubmit = (values, dispatch) => {
-  if (values.email && values.password) {
-    dispatch(loginUser(values));
+const validate = ({ email, password }) => {
+  const errors = {};
+  if (
+    !email ||
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)
+  ) {
+    errors.email = 'Podany email jest nieprawidłowy!';
   }
+  if (!password || password.length < 6) {
+    errors.password = 'Podane hasło jest za krótkie!';
+  }
+  return errors;
+};
+
+const onSubmit = (values, dispatch) => {
+  dispatch(loginUser(values));
 };
 
 const DialogLogin = ({
@@ -163,6 +184,7 @@ const mapStateToProps = (state) => ({
 export default compose(
   reduxForm({
     form: 'loginForm',
+    validate,
     onSubmit
   }),
   connect(mapStateToProps)
