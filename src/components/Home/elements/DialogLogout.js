@@ -4,10 +4,7 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogContentText,
   DialogTitle,
-  TextField,
   Typography
 } from '@material-ui/core';
 
@@ -17,6 +14,19 @@ import CloseButton from './CloseButton';
 const useStyles = makeStyles(theme => ({
   decoration: {
     margin: theme.spacing(4, 0, 8, 0)
+  },
+  buttonSection: {
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(2)
+  },
+  button: {
+    textTransform: 'none',
+    fontSize: '1.2rem',
+    fontWeight: 300,
+    padding: theme.spacing(1, 2),
+    color: '#000',
+    border: `1px solid ${theme.palette.text.primary}`,  // przezroczysta ramka (bez tego, tekst przycisku lekko się podnosi, gdy otrzyma klasę active)
+    borderRadius: 0
   }
 }));
 
@@ -32,26 +42,13 @@ const DialogLogout = ({ isOpened, closeDialog }) => {
         <CloseButton onClickProp={closeDialog} />
       </DialogTitle>
       <img src={decoration} alt="Decoration" className={classes.decoration} />
-      <DialogContent>
-        <DialogContentText>
-          To subscribe to this website, please enter your email address here. We will send updates
-          occasionally.
-        </DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="Email Address"
-          type="email"
-          fullWidth
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClick} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleClick} color="primary">
-          Subscribe
+      <DialogActions className={classes.buttonSection}>
+        <Button
+          variant="text"
+          onClick={handleClick}
+          className={classes.button}
+        >
+          Zamknij to okno
         </Button>
       </DialogActions>
     </Dialog>

@@ -1,4 +1,4 @@
-import { closeDialog } from './dialogSwitcherAction';
+import { logoutDisplayed, closeDialog } from './dialogSwitcherAction';
 
 export const FETCHING_USER_STARTED = 'FETCHING_USER_STARTED';
 export const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS';
@@ -39,5 +39,9 @@ export const logoutUser = () => (dispatch, getState, { getFirebase }) => {
   const firebase = getFirebase();
   firebase.auth()
     .signOut()
-    .then(() => dispatch(logoutUserSuccess()))
+    .then(() => {
+      dispatch(logoutUserSuccess());
+      dispatch(logoutDisplayed());
+    })
+    .catch(err => console.error(err));
 };
