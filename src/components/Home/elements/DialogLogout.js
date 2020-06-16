@@ -12,6 +12,11 @@ import decoration from '../../../assets/Decoration.svg';
 import CloseButton from './CloseButton';
 
 const useStyles = makeStyles(theme => ({
+  dialogWindow: {
+    '& .MuiDialog-container .MuiPaper-root': {
+      padding: theme.spacing(7)
+    }
+  },
   decoration: {
     margin: theme.spacing(4, 0, 8, 0)
   },
@@ -34,7 +39,7 @@ const DialogLogout = ({ isOpened, closeDialog }) => {
   const classes = useStyles();
   const handleClick = () => closeDialog();
   return (
-    <Dialog open={isOpened} onClose={handleClick} aria-labelledby="logout-dialog">
+    <Dialog open={isOpened} onClose={handleClick} aria-labelledby="logout-dialog" className={classes.dialogWindow}>
       <DialogTitle id="logout-dialog">
       <Typography variant="h3" component="p" align="center" color="textPrimary">
           Wylogowanie nastąpiło pomyślnie!

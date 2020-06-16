@@ -21,6 +21,11 @@ import decoration from '../../../assets/Decoration.svg';
 import CloseButton from './CloseButton';
 
 const useStyles = makeStyles(theme => ({
+  dialogWindow: {
+    '& .MuiDialog-container .MuiPaper-root': {
+      padding: theme.spacing(7)
+    }
+  },
   decoration: {
     margin: theme.spacing(4, 0, 8, 0)
   },
@@ -133,7 +138,7 @@ const DialogRegister = ({
   }, []);
 
   return (
-    <Dialog open={isOpened} onClose={() => closeDialog()} aria-labelledby="register-dialog">
+    <Dialog open={isOpened} onClose={() => closeDialog()} aria-labelledby="register-dialog" className={classes.dialogWindow}>
       <DialogTitle id="register-dialog">
         <Typography variant="h3" component="p" align="center" color="textPrimary">
           Zarejestruj się
