@@ -1,17 +1,17 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { logger } from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { reduxFirestore, getFirestore } from 'redux-firestore';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 
 import rootReducer from './reducers/rootReducer';
 import firebase from '../firebase/firebase';
 
-export const store = createStore(rootReducer, compose(
+export const store = createStore(rootReducer, composeWithDevTools(
   applyMiddleware(thunk.withExtraArgument({
     getFirebase,
     getFirestore
-  }), logger),
+  })),
   reduxFirestore(firebase),
   reactReduxFirebase(firebase)
 ));
