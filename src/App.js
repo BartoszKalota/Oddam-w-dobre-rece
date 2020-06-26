@@ -9,6 +9,7 @@ import injectSheet from 'react-jss';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme, { globalStyle } from './config/theme';
 
+import withAuthorization from './config/session/withAuthorization';
 import * as ROUTES from './config/routes';
 import Home from './components/Home';
 import Form from './components/Form';
@@ -19,7 +20,7 @@ const App = () => (
     <Router>
       <Switch>
         <Route exact path={ROUTES.HOME} component={Home} />
-        <Route path={ROUTES.FORM} component={Form} />
+        <Route path={ROUTES.FORM} component={withAuthorization(Form)} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
