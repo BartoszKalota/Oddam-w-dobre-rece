@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Form = () => {
-  return (
-    <h1>Form</h1>
-  );
-}
+import FormNav from './FormNav';
+
+const Form = () => (
+  <FormNav />
+);
  
 export default Form;
