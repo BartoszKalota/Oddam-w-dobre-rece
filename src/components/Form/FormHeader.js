@@ -3,12 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid,
   Typography,
-  Button
+  Box
 } from '@material-ui/core';
 import clsx from 'clsx';
 
 import headerImg from '../../assets/Form-Hero-Image.jpg';
 import decoration from '../../assets/Decoration.svg';
+
+import StepSquare from './elements/StepSquare';
 
 const useStyles = makeStyles(theme => ({
   headerSection: {
@@ -28,9 +30,12 @@ const useStyles = makeStyles(theme => ({
   },
   headerSubtitle: {
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(10),
     fontWeight: 300
   },
+  squareBox: {
+    width: 620
+  }
 }));
 
 const FormHeader = () => {
@@ -57,6 +62,12 @@ const FormHeader = () => {
           >
             Wystarczą 4 proste kroki:
           </Typography>
+          <Box component="div" className={classes.squareBox}>
+            <StepSquare num={1} descr="Wybierz rzeczy" />
+            <StepSquare num={2} descr="Spakuj je w worki" />
+            <StepSquare num={3} descr="Wybierz fundację" />
+            <StepSquare num={4} descr="Zamów kuriera" />
+          </Box>
         </Grid>
       </Grid>
       <Grid item xs={1} />
