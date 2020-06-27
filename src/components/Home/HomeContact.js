@@ -10,7 +10,7 @@ import HomeFooter from './HomeFooter';
 
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
-    height: 940,  // dopasowanie do wysokości sekcji z Adobe XD
+    height: 970,  // dopasowanie do wysokości sekcji z Adobe XD
     backgroundImage: `url(${bgrImg})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
