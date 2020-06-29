@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -29,10 +31,10 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     marginBottom: theme.spacing(5)
   },
-  checkboxesContainer: {
-    '& div:last-of-type': {
-      marginBottom: theme.spacing(8)
-    }
+  errorMsg: {
+    height: 64,
+    color: theme.palette.error.main,
+    fontSize: '1.1rem'
   },
   button: {
     textTransform: 'none',
@@ -81,13 +83,19 @@ const renderCheckbox = ({ input, label }) => (
 );
 
 const FormFirstPage = ({
-  formData: { importantTitle, importantDescr, formHeader, checkboxesArr },
+  formData: { importantTitle, importantDescr, formHeader, checkboxes },
+  formError,
   onSubmit
 }) => {
   const classes = useStyles();
+  const [readyToValidate, setReadyToValidate] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit();
+    setReadyToValidate(true);
+    if (!formError) {
+      onSubmit();
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -113,17 +121,23 @@ const FormFirstPage = ({
           >
             {formHeader}
           </Typography>
-          <div className={classes.checkboxesContainer}>
-            {checkboxesArr.map((checkbox, i) => (
-              <Grid container key={i}>
+          <div>
+            {checkboxes.map(({ id, name, label }) => (
+              <Grid container key={id}>
                 <Field
-                  name={checkbox}
+                  name={name}
                   component={renderCheckbox}
-                  label={checkbox}
+                  label={label}
                 />
               </Grid>
             ))}
           </div>
+          <Typography component="p" className={classes.errorMsg}> {/* zrobione w ten sposób, żeby element zajmował stałą wysokość (nie znika) */}
+            {(readyToValidate && formError)
+              ? formError.checkboxes 
+              : ''
+            }
+          </Typography>
           <Button
             type="submit"
             variant="outlined"
@@ -138,9 +152,16 @@ const FormFirstPage = ({
   );
 };
 
-export default reduxForm({
-  form: 'formMain',
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true,
-  validate
-})(FormFirstPage);
+const mapState = (state) => ({
+  formError: state.form.formMain.syncErrors
+});
+
+export default compose(
+  reduxForm({
+    form: 'formMain',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
+    validate
+  }),
+  connect(mapState)
+)(FormFirstPage);

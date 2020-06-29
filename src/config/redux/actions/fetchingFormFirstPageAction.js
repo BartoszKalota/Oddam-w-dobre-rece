@@ -23,14 +23,7 @@ export const fetchingFormFirstPage = () => (dispatch, getState, { getFirebase, g
     .then(snapshot => {
       let data;
       snapshot.docs.forEach(doc => data = doc.data());
-      const { importantTitle, importantDescr, formHeader, checkboxesArr } = data;
-      const obj = {
-        importantTitle,
-        importantDescr,
-        formHeader,
-        checkboxesArr
-      };
-      dispatch(fetchingFormFirstPageSuccess(obj));
+      dispatch(fetchingFormFirstPageSuccess(data));
     })
     .catch(err => dispatch(fetchingFormFirstPageError(err)));
 };
