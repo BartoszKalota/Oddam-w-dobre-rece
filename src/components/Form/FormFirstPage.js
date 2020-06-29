@@ -13,7 +13,6 @@ import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 
 import bgrImg from '../../assets/Background-Form.jpg';
-
 import ImportantBar from './elements/ImportantBar';
 
 const useStyles = makeStyles(theme => ({
