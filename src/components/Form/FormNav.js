@@ -58,6 +58,8 @@ const FormNav = ({ userEmail, logout }) => {
     const windowEl = window;
     const navSection = document.getElementById('section0');
     const headerSection = document.getElementById('section1');
+    // Autoprzewijanie do góry po przejściu na bieżącą podstronę
+    windowEl.scrollTo(0, 0);
     // Zarządzanie rodzajem tła sekcji Nav (gradient lub jednolity kolor)
     let startUniformBgrHeight = headerSection.offsetHeight - navSection.offsetHeight;
     windowEl.addEventListener('scroll', () => {

@@ -2,7 +2,12 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 
-const FormSecondPage = ({ onSubmit, prevPage }) => {
+const FormSecondPage = ({
+  formData: {
+    importantTitle, importantDescr, formHeader, selectName, selectTitle, selectOptions
+  },
+  onSubmit, prevPage
+}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit();

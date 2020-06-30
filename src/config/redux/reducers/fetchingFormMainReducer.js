@@ -1,8 +1,8 @@
 import {
-  FETCHING_FIRSTPAGE_STARTED,
-  FETCHING_FIRSTPAGE_SUCCESS,
-  FETCHING_FIRSTPAGE_ERROR
-} from '../actions/fetchingFormFirstPageAction';
+  FETCHING_FORMMAIN_STARTED,
+  FETCHING_FORMMAIN_SUCCESS,
+  FETCHING_FORMMAIN_ERROR
+} from '../actions/fetchingFormMainAction';
 
 const initState = {
   isFetching: false,
@@ -10,20 +10,20 @@ const initState = {
   error: null
 };
 
-const fetchingFormFirstPageReducer = (state = initState, { type, payload }) => {
+const fetchingFormMainReducer = (state = initState, { type, payload }) => {
   switch (type) {
-    case FETCHING_FIRSTPAGE_STARTED:
+    case FETCHING_FORMMAIN_STARTED:
       return {
         ...state,
         isFetching: true
       };
-    case FETCHING_FIRSTPAGE_SUCCESS:
+    case FETCHING_FORMMAIN_SUCCESS:
       return {
         isFetching: false,
         data: payload,
         error: null
       };
-    case FETCHING_FIRSTPAGE_ERROR:
+    case FETCHING_FORMMAIN_ERROR:
       return {
         isFetching: false,
         data: null,
@@ -34,4 +34,4 @@ const fetchingFormFirstPageReducer = (state = initState, { type, payload }) => {
   }
 };
 
-export default fetchingFormFirstPageReducer;
+export default fetchingFormMainReducer;

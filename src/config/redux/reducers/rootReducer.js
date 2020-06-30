@@ -4,7 +4,7 @@ import { firestoreReducer } from 'redux-firestore';
 import fetchingOrganisationsReducer from './fetchingOrganisationsReducer';
 import dialogSwitcherReducer from './dialogSwitcherReducer';
 import fetchingUserReducer from './fetchingUserReducer';
-import fetchingFormFirstPageReducer from './fetchingFormFirstPageReducer';
+import fetchingFormMainReducer from './fetchingFormMainReducer';
 import { reducer as reduxFormReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   dialogSwitcher: dialogSwitcherReducer,
   form: reduxFormReducer,
   user: fetchingUserReducer,
-  formMain: fetchingFormFirstPageReducer  // rozważ scalenie 3 stron w 1 reducera
+  formMainFirebase: fetchingFormMainReducer
 });
 
 export default rootReducer;

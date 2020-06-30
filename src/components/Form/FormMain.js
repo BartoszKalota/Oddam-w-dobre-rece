@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 // import PropTypes from 'prop-types';
 
-import { fetchingFormFirstPage } from '../../config/redux/actions/fetchingFormFirstPageAction';
+import { fetchingFormMain } from '../../config/redux/actions/fetchingFormMainAction';
 
 import FormFirstPage from './FormFirstPage';
 import FormSecondPage from './FormSecondPage';
@@ -13,20 +13,24 @@ import BackdropScreen from '../Home/elements/BackdropScreen';
 const useStyles = makeStyles(theme => ({
   mainSection: {
     minHeight: 1005,  // gdy dane jeszcze się nie załadują, ekran ładowania i tym samym sekcja będą mieć odpowiednią wysokość
-    marginBottom: theme.spacing(5)
+    marginBottom: theme.spacing(5),
+    position: 'relative'
   }
 }));
 
-const FormMain = ({ getFormData, isPending, firebaseData, firebaseError }) => {
+const FormMain = ({
+  getFormMainData,
+  isPending, firebaseData, firebaseError
+}) => {
   const classes = useStyles();
   const [page, setPage] = useState(1);
   const nextPage = () => setPage(prevState => prevState + 1);
   const prevPage = () => setPage(prevState => prevState - 1);
-  
+
   // const { onSubmit } = this.props
   useEffect(() => {
-    getFormData();
-  }, [page]);
+    getFormMainData();
+  }, []);
   // Log błędu, jeżeli się pojawi
   if (firebaseError) {
     console.error(firebaseError);
@@ -36,12 +40,13 @@ const FormMain = ({ getFormData, isPending, firebaseData, firebaseError }) => {
     <main className={classes.mainSection}>
       {page === 1 && !isPending && firebaseData && (  // przy !firebaseError (zamiast firebaseData) wyrzuca błąd, bo wtedy renderuje komponent jeszcze przed załadowaniem danych
         <FormFirstPage
-          formData={firebaseData}
+          formData={firebaseData.firstPage}
           onSubmit={nextPage}
         />
       )}
       {page === 2 && !isPending && firebaseData && (
         <FormSecondPage
+          formData={firebaseData.secondPage}
           prevPage={prevPage}
           onSubmit={nextPage}
         />
@@ -67,12 +72,12 @@ const FormMain = ({ getFormData, isPending, firebaseData, firebaseError }) => {
 // };
 
 const mapState = (state) => ({
-  isPending: state.formMain.isFetching,
-  firebaseData: state.formMain.data,
-  firebaseError: state.formMain.error
+  isPending: state.formMainFirebase.isFetching,
+  firebaseData: state.formMainFirebase.data,
+  firebaseError: state.formMainFirebase.error
 });
 const mapDispatch = (dispatch) => ({
-  getFormData: () => dispatch(fetchingFormFirstPage())
+  getFormMainData: () => dispatch(fetchingFormMain())
 });
 
 export default connect(mapState, mapDispatch)(FormMain);
