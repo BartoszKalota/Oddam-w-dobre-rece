@@ -62,13 +62,15 @@ const FormNav = ({ userEmail, logout }) => {
     windowEl.scrollTo(0, 0);
     // Zarządzanie rodzajem tła sekcji Nav (gradient lub jednolity kolor)
     let startUniformBgrHeight = headerSection.offsetHeight - navSection.offsetHeight;
-    windowEl.addEventListener('scroll', () => {
+    const toggleBgrStyle = () => {  // event w postaci funkcji z nazwą, aby móc usunąć event z obiektu window
       if (windowEl.pageYOffset > startUniformBgrHeight) {
         setIsGradient(false);
       } else {
         setIsGradient(true);
       }
-    });
+    };
+    windowEl.addEventListener('scroll', toggleBgrStyle);
+    return () => windowEl.removeEventListener('scroll', toggleBgrStyle);
   }, []);
 
   const handleClick = () => {
