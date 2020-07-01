@@ -31,18 +31,19 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(5)
   },
   errorMsg: {
-    height: 64,
     color: theme.palette.error.main,
     fontSize: '1.1rem'
   },
   button: {
+    minWidth: 180,
+    minHeight: 80,
     textTransform: 'none',
     fontSize: '1.5rem',
     fontWeight: 300,
     color: '#000',
     border: `1px solid ${theme.palette.text.primary}`,
     borderRadius: 0,
-    padding: theme.spacing(2.2, 7.2)
+    marginBottom: theme.spacing(6)
   }
 }));
 
@@ -104,46 +105,49 @@ const FormFirstPage = ({
       />
       <Grid container className={classes.sectionContainer}>
         <Grid item xs={1} />
-        <Grid item container xs={10} direction="column" alignItems="flex-start">
-          <Typography
-            variant="body1"
-            component="p"
-            color="textPrimary"
-            className={classes.step}
-          >
-            Krok 1/4
-          </Typography>
-          <Typography
-            variant="h4"
-            component="h4"
-            className={classes.header}
-          >
-            {formHeader}
-          </Typography>
-          <div>
-            {checkboxes.map(({ id, name, label }) => (
-              <Grid container key={id}>
-                <Field
-                  name={name}
-                  component={renderCheckbox}
-                  label={label}
-                />
-              </Grid>
-            ))}
-          </div>
-          <Typography component="p" className={classes.errorMsg}> {/* zrobione w ten sposób, żeby element zajmował stałą wysokość (nie znika) */}
-            {(readyToValidate && formError)
-              ? formError.checkboxes 
-              : ''
-            }
-          </Typography>
-          <Button
-            type="submit"
-            variant="outlined"
-            className={classes.button}
-          >
-            Dalej
-          </Button>
+        <Grid item container xs={10} direction="column" justify="space-between">
+          <Grid item container direction="column" alignItems="flex-start">
+            <Typography
+              variant="body1"
+              component="p"
+              color="textPrimary"
+              className={classes.step}
+            >
+              Krok 1/4
+            </Typography>
+            <Typography
+              variant="h4"
+              component="h4"
+              className={classes.header}
+            >
+              {formHeader}
+            </Typography>
+            <div>
+              {checkboxes.map(({ id, name, label }) => (
+                <Grid container key={id}>
+                  <Field
+                    name={name}
+                    component={renderCheckbox}
+                    label={label}
+                  />
+                </Grid>
+              ))}
+            </div>
+            {readyToValidate && formError && (
+              <Typography component="p" className={classes.errorMsg}>
+                {formError.checkboxes}
+              </Typography>
+            )}
+          </Grid>
+          <Grid item container>
+            <Button
+              type="submit"
+              variant="outlined"
+              className={classes.button}
+            >
+              Dalej
+            </Button>
+          </Grid>
         </Grid>
         <Grid item xs={1} />
       </Grid>
