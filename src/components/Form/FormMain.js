@@ -8,6 +8,7 @@ import { fetchingFormMain } from '../../config/redux/actions/fetchingFormMainAct
 import FormFirstPage from './FormFirstPage';
 import FormSecondPage from './FormSecondPage';
 import FormThirdPage from './FormThirdPage';
+import FormFourthPage from './FormFourthPage';
 import BackdropScreen from '../Home/elements/BackdropScreen';
 
 const useStyles = makeStyles(theme => ({
@@ -53,6 +54,13 @@ const FormMain = ({
       )}
       {page === 3 && !isPending && firebaseData && (
         <FormThirdPage
+          formData={firebaseData.thirdPage}
+          prevPage={prevPage}
+          onSubmit={nextPage}
+        />
+      )}
+      {page === 4 && !isPending && firebaseData && (
+        <FormFourthPage
           prevPage={prevPage}
           // onSubmit={onSubmit}
         />

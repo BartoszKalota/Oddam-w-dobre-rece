@@ -25,7 +25,8 @@ export const fetchingFormMain = () => (dispatch, getState, { getFirebase, getFir
       snapshot.docs.forEach(doc => arr.push(doc.data()));
       const obj = {
         firstPage: arr[0],
-        secondPage: arr[1]
+        secondPage: arr[1],
+        thirdPage: arr[2]
       };
       dispatch(fetchingFormMainSuccess(obj));
     })

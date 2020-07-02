@@ -12,6 +12,8 @@ const useStyles = makeStyles(theme => ({
   },
   descr: {
     fontSize: '1.4rem',
+    lineHeight: 1.3,
+    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(6.25)
   }
 }));
@@ -22,12 +24,15 @@ const ImportantBar = ({ importantTitle, importantDescr }) => {
     <Grid container className={classes.importantBarSection}>
       <Grid item xs={1} />
       <Grid item container xs={10} direction="column">
-        <Typography variant="h4" component="h3" className={classes.title}>
-          {importantTitle}
-        </Typography>
-        <Typography variant="body1" component="p" color="textPrimary" className={classes.descr}>
-          {importantDescr}
-        </Typography>
+        <Grid item container xs={10}>
+          <Typography variant="h4" component="h3" className={classes.title}>
+            {importantTitle}
+          </Typography>
+          <Typography variant="body1" component="p" color="textPrimary" className={classes.descr}>
+            {importantDescr}
+          </Typography>
+        </Grid>
+        <Grid item xs={2} />
       </Grid>
       <Grid item xs={1} />
     </Grid>
