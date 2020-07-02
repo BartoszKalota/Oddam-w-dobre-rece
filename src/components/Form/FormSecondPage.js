@@ -11,6 +11,7 @@ import {
   Select,
   Typography
 } from '@material-ui/core';
+import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 
@@ -34,7 +35,8 @@ const useStyles = makeStyles(theme => ({
   },
   selectTitle: {
     fontWeight: 300,
-    fontSize: '1.5rem'
+    fontSize: '1.5rem',
+    marginRight: theme.spacing(3)
   },
   errorMsg: {
     color: theme.palette.error.main,
@@ -58,14 +60,36 @@ const useStyles = makeStyles(theme => ({
 
 const CssFormControl = withStyles(theme => ({
   root: {
-    margin: theme.spacing(1),
-    minWidth: 120
+    minWidth: 300,
+    '& .MuiSelect-root': {
+      height: 50,
+      border: `1px solid ${theme.palette.text.primary}`,
+      borderRadius: 0,
+      padding: `0 0 0 ${theme.spacing(2)}px`,
+      display: 'flex',
+      alignItems: 'center',
+      fontWeight: 300,
+      fontSize: '1.5rem'
+    },
+    '& fieldset': {
+      borderRadius: 0
+    },
+    '& svg': {
+      fontSize: '4rem',
+      color: '#000',
+      top: 'calc(50% - 31px)',
+      right: 0
+    }
   }
 }))(FormControl);
 
 const renderSelect = ({ input, options }) => (
   <CssFormControl variant="outlined">
-    <Select {...input}>
+    <Select
+      {...input}
+      displayEmpty
+      IconComponent={KeyboardArrowDownRoundedIcon}
+    >
       <MenuItem value="">— wybierz —</MenuItem>
       {options.map(option => (
         <MenuItem value={option} key={option}>{option}</MenuItem>
@@ -116,7 +140,7 @@ const FormSecondPage = ({
             >
               {formHeader}
             </Typography>
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <Typography
                 variant="body1"
                 component="p"
