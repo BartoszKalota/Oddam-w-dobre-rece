@@ -58,7 +58,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CssFormControl = withStyles(theme => ({
+const selectStyles = (theme) => ({
   root: {
     minWidth: 300,
     '& .MuiSelect-root': {
@@ -80,22 +80,64 @@ const CssFormControl = withStyles(theme => ({
       top: 'calc(50% - 31px)',
       right: 0
     }
+  },
+  dropdownStyle: {
+    minWidth: ['90px', '!important'],
+    transform: ['translateY(15px)', '!important'],
+    backgroundColor: 'transparent',
+    color: '#000',
+    boxShadow: 'none',
+    border: `1px solid ${theme.palette.text.primary}`,
+    borderRadius: 0,
+    '& li': {
+      display: 'flex',
+      justifyContent: 'center',
+      fontSize: '1.6rem',
+      fontWeight: 300,
+    },
+    '& li:first-of-type': {
+      display: 'none'
+    }
   }
-}))(FormControl);
+});
 
-const renderSelect = ({ input, options }) => (
-  <CssFormControl variant="outlined">
+// Konieczna była taka konwencja użycia withStyles dla FormControl,
+// aby classes były dostępne z propsów i żeby jedną z klas przekazać
+// jako MenuProps w celu stylowania wysuwanego menu
+const FormControlWithoutStyles = ({ classes, input, options }) => (
+  <FormControl variant="outlined" className={classes.root}>
     <Select
       {...input}
       displayEmpty
       IconComponent={KeyboardArrowDownRoundedIcon}
+      MenuProps={{ 
+        classes: { paper: classes.dropdownStyle },  // w celu nadania odpowiednich styli
+        // Odtąd w dół: zablokowanie pozycji wysuwanego menu
+        // (żeby usunąć efekt, w którym przy ponownym wybieraniu opcji,
+        // opcja poprzednia znajduje się na wysokości rubryki select)
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "right"
+        },
+        transformOrigin: {
+          vertical: "top",
+          horizontal: "right"
+        },
+        getContentAnchorEl: null
+      }}
     >
       <MenuItem value="">— wybierz —</MenuItem>
       {options.map(option => (
         <MenuItem value={option} key={option}>{option}</MenuItem>
       ))}
     </Select>
-  </CssFormControl>
+  </FormControl>
+);
+
+const CssFormControl = withStyles(selectStyles)(FormControlWithoutStyles);
+
+const renderSelect = ({ input, options }) => (
+  <CssFormControl input={input} options={options} />
 );
 
 const FormSecondPage = ({
