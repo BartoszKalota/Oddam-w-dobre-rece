@@ -40,7 +40,9 @@ const useStyles = makeStyles(theme => ({
   },
   errorMsg: {
     color: theme.palette.error.main,
-    fontSize: '1.1rem'
+    fontSize: '1.1rem',
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(28.25)
   },
   button: {
     minWidth: 180,
@@ -153,7 +155,7 @@ const FormSecondPage = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     setReadyToValidate(true);
-    if (!formError) {
+    if (!formError?.bagsNumber) {
       onSubmit();
     }
   };
@@ -198,7 +200,7 @@ const FormSecondPage = ({
             </div>
             {readyToValidate && formError && (
               <Typography component="p" className={classes.errorMsg}>
-                {/* {formError.checkboxes} */}
+                {formError.bagsNumber}
               </Typography>
             )}
           </Grid>

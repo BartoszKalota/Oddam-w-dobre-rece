@@ -93,7 +93,7 @@ const FormFirstPage = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     setReadyToValidate(true);
-    if (!formError) {
+    if (!formError?.checkboxes) { // bez ? wywala błąd, bo nie może odczytać tego pola
       onSubmit();
     }
   };
