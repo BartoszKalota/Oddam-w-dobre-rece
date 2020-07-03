@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, createRef } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import {
   Button,
-  Grid,
+  Checkbox,
   FormControl,
+  FormControlLabel,
+  Grid,
   MenuItem,
   Select,
   Typography
 } from '@material-ui/core';
-import { ToggleButton } from '@material-ui/lab';
 import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 
 import bgrImg from '../../assets/Background-Form.jpg';
 import ImportantBar from './elements/ImportantBar';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
@@ -39,8 +39,20 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     marginTop: theme.spacing(6.25)
   },
-  toggleBtnsSection: {
-    width: 680
+  toggleBtnsSection: (toggleBtnWidths) => {      
+    const getSpanStyle = (width) => ({
+      width: width + theme.spacing(6),
+      border: `1px solid ${theme.palette.text.primary}`,
+      borderRadius: 0
+    });
+    return {
+      width: 680,
+      '& .MuiFormControlLabel-root:nth-of-type(1) .MuiIconButton-label': getSpanStyle(toggleBtnWidths[0]),
+      '& .MuiFormControlLabel-root:nth-of-type(2) .MuiIconButton-label': getSpanStyle(toggleBtnWidths[1]),
+      '& .MuiFormControlLabel-root:nth-of-type(3) .MuiIconButton-label': getSpanStyle(toggleBtnWidths[2]),
+      '& .MuiFormControlLabel-root:nth-of-type(4) .MuiIconButton-label': getSpanStyle(toggleBtnWidths[3]),
+      '& .MuiFormControlLabel-root:nth-of-type(5) .MuiIconButton-label': getSpanStyle(toggleBtnWidths[4])
+    };
   },
   errorMsg: {
     color: theme.palette.error.main,
@@ -135,19 +147,53 @@ const renderSelect = ({ input, options }) => (
   <CssFormControl input={input} options={options} />
 );
 
-const CssToggleButton = withStyles(theme => ({
+// Do ToggleButtonów
+const CssFormControlLabel = withStyles(theme => ({
   root: {
-    padding: theme.spacing(0.5, 3),
     marginTop: theme.spacing(3),
     marginRight: theme.spacing(3),
-    textTransform: 'none',
-    fontSize: '1.5rem',
-    fontWeight: 300,
-    color: '#000',
-    border: `1px solid ${theme.palette.text.primary}`,
-    borderRadius: 0
+    marginLeft: 0,
+    position: 'relative',
+    '& > span': {
+      padding: 0
+    },
+    '& > .Mui-checked': {
+      backgroundColor: [`${theme.palette.primary.main}`, '!important']
+    },
+    '& .MuiIconButton-label': {
+      width: 85,
+      height: 55
+    },
+    '& .MuiIconButton-root, & .MuiTouchRipple-root': {
+      borderRadius: 0
+    },
+    '& .MuiSvgIcon-root': {   // usunięcie domyślnej ikony zaznaczenia
+      display: 'none'
+    },
+    '& .MuiTypography-root': {
+      position: 'absolute',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      whiteSpace: 'nowrap',
+      fontSize: '1.5rem',
+      fontWeight: 300,
+      color: '#000'
+    }
   }
-}))(ToggleButton);
+}))(FormControlLabel);
+
+const renderToggleBtn = ({ input, label }) => (
+  <CssFormControlLabel
+    control={
+      <Checkbox
+        checked={input.value ? true : false}
+        onChange={input.onChange}
+        color="primary"
+      />
+    }
+    label={label}
+  />
+);
 
 const FormThirdPage = ({
   formData: {
@@ -157,41 +203,18 @@ const FormThirdPage = ({
   formError,
   onSubmit, prevPage
 }) => {
-  const classes = useStyles();
-  const [selected, setSelected] = useState(() => {
-    const obj = {};
-    toggleBtns.forEach(({ name }) => {
-      obj[name] = false;
-    });
-    return obj;
-  });
+  const [toggleBtnWidths, setToggleBtnWidths] = useState([]);
   const [readyToValidate, setReadyToValidate] = useState(false);
+  const classes = useStyles(toggleBtnWidths);
+  // Żeby złapać spany i na podstawie ich szerokości nadać szerokość przyciskom
+  const toggleBtnsRefs = useRef(toggleBtns.map(() => createRef()));
 
-  const renderToggleBtn = ({ input, label }) => (
-    <CssToggleButton
-      {...input}
-      checked={selected[input.name]}
-      value={input.checked ? true : false}
-      selected={selected[input.name]}
-      onChange={input.onChange} // żeby reduxForm zarejestrował kliknięcie
-      onClick={handleToggleBtnChange}
-      // onClick={handleToggleBtnChange} // żeby zmienić state i wygląd przycisku
-      // onChange={(e) => {
-      //   input.onChange();
-      //   handleToggleBtnChange(e);
-      // }}
-    >
-      {label}
-    </CssToggleButton>
-  );
-  
-  const handleToggleBtnChange = (e) => {
-    const name = e.target.parentElement.name;
-    setSelected(prevState => ({
-      ...prevState,
-      [name]: !prevState[name]
-    }));
-  };
+  useEffect(() => {
+    const spanEls = document.querySelectorAll('span.MuiTypography-root');
+    const els = Array.from(spanEls);
+    const widths = els.map(el => el.offsetWidth);
+    setToggleBtnWidths(widths);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -232,6 +255,7 @@ const FormThirdPage = ({
                     component={renderToggleBtn}
                     label={label}
                     key={id}
+                    ref={toggleBtnsRefs.current[id - 1]}
                   />
                 ))}
               </div>
