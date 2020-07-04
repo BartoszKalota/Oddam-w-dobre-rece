@@ -11,6 +11,7 @@ import {
   Grid,
   MenuItem,
   Select,
+  TextField,
   Typography
 } from '@material-ui/core';
 import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
@@ -185,13 +186,34 @@ const CssFormControlLabel = withStyles(theme => ({
 const renderToggleBtn = ({ input, label }) => (
   <CssFormControlLabel
     control={
-      <Checkbox
+      <Checkbox         // ToggleButton z @material-ui/lab trudno współpracuje z reduxFormem (dlatego używany jest Checkbox)
         checked={input.value ? true : false}
         onChange={input.onChange}
         color="primary"
       />
     }
     label={label}
+  />
+);
+
+const CssTextField = withStyles(theme => ({
+  root: {
+    width: 570,
+    marginTop: theme.spacing(2.5),
+    border: `1px solid ${theme.palette.text.primary}`,
+    '& input': {
+      fontSize: '1.5rem',
+      fontWeight: 300,
+      padding: '5.5px 14px'
+    }
+  }
+}))(TextField);
+
+const renderInput = ({ input }) => (
+  <CssTextField
+    {...input}
+    variant="outlined"
+    label={false}
   />
 );
 
@@ -259,6 +281,13 @@ const FormThirdPage = ({
                   />
                 ))}
               </div>
+              <Typography variant="h5" component="p" className={classes.subHeader}>
+                {inputTitle}
+              </Typography>
+              <Field
+                name={inputName}
+                component={renderInput}
+              />
             </div>
             {/* {readyToValidate && formError && (
               <Typography component="p" className={classes.errorMsg}>
