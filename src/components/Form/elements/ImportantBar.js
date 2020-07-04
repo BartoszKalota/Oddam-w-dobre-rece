@@ -24,7 +24,7 @@ const ImportantBar = ({ importantTitle, importantDescr }) => {
     <Grid container className={classes.importantBarSection}>
       <Grid item xs={1} />
       <Grid item container xs={10} direction="column">
-        <Grid item container xs={10}>
+        <Grid item container xs={10} direction="column">
           <Typography variant="h4" component="h3" className={classes.title}>
             {importantTitle}
           </Typography>

@@ -9,6 +9,7 @@ import FormFirstPage from './FormFirstPage';
 import FormSecondPage from './FormSecondPage';
 import FormThirdPage from './FormThirdPage';
 import FormFourthPage from './FormFourthPage';
+import FormSummaryPage from './FormSummaryPage';
 import BackdropScreen from '../Home/elements/BackdropScreen';
 
 const useStyles = makeStyles(theme => ({
@@ -61,6 +62,13 @@ const FormMain = ({
       )}
       {page === 4 && !isPending && firebaseData && (
         <FormFourthPage
+          formData={firebaseData.fourthPage}
+          prevPage={prevPage}
+          onSubmit={nextPage}
+        />
+      )}
+      {page === 5 && !isPending && firebaseData && (
+        <FormSummaryPage
           prevPage={prevPage}
           // onSubmit={onSubmit}
         />

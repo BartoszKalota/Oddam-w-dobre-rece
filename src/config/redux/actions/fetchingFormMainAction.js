@@ -25,8 +25,9 @@ export const fetchingFormMain = () => (dispatch, getState, { getFirebase, getFir
       snapshot.docs.forEach(doc => arr.push(doc.data()));
       const obj = {
         firstPage: arr[0],
-        secondPage: arr[1],
-        thirdPage: arr[2]
+        secondPage: arr[2], // niepokolei, bo Firebase ustawia dokumenty w kolejności alfabetycznej
+        thirdPage: arr[3],
+        fourthPage: arr[1]
       };
       dispatch(fetchingFormMainSuccess(obj));
     })
