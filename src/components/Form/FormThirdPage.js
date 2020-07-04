@@ -36,11 +36,17 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     marginBottom: theme.spacing(2.5)
   },
-  subHeader: {
-    fontWeight: 600,
-    marginTop: theme.spacing(6.25)
+  subHeader: ({ readyToValidate, formError }) => {
+    const style = {
+      fontWeight: 600,
+      marginTop: theme.spacing(6.25)
+    };
+    if (readyToValidate && !!formError) {
+      style.marginTop = theme.spacing(4.25);
+    }
+    return style;
   },
-  toggleBtnsSection: (toggleBtnWidths) => {      
+  toggleBtnsSection: ({ toggleBtnWidths }) => {
     const getSpanStyle = (width) => ({
       width: width + theme.spacing(6),
       border: `1px solid ${theme.palette.text.primary}`,
@@ -57,7 +63,8 @@ const useStyles = makeStyles(theme => ({
   },
   errorMsg: {
     color: theme.palette.error.main,
-    fontSize: '1.1rem'
+    fontSize: '1.1rem',
+    marginTop: theme.spacing(2)
   },
   button: {
     minWidth: 180,
@@ -227,7 +234,8 @@ const FormThirdPage = ({
 }) => {
   const [toggleBtnWidths, setToggleBtnWidths] = useState([]);
   const [readyToValidate, setReadyToValidate] = useState(false);
-  const classes = useStyles(toggleBtnWidths);
+  const paramsForStyles = { toggleBtnWidths, readyToValidate, formError };
+  const classes = useStyles(paramsForStyles);
   // Żeby złapać spany i na podstawie ich szerokości nadać szerokość przyciskom
   const toggleBtnsRefs = useRef(toggleBtns.map(() => createRef()));
 
@@ -241,9 +249,9 @@ const FormThirdPage = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     setReadyToValidate(true);
-    // if (!formError?.bagsNumber) {
+    if (!formError?.location && !formError?.toggleBtns) {
       onSubmit();
-    // }
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -267,6 +275,11 @@ const FormThirdPage = ({
                 component={renderSelect}
                 options={selectOptions}
               />
+              {readyToValidate && formError && (
+                <Typography component="p" className={classes.errorMsg}>
+                  {formError.location}
+                </Typography>
+              )}
               <Typography variant="h5" component="p" className={classes.subHeader}>
                 {toggleBtnsTitle}
               </Typography>
@@ -281,6 +294,11 @@ const FormThirdPage = ({
                   />
                 ))}
               </div>
+              {readyToValidate && formError && (
+                <Typography component="p" className={classes.errorMsg}>
+                  {formError.toggleBtns}
+                </Typography>
+              )}
               <Typography variant="h5" component="p" className={classes.subHeader}>
                 {inputTitle}
               </Typography>
@@ -289,11 +307,6 @@ const FormThirdPage = ({
                 component={renderInput}
               />
             </div>
-            {/* {readyToValidate && formError && (
-              <Typography component="p" className={classes.errorMsg}>
-                {formError.bagsNumber}
-              </Typography>
-            )} */}
           </Grid>
           <Grid item container>
             <Button
