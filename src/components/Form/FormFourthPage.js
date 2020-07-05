@@ -9,6 +9,13 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+  TimePicker
+} from '@material-ui/pickers';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 
@@ -34,6 +41,31 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     marginTop: theme.spacing(6.25)
   },
+  inputSection: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    '& > div': {
+      marginRight: 100
+    }
+  },
+  inputContainer: {
+    marginTop: theme.spacing(2.5),
+    display: 'flex',
+    alignItems: 'center'
+  },
+  textAreaContainer: {
+    marginTop: theme.spacing(2.5),
+    display: 'flex',
+    alignItems: 'flex-start'
+  },
+  inputLabel: {
+    width: 112,
+    color: '#000',
+    fontSize: '1.5rem',
+    fontWeight: 300,
+    lineHeight: 1.1,
+    marginRight: theme.spacing(2)
+  },
   errorMsg: {
     color: theme.palette.error.main,
     fontSize: '1.1rem',
@@ -58,11 +90,12 @@ const useStyles = makeStyles(theme => ({
 const CssTextField = withStyles(theme => ({
   root: {
     width: 256,
-    marginTop: theme.spacing(2.5),
     border: `1px solid ${theme.palette.text.primary}`,
-    '& input': {
+    backgroundColor: theme.palette.dropdownMenuBgr,
+    '& input, & textarea': {
       fontSize: '1.5rem',
       fontWeight: 300,
+      lineHeight: 1,
       padding: '5.5px 14px'
     }
   }
@@ -76,15 +109,91 @@ const renderInput = ({ input }) => (
   />
 );
 
+const renderTextArea = ({ input }) => (
+  <CssTextField
+    {...input}
+    variant="outlined"
+    label={false}
+    multiline
+    rows={4}
+  />
+);
+
+const CssKeyboardDatePicker = withStyles(theme => ({
+  root: {
+    width: 256,
+    border: `1px solid ${theme.palette.text.primary}`,
+    backgroundColor: theme.palette.dropdownMenuBgr,
+    '& input': {
+      fontSize: '1.5rem',
+      fontWeight: 300,
+      lineHeight: 1,
+      padding: '5.5px 14px'
+    },
+    '& button': {
+      padding: 0
+    }
+  }
+}))(KeyboardDatePicker);
+
+const renderDateInput = ({ input, selectedDate, setSelectedDate }) => (
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <CssKeyboardDatePicker
+      {...input}
+      disableToolbar
+      variant="inline"
+      inputVariant="outlined"
+      format="dd/MM/yyyy"
+      label={false}
+      value={selectedDate}
+      onChange={setSelectedDate}
+      KeyboardButtonProps={{
+        'aria-label': 'change date',
+      }}
+    />
+  </MuiPickersUtilsProvider>
+);
+
+const CssTimePicker = withStyles(theme => ({
+  root: {
+    width: 256,
+    border: `1px solid ${theme.palette.text.primary}`,
+    backgroundColor: theme.palette.dropdownMenuBgr,
+    '& input': {
+      fontSize: '1.5rem',
+      fontWeight: 300,
+      lineHeight: 1,
+      padding: '5.5px 14px'
+    }
+  }
+}))(TimePicker);
+
+const renderTimeInput = ({ input, selectedTime, setSelectedTime }) => (
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <CssTimePicker
+      {...input}
+      variant="inline"
+      inputVariant="outlined"
+      ampm={false}
+      label={false}
+      value={selectedTime}
+      onChange={setSelectedTime}
+    />
+  </MuiPickersUtilsProvider>
+);
+
 const FormFourthPage = ({
   formData: {
     importantTitle, importantDescr, formHeader,
-    addressSectionTitle, addressInputs, dateSectionTitle, dateInputs
+    addressSectionTitle, addressInputs,
+    dateSectionTitle, dayName, dayLabel, hourName, hourLabel, textAreaName, textAreaLabel
   },
   formError,
   onSubmit, prevPage
 }) => {
   const classes = useStyles();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState('2018-01-01T00:00:00.000Z');
   const [readyToValidate, setReadyToValidate] = useState(false);
 
   const handleSubmit = (e) => {
@@ -110,7 +219,60 @@ const FormFourthPage = ({
             <Typography variant="h4" component="h4" className={classes.header}>
               {formHeader}
             </Typography>
-            
+            <div className={classes.inputSection}>
+              <div>
+                <Typography variant="h5" component="p" className={classes.subHeader}>
+                  {addressSectionTitle}
+                </Typography>
+                {addressInputs.map(({ id, name, label }) => (
+                  <div key={id} className={classes.inputContainer}>
+                    <Typography variant="body1" component="p" className={classes.inputLabel}>
+                      {label}
+                    </Typography>
+                    <Field
+                      name={name}
+                      component={renderInput}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div>
+                <Typography variant="h5" component="p" className={classes.subHeader}>
+                  {dateSectionTitle}
+                </Typography>
+                <div className={classes.inputContainer}>
+                  <Typography variant="body1" component="p" className={classes.inputLabel}>
+                    {dayLabel}
+                  </Typography>
+                  <Field
+                    name={dayName}
+                    component={renderDateInput}
+                    selectedDate={selectedDate}
+                    setSelectedDate={setSelectedDate}
+                  />
+                </div>
+                <div className={classes.inputContainer}>
+                  <Typography variant="body1" component="p" className={classes.inputLabel}>
+                    {hourLabel}
+                  </Typography>
+                  <Field
+                    name={hourName}
+                    component={renderTimeInput}
+                    selectedTime={selectedTime}
+                    setSelectedTime={setSelectedTime}
+                  />
+                </div>
+                <div className={classes.textAreaContainer}>
+                  <Typography variant="body1" component="p" className={classes.inputLabel}>
+                    {textAreaLabel}
+                  </Typography>
+                  <Field
+                    name={textAreaName}
+                    component={renderTextArea}
+                  />
+                </div>
+              </div>
+            </div>
           </Grid>
           <Grid item container>
             <Button
@@ -140,11 +302,11 @@ const mapState = (state) => ({
 });
 
 export default compose(
-  reduxForm({
-  form: 'formMain',
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true,
-  validate
-}),
-connect(mapState)
+    reduxForm({
+    form: 'formMain',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
+    validate
+  }),
+  connect(mapState)
 )(FormFourthPage);
