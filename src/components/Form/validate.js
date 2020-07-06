@@ -31,10 +31,10 @@ const validate = ({
   if (!addressCity) {
     errors.addressCity = 'Wprowadź nazwę miasta.';
   }
-  if (!addressCode) {
-    errors.addressCode = 'Wprowadź kod pocztowy.';
+  if (!addressCode || addressCode?.length < 5) {
+    errors.addressCode = 'Wprowadź kod pocztowy (same cyfry).';
   }
-  if (!addressPhone) {
+  if (!addressPhone || addressPhone?.length < 9) {
     errors.addressPhone = 'Wprowadź numer telefonu.';
   }
   return errors;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, createRef } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -219,6 +219,14 @@ const FormFourthPage = ({
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState('2018-01-01T00:00:00.000Z');
   const [readyToValidate, setReadyToValidate] = useState(false);
+  const addressInputsRefs = useRef(addressInputs.map(() => createRef()));
+
+  useEffect(() => {
+    const inputCode = document.querySelector('input[name="addressCode"]');
+    const inputPhone = document.querySelector('input[name="addressPhone"]');
+    inputCode.setAttribute('type', 'number');
+    inputPhone.setAttribute('type', 'number');
+  }, []);
 
   // Wewnętrzna walidacja dla pól dayName i hourName, bo te nie są widoczne z poziomu głównej funkcji walidującej (validate.js)
   const internalValidationForDateInputs = () => {
@@ -272,6 +280,7 @@ const FormFourthPage = ({
                       <Field
                         name={name}
                         component={renderInput}
+                        ref={addressInputsRefs.current[id]}
                       />
                     </div>
                   </div>
