@@ -2,7 +2,8 @@ const validate = ({
   checkbox1, checkbox2, checkbox3, checkbox4, checkbox5,
   bagsNumber,
   location,
-  toggleBtn1, toggleBtn2, toggleBtn3, toggleBtn4, toggleBtn5
+  toggleBtn1, toggleBtn2, toggleBtn3, toggleBtn4, toggleBtn5,
+  addressStreet, addressCity, addressCode, addressPhone
 }) => {
   const errors = {};
   const checkboxes = {
@@ -22,6 +23,18 @@ const validate = ({
   }
   if (!Object.values(toggleBtns).includes(true)) {
     errors.toggleBtns = 'Wybierz komu chcesz pomóc.';
+  }
+  if (!addressStreet) {
+    errors.addressStreet = 'Wprowadź nazwę ulicy.';
+  }
+  if (!addressCity) {
+    errors.addressCity = 'Wprowadź nazwę miasta.';
+  }
+  if (!addressCode) {
+    errors.addressCode = 'Wprowadź kod pocztowy.';
+  }
+  if (!addressPhone) {
+    errors.addressPhone = 'Wprowadź numer telefonu.';
   }
   return errors;
 };

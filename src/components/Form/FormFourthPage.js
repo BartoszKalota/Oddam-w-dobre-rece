@@ -51,7 +51,15 @@ const useStyles = makeStyles(theme => ({
   inputContainer: {
     marginTop: theme.spacing(2.5),
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'flex-start'
+  },
+  textFieldContainer: {
+    '& span': {
+      color: theme.palette.error.main,
+      fontSize: '1.1rem',
+      marginTop: theme.spacing(1),
+      display: 'block'
+    }
   },
   textAreaContainer: {
     marginTop: theme.spacing(2.5),
@@ -64,7 +72,8 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.5rem',
     fontWeight: 300,
     lineHeight: 1.1,
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
+    marginTop: theme.spacing(0.5)
   },
   errorMsg: {
     color: theme.palette.error.main,
@@ -97,16 +106,22 @@ const CssTextField = withStyles(theme => ({
       fontWeight: 300,
       lineHeight: 1,
       padding: '5.5px 14px'
+    },
+    '& fieldset': {
+      border: 0
     }
   }
 }))(TextField);
 
-const renderInput = ({ input }) => (
-  <CssTextField
-    {...input}
-    variant="outlined"
-    label={false}
-  />
+const renderInput = ({ input, meta: { touched, error }}) => (
+  <>
+    <CssTextField
+      {...input}
+      variant="outlined"
+      label={false}
+    />
+    {touched && error && <span>{error}</span>}
+  </>
 );
 
 const renderTextArea = ({ input }) => (
@@ -199,9 +214,14 @@ const FormFourthPage = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     setReadyToValidate(true);
-    // if (!formError?.location && !formError?.toggleBtns) {
+    if (
+      !formError?.addressStreet &&
+      !formError?.addressCity &&
+      !formError?.addressCode &&
+      !formError?.addressPhone
+    ) {
       onSubmit();
-    // }
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -229,10 +249,12 @@ const FormFourthPage = ({
                     <Typography variant="body1" component="p" className={classes.inputLabel}>
                       {label}
                     </Typography>
-                    <Field
-                      name={name}
-                      component={renderInput}
-                    />
+                    <div className={classes.textFieldContainer}>
+                      <Field
+                        name={name}
+                        component={renderInput}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
