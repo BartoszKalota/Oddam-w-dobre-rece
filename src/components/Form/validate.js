@@ -4,6 +4,7 @@ const validate = ({
   location,
   toggleBtn1, toggleBtn2, toggleBtn3, toggleBtn4, toggleBtn5,
   addressStreet, addressCity, addressCode, addressPhone
+  // dayName, hourName nie są widoczne z poziomu tej funkcji (walidacja przebiega wewnątrz komponentu FormFourthPage)
 }) => {
   const errors = {};
   const checkboxes = {

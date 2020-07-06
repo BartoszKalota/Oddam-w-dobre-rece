@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
     '& > div': {
-      marginRight: 100
+      marginRight: theme.spacing(10)
     }
   },
   inputContainer: {
@@ -78,7 +78,7 @@ const useStyles = makeStyles(theme => ({
   errorMsg: {
     color: theme.palette.error.main,
     fontSize: '1.1rem',
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(1)
   },
   button: {
     minWidth: 180,
@@ -146,7 +146,13 @@ const CssKeyboardDatePicker = withStyles(theme => ({
       padding: '5.5px 14px'
     },
     '& button': {
-      padding: 0
+      padding: 0,
+      '& span': {
+        color: theme.palette.text.primary
+      }
+    },
+    '& fieldset': {
+      border: 0
     }
   }
 }))(KeyboardDatePicker);
@@ -163,7 +169,7 @@ const renderDateInput = ({ input, selectedDate, setSelectedDate }) => (
       value={selectedDate}
       onChange={setSelectedDate}
       KeyboardButtonProps={{
-        'aria-label': 'change date',
+        'aria-label': 'change date'
       }}
     />
   </MuiPickersUtilsProvider>
@@ -179,6 +185,9 @@ const CssTimePicker = withStyles(theme => ({
       fontWeight: 300,
       lineHeight: 1,
       padding: '5.5px 14px'
+    },
+    '& fieldset': {
+      border: 0
     }
   }
 }))(TimePicker);
@@ -203,7 +212,7 @@ const FormFourthPage = ({
     addressSectionTitle, addressInputs,
     dateSectionTitle, dayName, dayLabel, hourName, hourLabel, textAreaName, textAreaLabel
   },
-  formError,
+  formError, formValues,
   onSubmit, prevPage
 }) => {
   const classes = useStyles();
@@ -211,14 +220,24 @@ const FormFourthPage = ({
   const [selectedTime, setSelectedTime] = useState('2018-01-01T00:00:00.000Z');
   const [readyToValidate, setReadyToValidate] = useState(false);
 
+  // Wewnętrzna walidacja dla pól dayName i hourName, bo te nie są widoczne z poziomu głównej funkcji walidującej (validate.js)
+  const internalValidationForDateInputs = () => {
+    if (formValues?.dateDay && formValues?.dateHour) {  // rzeczywiste nazwy pól dayName i hourName
+      return true;
+    }
+    return false;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setReadyToValidate(true);
+    const internalValidation = internalValidationForDateInputs();
     if (
       !formError?.addressStreet &&
       !formError?.addressCity &&
       !formError?.addressCode &&
-      !formError?.addressPhone
+      !formError?.addressPhone &&
+      internalValidation
     ) {
       onSubmit();
     }
@@ -266,23 +285,37 @@ const FormFourthPage = ({
                   <Typography variant="body1" component="p" className={classes.inputLabel}>
                     {dayLabel}
                   </Typography>
-                  <Field
-                    name={dayName}
-                    component={renderDateInput}
-                    selectedDate={selectedDate}
-                    setSelectedDate={setSelectedDate}
-                  />
+                  <div className={classes.textFieldContainer}>
+                    <Field
+                      name={dayName}
+                      component={renderDateInput}
+                      selectedDate={selectedDate}
+                      setSelectedDate={setSelectedDate}
+                    />
+                    {readyToValidate && !formValues?.dateDay && (  // zrobione w ten sposób, bo data domyślnie wyświetlana w inpucie nie jest widoczna w reduxFormie, dopóki user nie kliknie w input
+                      <Typography component="p" className={classes.errorMsg}>
+                        Wprowadź datę.
+                      </Typography>
+                    )}
+                  </div>
                 </div>
                 <div className={classes.inputContainer}>
                   <Typography variant="body1" component="p" className={classes.inputLabel}>
                     {hourLabel}
                   </Typography>
-                  <Field
-                    name={hourName}
-                    component={renderTimeInput}
-                    selectedTime={selectedTime}
-                    setSelectedTime={setSelectedTime}
-                  />
+                  <div className={classes.textFieldContainer}>
+                    <Field
+                      name={hourName}
+                      component={renderTimeInput}
+                      selectedTime={selectedTime}
+                      setSelectedTime={setSelectedTime}
+                    />
+                    {readyToValidate && !formValues?.dateHour && (  // zrobione w ten sposób, bo godzina domyślnie wyświetlana w inpucie nie jest widoczna w reduxFormie, dopóki user nie kliknie w input
+                      <Typography component="p" className={classes.errorMsg}>
+                        Wprowadź godzinę.
+                      </Typography>
+                    )}
+                  </div>
                 </div>
                 <div className={classes.textAreaContainer}>
                   <Typography variant="body1" component="p" className={classes.inputLabel}>
@@ -320,7 +353,8 @@ const FormFourthPage = ({
 };
 
 const mapState = (state) => ({
-  formError: state.form.formMain.syncErrors
+  formError: state.form.formMain.syncErrors,
+  formValues: state.form.formMain.values
 });
 
 export default compose(
