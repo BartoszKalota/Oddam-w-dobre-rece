@@ -222,9 +222,7 @@ const FormFourthPage = ({
   const addressInputsRefs = useRef(addressInputs.map(() => createRef()));
 
   useEffect(() => {
-    const inputCode = document.querySelector('input[name="addressCode"]');
     const inputPhone = document.querySelector('input[name="addressPhone"]');
-    inputCode.setAttribute('type', 'number');
     inputPhone.setAttribute('type', 'number');
   }, []);
 

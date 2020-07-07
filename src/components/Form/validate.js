@@ -13,6 +13,8 @@ const validate = ({
   const toggleBtns = {
     toggleBtn1, toggleBtn2, toggleBtn3, toggleBtn4, toggleBtn5
   };
+  const regex = /(^[0-9]+[-]*[0-9]+$)/;
+  console.log();
   if (!Object.values(checkboxes).includes(true)) {
     errors.checkboxes = 'Zaznacz minimum jedną opcję.';
   }
@@ -31,11 +33,23 @@ const validate = ({
   if (!addressCity) {
     errors.addressCity = 'Wprowadź nazwę miasta.';
   }
-  if (!addressCode || addressCode?.length < 5) {
-    errors.addressCode = 'Wprowadź kod pocztowy (same cyfry).';
+  if (
+    !(
+      addressCode?.length === 6 &&
+      addressCode?.indexOf('-') === 2 &&
+      regex.test(addressCode) // akceptacja samych cyfr
+    )
+  ) {
+    errors.addressCode = 'Poprawny format kodu: XX-XXX.';
   }
-  if (!addressPhone || addressPhone?.length < 9) {
+  if (!addressCode) {
+    errors.addressCode = 'Wprowadź kod pocztowy.';
+  }
+  if (!addressPhone) {
     errors.addressPhone = 'Wprowadź numer telefonu.';
+  }
+  if (addressPhone?.length !== 9 && addressPhone?.length > 0) {
+    errors.addressPhone = 'Numer powinien liczyć 9 cyfr.';
   }
   return errors;
 };
