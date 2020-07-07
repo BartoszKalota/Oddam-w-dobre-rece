@@ -88,7 +88,8 @@ const FormSummaryPage = ({
     certainOrganisation, addressStreet, addressCity, addressCode, addressPhone,
     dateDay, dateHour, dateComment, location
   },
-  prevPage, nextPage
+  prevPage, nextPage, onSubmit,
+  isPending, firebaseError
 }) => {
   const classes = useStyles();
 
@@ -150,8 +151,8 @@ const FormSummaryPage = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // onSubmit();
-    nextPage();
+    onSubmit();
+    !isPending && !firebaseError && nextPage();
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -236,7 +237,9 @@ const FormSummaryPage = ({
 };
 
 const mapState = (state) => ({
-  formValues: state.form.formMain.values
+  formValues: state.form.formMain.values,
+  isPending: state.formMainFirebase.isFetching,
+  firebaseError: state.formMainFirebase.error
 });
 
 export default compose(

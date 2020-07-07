@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-// import PropTypes from 'prop-types';
 
 import { fetchingFormMain } from '../../config/redux/actions/fetchingFormMainAction';
+import { sendFormMain } from '../../config/redux/actions/sendFormMainAction';
 
 import FormFirstPage from './FormFirstPage';
 import FormSecondPage from './FormSecondPage';
@@ -23,14 +23,14 @@ const useStyles = makeStyles(theme => ({
 
 const FormMain = ({
   getFormMainData,
-  isPending, firebaseData, firebaseError
+  isPending, firebaseData, firebaseError,
+  sendFilledFormMain
 }) => {
   const classes = useStyles();
   const [page, setPage] = useState(1);
   const nextPage = () => setPage(prevState => prevState + 1);
   const prevPage = () => setPage(prevState => prevState - 1);
 
-  // const { onSubmit } = this.props
   useEffect(() => {
     getFormMainData();
   }, []);
@@ -38,6 +38,10 @@ const FormMain = ({
   if (firebaseError) {
     console.error(firebaseError);
   }
+
+  const onSubmit = () => {
+    sendFilledFormMain();
+  };
 
   return (
     <main className={classes.mainSection}>
@@ -72,7 +76,7 @@ const FormMain = ({
         <FormSummaryPage
           prevPage={prevPage}
           nextPage={nextPage}
-          // onSubmit={onSubmit}
+          onSubmit={onSubmit}
         />
       )}
       {page === 6 && !isPending && (
@@ -88,17 +92,14 @@ const FormMain = ({
   );
 };
 
-// FormMain.propTypes = {
-//   onSubmit: PropTypes.func.isRequired
-// };
-
 const mapState = (state) => ({
   isPending: state.formMainFirebase.isFetching,
   firebaseData: state.formMainFirebase.data,
   firebaseError: state.formMainFirebase.error
 });
 const mapDispatch = (dispatch) => ({
-  getFormMainData: () => dispatch(fetchingFormMain())
+  getFormMainData: () => dispatch(fetchingFormMain()),
+  sendFilledFormMain: () => dispatch(sendFormMain())
 });
 
 export default connect(mapState, mapDispatch)(FormMain);

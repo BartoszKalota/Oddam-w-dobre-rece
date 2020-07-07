@@ -14,7 +14,6 @@ const validate = ({
     toggleBtn1, toggleBtn2, toggleBtn3, toggleBtn4, toggleBtn5
   };
   const regex = /(^[0-9]+[-]*[0-9]+$)/;
-  console.log();
   if (!Object.values(checkboxes).includes(true)) {
     errors.checkboxes = 'Zaznacz minimum jedną opcję.';
   }
