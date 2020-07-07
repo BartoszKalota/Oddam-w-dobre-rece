@@ -10,6 +10,7 @@ import FormSecondPage from './FormSecondPage';
 import FormThirdPage from './FormThirdPage';
 import FormFourthPage from './FormFourthPage';
 import FormSummaryPage from './FormSummaryPage';
+import FormSentPage from './FormSentPage';
 import BackdropScreen from '../Home/elements/BackdropScreen';
 
 const useStyles = makeStyles(theme => ({
@@ -67,11 +68,15 @@ const FormMain = ({
           onSubmit={nextPage}
         />
       )}
-      {page === 5 && !isPending && firebaseData && (
+      {page === 5 && !isPending && (
         <FormSummaryPage
           prevPage={prevPage}
+          nextPage={nextPage}
           // onSubmit={onSubmit}
         />
+      )}
+      {page === 6 && !isPending && (
+        <FormSentPage />
       )}
 
       {/* Ekran ładowania i komunikowania o błędzie dopasowany do sekcji*/}

@@ -336,7 +336,7 @@ const mapState = (state) => ({
 });
 
 export default compose(
-    reduxForm({
+  reduxForm({
     form: 'formMain',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
