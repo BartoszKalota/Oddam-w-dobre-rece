@@ -1,28 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Backdrop,
-  CircularProgress,
-  Grid,
-  Typography
-} from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 import { fetchingOrganisations } from '../../config/redux/actions/fetchingOrganisationsAction'
 
 import decoration from '../../assets/Decoration.svg';
 import ListOfOrganisations from './elements/ListOfOrganisations';
+import BackdropScreen from './elements/BackdropScreen';
 
 const useStyles = makeStyles(theme => ({
-  backdrop: {
-    top: 'unset',
-    left: 'unset',
-    right: 'unset',
-    bottom: 'unset',
-    width: '100%',
-    height: '100%',
-    position: 'absolute'
-  },
   helpSection: {
     paddingTop: theme.spacing(9),
     marginBottom: theme.spacing(15)
@@ -63,19 +50,10 @@ const HomeHelp = ({ getOrganisations, isPending, firebaseError, firebaseData }) 
         <Grid item xs={2} />
 
         {/* Ekran ładowania i komunikowania o błędzie dopasowany do sekcji*/}
-        <Backdrop className={classes.backdrop} open={!!(isPending || firebaseError)}> {/* zmienne isPending i firebaseError gdy są nieaktywne stanowią null, wtedy wykrzacza błąd w konsoli; dlatego konieczna była tu konwersja na booleana */}
-          {isPending && <CircularProgress color="primary" />}
-          {firebaseError && (
-            <div stlye={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography variant="h4" component="p" style={{ color: 'red' }} gutterBottom>
-                Błąd połączenia z bazą!
-              </Typography>
-              <Typography variant="h6" component="p" style={{ textAlign: 'center' }}>
-                Log błędu jest w konsoli
-              </Typography>
-            </div>
-          )}
-        </Backdrop>
+        <BackdropScreen
+          isPending={isPending}
+          firebaseError={firebaseError}
+        />
       </Grid>
     </Grid>
   );

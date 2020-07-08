@@ -51,23 +51,25 @@ const HomeNav = () => {
     const threeColsSection = document.getElementById('section1+');
     // Zarządzanie rodzajem tła sekcji Nav (gradient lub jednolity kolor)
     let startUniformBgrHeight = headerSection.offsetHeight - navSection.offsetHeight;
-    windowEl.addEventListener('scroll', () => {
+    const toggleBgrStyle = () => {  // eventy w postaci funkcji z nazwami, aby móc potem usunąć eventy z obiektu window
       if (windowEl.pageYOffset > startUniformBgrHeight) {
         setIsGradient(false);
       } else {
         setIsGradient(true);
       }
-    });
+    };
+    windowEl.addEventListener('scroll', toggleBgrStyle);
     // Zarządzenie klasą 'active' dla przycisku 'Start' względem sekcji 'ThreeColumns' (drobna korekta działania react-scroll)
     let startActiveHeight = headerSection.offsetHeight;
     let finishActiveHeight = headerSection.offsetHeight + threeColsSection.offsetHeight - navSection.offsetHeight;
       // Aktualizacja wysokości sekcji w przypadku zmiany szerokości viewportu
-    windowEl.addEventListener('resize', () => {
+    const updatingSectionHeight = () => {
       startActiveHeight = headerSection.offsetHeight;
       finishActiveHeight = headerSection.offsetHeight + threeColsSection.offsetHeight - navSection.offsetHeight;
-    });
+    };
+    windowEl.addEventListener('resize', updatingSectionHeight);
       // Określenie zakresu wysokości offsetu, w którym używana jest klasa 'active'
-    windowEl.addEventListener('scroll', () => {
+    const launchingActiveClass = () => {
       if (
         windowEl.pageYOffset > startActiveHeight &&
         windowEl.pageYOffset < finishActiveHeight
@@ -76,7 +78,13 @@ const HomeNav = () => {
       } else {
         setIsActive(false);
       }
-    });
+    };
+    windowEl.addEventListener('scroll', launchingActiveClass);
+    return () => {
+      windowEl.removeEventListener('scroll', toggleBgrStyle);
+      windowEl.removeEventListener('resize', updatingSectionHeight);
+      windowEl.removeEventListener('scroll', launchingActiveClass);
+    };
   }, []);
 
   return (

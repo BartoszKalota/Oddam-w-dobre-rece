@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,12 +13,20 @@ import { logoutUser } from '../../config/redux/actions/fetchingUserAction';
 import * as ROUTES from '../../config/routes';
 
 const useStyles = makeStyles(theme => ({
-  navSection: {
-    position: 'fixed',
-    top: 0,
-    zIndex: 9,
-    background: 'linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 39%, rgba(255,255,255,0.42) 43%, rgba(255,255,255,1) 49%, rgba(255,255,255,1) 100%)',
-    padding: theme.spacing(2, 0, 4, 0)
+  navSection: isGradient => {
+    const style= {
+      position: 'fixed',
+      top: 0,
+      zIndex: 9,
+      background: isGradient
+        ? 'linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 39%, rgba(255,255,255,0.42) 43%, rgba(255,255,255,1) 49%, rgba(255,255,255,1) 100%)'
+        : '#FFF',
+      padding: theme.spacing(2, 0, 4, 0)
+    };
+    if (!isGradient) {
+      style.boxShadow = theme.shadows[5];
+    }
+    return style;
   },
   userText: {
     fontSize: '0.9rem',
@@ -42,12 +50,34 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const FormNav = ({ userEmail, logout }) => {
-  const classes = useStyles();
+  const [isGradient, setIsGradient] = useState(true);
   const history = useHistory();
+  const classes = useStyles(isGradient);
+
+  useEffect(() => {
+    const windowEl = window;
+    const navSection = document.getElementById('section0');
+    const headerSection = document.getElementById('section1');
+    // Autoprzewijanie do góry po przejściu na bieżącą podstronę
+    windowEl.scrollTo(0, 0);
+    // Zarządzanie rodzajem tła sekcji Nav (gradient lub jednolity kolor)
+    let startUniformBgrHeight = headerSection.offsetHeight - navSection.offsetHeight;
+    const toggleBgrStyle = () => {  // event w postaci funkcji z nazwą, aby móc usunąć event z obiektu window
+      if (windowEl.pageYOffset > startUniformBgrHeight) {
+        setIsGradient(false);
+      } else {
+        setIsGradient(true);
+      }
+    };
+    windowEl.addEventListener('scroll', toggleBgrStyle);
+    return () => windowEl.removeEventListener('scroll', toggleBgrStyle);
+  }, []);
+
   const handleClick = () => {
     logout();
     history.push(ROUTES.HOME);
-  }
+  };
+  
   return (
     <Grid item container className={classes.navSection} id="section0">
       <Grid item container justify="flex-end" xs={11}>
