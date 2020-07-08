@@ -1,9 +1,17 @@
 import React from 'react';
 
-const Form = () => {
-  return (
-    <h1>Form</h1>
-  );
-}
+import FormNav from './FormNav';
+import FormHeader from './FormHeader';
+import FormMain from './FormMain';
+import HomeContactAndFooter from '../Home/HomeContact';
+
+const Form = () => (
+  <>
+    <FormNav />
+    <FormHeader />
+    <FormMain />
+    <HomeContactAndFooter />
+  </>
+);
  
 export default Form;

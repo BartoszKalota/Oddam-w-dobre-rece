@@ -4,6 +4,7 @@ const theme = createMuiTheme({
   palette: {
     backgroundAltColor: '#F0F1F1', // jasny szary
     dividerColor: '#707070',
+    dropdownMenuBgr: '#EEEDEB',
     fontFamilyAlt: 'Merriweather',
     fontColorInferior: '#737373', // ciemny szary
     primary: {

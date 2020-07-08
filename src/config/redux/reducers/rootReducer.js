@@ -4,6 +4,7 @@ import { firestoreReducer } from 'redux-firestore';
 import fetchingOrganisationsReducer from './fetchingOrganisationsReducer';
 import dialogSwitcherReducer from './dialogSwitcherReducer';
 import fetchingUserReducer from './fetchingUserReducer';
+import fetchingFormMainReducer from './fetchingFormMainReducer';
 import { reducer as reduxFormReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   fetchingOrganisations: fetchingOrganisationsReducer,
   dialogSwitcher: dialogSwitcherReducer,
   form: reduxFormReducer,
-  user: fetchingUserReducer
+  user: fetchingUserReducer,
+  formMainFirebase: fetchingFormMainReducer
 });
 
 export default rootReducer;
