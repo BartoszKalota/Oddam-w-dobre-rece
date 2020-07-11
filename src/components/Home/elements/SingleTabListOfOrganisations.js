@@ -71,7 +71,7 @@ const SingleTabListOfOrganisations = ({ currTab: { descr, entity } }) => {
         {entityToShow.map(({ name, descr, tags }, i) => (
           <Fragment key={i}>
             <Grid item container spacing={3} className={classes.entityContainer}>
-              <Grid item xs={7}>
+              <Grid item xs={12} md={7}>
                 <Typography variant="h5" component="p" color="textPrimary" className={classes.entityName}>
                   {name}
                 </Typography>
@@ -79,7 +79,7 @@ const SingleTabListOfOrganisations = ({ currTab: { descr, entity } }) => {
                   {descr}
                 </Typography>
               </Grid>
-              <Grid item container xs={5} justify="flex-end" alignItems="center">
+              <Grid item container xs={12} md={5} justify="flex-end" alignItems="center">
                 <Typography variant="body1" component="p" align="right" color="textPrimary">
                   {tags.join(', ')}
                 </Typography>
