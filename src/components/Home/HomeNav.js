@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link as LinkScroll } from 'react-scroll';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import {
   Button,
   Grid,
@@ -18,18 +19,27 @@ const useStyles = makeStyles(theme => ({
       position: 'fixed',
       top: 0,
       zIndex: 9,
-      background: isGradient 
-        ? 'linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 39%, rgba(255,255,255,0.42) 43%, rgba(255,255,255,1) 49%, rgba(255,255,255,1) 100%)'
-        : '#FFF',
       padding: theme.spacing(2, 0, 1.25, 0),
       [theme.breakpoints.up('md')]: {
         padding: theme.spacing(2, 0, 4, 0)
       }
     };
     if (!isGradient) {
+      style.background = '#FFF';
       style.boxShadow = theme.shadows[5];
     }
     return style;
+  },
+  navSectionGradientHandlingClass: {  // obsługa gradientu w osobnej klasie, bo gdy ten kod był w klasie wyżej, działało niepoprawnie
+    background: '#FFF',
+    boxShadow: theme.shadows[5],
+    [theme.breakpoints.up('md')]: {
+      background: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0.42) 29%, rgba(255,255,255,1) 36%, rgba(255,255,255,1) 100%);',
+      boxShadow: 'unset'
+    },
+    [theme.breakpoints.up('lg')]: {
+      background: 'linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 39%, rgba(255,255,255,0.42) 43%, rgba(255,255,255,1) 49%, rgba(255,255,255,1) 100%)'
+    }
   },
   activeBtn: {
     '& > button': {
@@ -47,11 +57,9 @@ const useStyles = makeStyles(theme => ({
   sectionMobile: {
     display: 'flex',
     paddingRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      paddingRight: 0
-    },
     [theme.breakpoints.up('md')]: {
-      display: 'none'
+      display: 'none',
+      paddingRight: 0
     },
     '& svg': {
       fontSize: '2.5rem'
@@ -137,14 +145,13 @@ const HomeNav = () => {
     >
       <MenuItem>
         <LinkScroll 
-          // activeClass={classes.activeBtn}
+          activeClass={classes.activeBtn}
           to="section1"
           spy={true}
           smooth={true}
           offset={0}
           duration={500}
           style={{ width: '100%' }}
-          // className={isActive ? classes.activeBtn : ''}
         >
           <Button variant="text" fullWidth>
             Start
@@ -153,14 +160,13 @@ const HomeNav = () => {
       </MenuItem>
       <MenuItem>
         <LinkScroll
-          // activeClass={classes.activeBtn}
+          activeClass={classes.activeBtn}
           to="section2"
           spy={true}
           smooth={true}
           offset={-130}
           duration={500}
           style={{ width: '100%' }}
-          // className={isActive ? classes.activeBtn : ''}
         >
           <Button variant="text" fullWidth>
             O co chodzi?
@@ -169,14 +175,13 @@ const HomeNav = () => {
       </MenuItem>
       <MenuItem>
         <LinkScroll
-          // activeClass={classes.activeBtn}
+          activeClass={classes.activeBtn}
           to="section3"
           spy={true}
           smooth={true}
           offset={-130}
           duration={500}
           style={{ width: '100%' }}
-          // className={isActive ? classes.activeBtn : ''}
         >
           <Button variant="text" fullWidth>
             O nas
@@ -185,14 +190,13 @@ const HomeNav = () => {
       </MenuItem>
       <MenuItem>
         <LinkScroll
-          // activeClass={classes.activeBtn}
+          activeClass={classes.activeBtn}
           to="section4"
           spy={true}
           smooth={true}
           offset={-130}
           duration={500}
           style={{ width: '100%' }}
-          // className={isActive ? classes.activeBtn : ''}
         >
           <Button variant="text" fullWidth>
             Fundacja i organizacje
@@ -201,14 +205,13 @@ const HomeNav = () => {
       </MenuItem>
       <MenuItem>
         <LinkScroll
-          // activeClass={classes.activeBtn}
+          activeClass={classes.activeBtn}
           to="section5"
           spy={true}
           smooth={true}
           offset={-250}
           duration={500}
           style={{ width: '100%' }}
-          // className={isActive ? classes.activeBtn : ''}
         >
           <Button variant="text" fullWidth>
             Kontakt
@@ -220,10 +223,10 @@ const HomeNav = () => {
 
   return (
     <>
-      <Grid item container className={classes.navSection} id="section0">
+      <Grid item container className={clsx(classes.navSection, classes.navSectionGradientHandlingClass)} id="section0">
         <AuthNavigation />
         <Grid item xs={12} style={{ marginTop: 8 }}>
-          <Grid item container justify="flex-end" xs={12} sm={11}>
+          <Grid item container justify="flex-end" xs={12} md={11}>
             <div className={classes.sectionDesktop}>
               <LinkScroll
                 activeClass={classes.activeBtn}
@@ -304,7 +307,7 @@ const HomeNav = () => {
               </IconButton>
             </div>
           </Grid>
-          <Grid item xs={false} sm={1} />
+          <Grid item xs={false} md={1} />
         </Grid>
       </Grid>
       {renderMobileMenu}
