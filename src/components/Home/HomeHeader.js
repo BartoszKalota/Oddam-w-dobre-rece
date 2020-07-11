@@ -24,7 +24,10 @@ const useStyles = makeStyles(theme => ({
     background: `url(${headerImg}) no-repeat right/cover`
   },
   headerContent: {
-    paddingRight: theme.spacing(8)
+    paddingRight: 0,
+    [theme.breakpoints.up('lg')]: {
+      paddingRight: theme.spacing(8)
+    }
   },
   headerTitle: {
     fontSize: '2.2rem',
@@ -63,8 +66,8 @@ const HomeHeader = ({ loggedIn, loginDisplayed }) => {
 
   return (
     <Grid item container className={classes.headerSection} id="section1">
-      <Grid item xs={6} className={classes.headerImage} />
-      <Grid item container xs={5} alignItems="center" className={classes.headerContent}>
+      <Grid item xs={5} lg={6} className={classes.headerImage} />
+      <Grid item container xs={6} lg={5} alignItems="center" className={classes.headerContent}>
         <Grid item container direction="column" alignItems="center">
           <Typography
             component="h1"
