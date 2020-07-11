@@ -150,7 +150,7 @@ const HomeNav = () => {
           spy={true}
           smooth={true}
           offset={0}
-          duration={500}
+          duration={1000}
           style={{ width: '100%' }}
         >
           <Button variant="text" fullWidth>
@@ -165,7 +165,7 @@ const HomeNav = () => {
           spy={true}
           smooth={true}
           offset={-130}
-          duration={500}
+          duration={1000}
           style={{ width: '100%' }}
         >
           <Button variant="text" fullWidth>
@@ -180,7 +180,7 @@ const HomeNav = () => {
           spy={true}
           smooth={true}
           offset={-130}
-          duration={500}
+          duration={1000}
           style={{ width: '100%' }}
         >
           <Button variant="text" fullWidth>
@@ -195,7 +195,7 @@ const HomeNav = () => {
           spy={true}
           smooth={true}
           offset={-130}
-          duration={500}
+          duration={1000}
           style={{ width: '100%' }}
         >
           <Button variant="text" fullWidth>
@@ -210,7 +210,7 @@ const HomeNav = () => {
           spy={true}
           smooth={true}
           offset={-250}
-          duration={500}
+          duration={1000}
           style={{ width: '100%' }}
         >
           <Button variant="text" fullWidth>
@@ -234,7 +234,7 @@ const HomeNav = () => {
                 spy={true}
                 smooth={true}
                 offset={0}
-                duration={500}
+                duration={1000}
                 style={{ display: 'flex' }}
                 className={isActive ? classes.activeBtn : ''}
               >
@@ -248,7 +248,7 @@ const HomeNav = () => {
                 spy={true}
                 smooth={true}
                 offset={-130}
-                duration={500}
+                duration={1000}
                 style={{ display: 'flex' }}
               >
                 <Button variant="text" className={classes.button}>
@@ -261,7 +261,7 @@ const HomeNav = () => {
                 spy={true}
                 smooth={true}
                 offset={-130}
-                duration={500}
+                duration={1000}
                 style={{ display: 'flex' }}
               >
                 <Button variant="text" className={classes.button}>
@@ -274,7 +274,7 @@ const HomeNav = () => {
                 spy={true}
                 smooth={true}
                 offset={-130}
-                duration={500}
+                duration={1000}
                 style={{ display: 'flex' }}
               >
                 <Button variant="text" className={classes.button}>
@@ -287,7 +287,7 @@ const HomeNav = () => {
                 spy={true}
                 smooth={true}
                 offset={-250}
-                duration={500}
+                duration={1000}
                 style={{ display: 'flex' }}
               >
                 <Button variant="text" className={classes.button}>
