@@ -8,11 +8,16 @@ import signature from '../../assets/Signature.svg';
 
 const useStyles = makeStyles(theme => ({
   aboutSection: {
-    height: 935, // wysokość obrazka 'peopleImg'
     backgroundColor: theme.palette.backgroundAltColor
   },
   aboutTextContainer: {
-    padding: theme.spacing(0, 3)
+    padding: theme.spacing(6, 3, 23, 3),
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    [theme.breakpoints.up('lg')]: {
+      padding: 0,
+      justifyContent: 'center'
+    }
   },
   decoration: {
     margin: theme.spacing(3, 0, 5, 0)
@@ -30,7 +35,17 @@ const useStyles = makeStyles(theme => ({
     right: 0
   },
   aboutImage: {
-    background: `url(${peopleImg}) no-repeat left/cover`
+    height: 500,
+    background: `url(${peopleImg}) no-repeat center/cover`,
+    [theme.breakpoints.up('sm')]: {
+      height: 700
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 935 // wysokość obrazka 'peopleImg'
+    },
+    [theme.breakpoints.up('lg')]: {
+      background: `url(${peopleImg}) no-repeat left/cover`
+    }
   }
 }));
 
@@ -39,10 +54,8 @@ const HomeAbout = () => {
   return (
     <Grid item container className={classes.aboutSection} id="section3">
       <Grid
-        item container xs={6}
+        item container xs={12} lg={6}
         direction="column"
-        justify="center"
-        alignItems="center"
         className={classes.aboutTextContainer}
       >
         <Typography variant="h4" component="h4" color="textPrimary">
@@ -61,7 +74,7 @@ const HomeAbout = () => {
           <img src={signature} alt="Signature" className={classes.signature} />
         </div>
       </Grid>
-      <Grid item container xs={6} className={classes.aboutImage} />
+      <Grid item container xs={12} lg={6} className={classes.aboutImage} />
     </Grid>
   );
 }
