@@ -8,12 +8,25 @@ import instIcon from '../../assets/Instagram.svg';
 const useStyles = makeStyles(theme => ({
   footerContainerBis: {
     position: 'relative',
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
+    flexWrap: 'wrap-reverse',
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'unset'
+    }
   },
   footerText: {
     width: '100%',
     lineHeight: 2.3, // cel: wyśrodkowanie tekstu względem ikonek
-    position: 'absolute'
+    position: 'unset',
+    [theme.breakpoints.up('sm')]: {
+      position: 'absolute'
+    }
+  },
+  section: {
+    paddingRight: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      paddingRight: 0
+    }
   },
   icon: {
     marginLeft: theme.spacing(2),
@@ -36,7 +49,7 @@ const HomeFooter = () => {
       >
         Copyright by Coders Lab
       </Typography>
-      <Grid item xs={11} container justify="flex-end">
+      <Grid item xs={12} md={11} container justify="flex-end" className={classes.section}>
         <IconButton size="small" className={classes.icon}>
           <a href="https://www.facebook.com/">
             <img src={fbIcon} alt="Facebook" />
@@ -48,7 +61,7 @@ const HomeFooter = () => {
           </a>
         </IconButton>
       </Grid>
-      <Grid item xs={1} />
+      <Grid item xs={false} md={1} />
     </Grid>
   );
 }
