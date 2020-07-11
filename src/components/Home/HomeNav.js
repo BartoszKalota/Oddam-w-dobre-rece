@@ -31,7 +31,12 @@ const useStyles = makeStyles(theme => ({
     return style;
   },
   navSectionGradientHandlingClass: {  // obsługa gradientu w osobnej klasie, bo gdy ten kod był w klasie wyżej, działało niepoprawnie
-    background: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0.42) 29%, rgba(255,255,255,1) 36%, rgba(255,255,255,1) 100%);',
+    background: '#FFF',
+    boxShadow: theme.shadows[5],
+    [theme.breakpoints.up('md')]: {
+      background: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0.42) 29%, rgba(255,255,255,1) 36%, rgba(255,255,255,1) 100%);',
+      boxShadow: 'unset'
+    },
     [theme.breakpoints.up('lg')]: {
       background: 'linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 39%, rgba(255,255,255,0.42) 43%, rgba(255,255,255,1) 49%, rgba(255,255,255,1) 100%)'
     }
@@ -52,11 +57,9 @@ const useStyles = makeStyles(theme => ({
   sectionMobile: {
     display: 'flex',
     paddingRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      paddingRight: 0
-    },
     [theme.breakpoints.up('md')]: {
-      display: 'none'
+      display: 'none',
+      paddingRight: 0
     },
     '& svg': {
       fontSize: '2.5rem'
@@ -223,7 +226,7 @@ const HomeNav = () => {
       <Grid item container className={clsx(classes.navSection, classes.navSectionGradientHandlingClass)} id="section0">
         <AuthNavigation />
         <Grid item xs={12} style={{ marginTop: 8 }}>
-          <Grid item container justify="flex-end" xs={12} sm={11}>
+          <Grid item container justify="flex-end" xs={12} md={11}>
             <div className={classes.sectionDesktop}>
               <LinkScroll
                 activeClass={classes.activeBtn}
@@ -304,7 +307,7 @@ const HomeNav = () => {
               </IconButton>
             </div>
           </Grid>
-          <Grid item xs={false} sm={1} />
+          <Grid item xs={false} md={1} />
         </Grid>
       </Grid>
       {renderMobileMenu}

@@ -18,7 +18,7 @@ import DialogLogout from './DialogLogout';
 const useStyles = makeStyles(theme => ({
   authMenuContainer: {
     paddingRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       paddingRight: 0
     }
   }
@@ -47,7 +47,7 @@ const AuthNavigation = ({
   return (
     <>
       <Grid item xs={12}>
-        <Grid item container justify="flex-end" xs={12} sm={11} className={classes.authMenuContainer}>
+        <Grid item container justify="flex-end" xs={12} md={11} className={classes.authMenuContainer}>
           {loggedInUserEmail ? (
             <LoggedInNavigation
               userEmail={loggedInUserEmail}
@@ -60,7 +60,7 @@ const AuthNavigation = ({
             />
           )}
         </Grid>
-        <Grid item xs={false} sm={1} />
+        <Grid item xs={false} md={1} />
       </Grid>
 
       {dialogToRender}
