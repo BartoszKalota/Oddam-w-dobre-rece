@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     height: 970,  // dopasowanie do wysokości sekcji z Adobe XD
     backgroundImage: `url(${bgrImg})`,
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
+    backgroundPosition: '-920px center',
     position: 'relative',
     zIndex: 0,
     '&::before': {
@@ -24,6 +24,15 @@ const useStyles = makeStyles(theme => ({
       background: 'rgba(255, 255, 255, 0.8)',
       position: 'absolute',
       zIndex: 1
+    },
+    [theme.breakpoints.up('sm')]: {
+      backgroundPosition: '-770px center'
+    },
+    [theme.breakpoints.up('md')]: {
+      backgroundPosition: '-540px center'
+    },
+    [theme.breakpoints.up('lg')]: {
+      backgroundPosition: 'center'
     }
   },
   sectionContainerOver: {
@@ -32,7 +41,16 @@ const useStyles = makeStyles(theme => ({
   },
   contactSection: {
     top: 0,
-    paddingTop: theme.spacing(18)
+    paddingTop: theme.spacing(5.5),
+    [theme.breakpoints.up('md')]: {
+      paddingTop: theme.spacing(18)
+    }
+  },
+  contactContainer: {
+    paddingRight: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      paddingRight: 0
+    }
   },
   decoration: {
     marginTop: theme.spacing(3)
@@ -47,10 +65,10 @@ const HomeContactAndFooter = () => {
   return (
     <Grid item container className={classes.sectionContainer} id="section5">
       <Grid container className={clsx(classes.sectionContainerOver, classes.contactSection)}>
-        <Grid item xs={7} />
-        <Grid item xs={4} container>
+        <Grid item xs={1} sm={5} md={6} lg={7} />
+        <Grid item xs={11} sm={7} md={5} lg={4} container className={classes.contactContainer}>
           <Grid container direction="column" alignItems="center">
-            <Typography variant="h4" component="h6" color="textPrimary">
+            <Typography variant="h4" component="h6" align="center" color="textPrimary">
               Skontaktuj się z nami
             </Typography>
             <img src={decoration} alt="Decoration" className={classes.decoration} />
@@ -59,7 +77,7 @@ const HomeContactAndFooter = () => {
             <ContactForm />
           </Grid>
         </Grid>
-        <Grid item xs={1} />
+        <Grid item xs={false} md={1} />
       </Grid>
       <Grid container className={clsx(classes.sectionContainerOver, classes.footerSection)}>
         <HomeFooter />
