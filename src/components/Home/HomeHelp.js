@@ -12,7 +12,10 @@ import BackdropScreen from './elements/BackdropScreen';
 const useStyles = makeStyles(theme => ({
   helpSection: {
     paddingTop: theme.spacing(9),
-    marginBottom: theme.spacing(15)
+    marginBottom: theme.spacing(15),
+    '& > div': {
+      padding: theme.spacing(0, 2)
+    }
   },
   decoration: {
     margin: theme.spacing(3, 0, 8, 0)
@@ -37,17 +40,17 @@ const HomeHelp = ({ getOrganisations, isPending, firebaseError, firebaseData }) 
   return (
     <Grid item container className={classes.helpSection} id="section4">
       <Grid item container direction="column" alignItems="center">
-        <Typography variant="h4" component="h5" color="textPrimary">
+        <Typography variant="h4" component="h5" align="center" color="textPrimary">
           Komu pomagamy?
         </Typography>
         <img src={decoration} alt="Decoration" className={classes.decoration} />
       </Grid>
       <Grid item container className={classes.listContainer}>
-        <Grid item xs={2} />
-        <Grid item container xs={8}>
+        <Grid item xs={false} sm={2} />
+        <Grid item container xs={12} sm={8}>
           {!isPending && !firebaseError && <ListOfOrganisations data={firebaseData} />}
         </Grid>
-        <Grid item xs={2} />
+        <Grid item xs={false} sm={2} />
 
         {/* Ekran ładowania i komunikowania o błędzie dopasowany do sekcji*/}
         <BackdropScreen

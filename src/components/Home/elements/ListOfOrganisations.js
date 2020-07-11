@@ -17,7 +17,11 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary,
     borderRadius: 0,
     lineHeight: 1.2,
-    textTransform: 'none'
+    textTransform: 'none',
+    marginTop: theme.spacing(1),
+    [theme.breakpoints.up('md')]: {
+      marginTop: 0
+    }
   },
   activeBtn: {
     border: `1px solid ${theme.palette.text.primary}`
@@ -46,8 +50,8 @@ const ListOfOrganisations = ({ data }) => {
   return (
     <>
       <Grid container className={classes.tabsSection}>
-        <Grid item xs={1} />
-        <Grid item container xs={10} justify="space-evenly">
+        <Grid item xs={false} lg={1} />
+        <Grid item container xs={12} lg={10} justify="space-evenly">
           {tabs.map(({ id, title }) => (
             <Button
               key={id}
@@ -64,7 +68,7 @@ const ListOfOrganisations = ({ data }) => {
             </Button>
           ))}
         </Grid>
-        <Grid item xs={1} />
+        <Grid item xs={false} lg={1} />
       </Grid>
       {currTab && <SingleTabListOfOrganisations currTab={currTab} />}
     </>
