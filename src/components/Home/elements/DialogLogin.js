@@ -23,18 +23,36 @@ import CloseButton from './CloseButton';
 const useStyles = makeStyles(theme => ({
   dialogWindow: {
     '& .MuiDialog-container .MuiPaper-root': {
-      padding: theme.spacing(7)
+      padding: theme.spacing(7, 0),
+      [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(7)
+      }
+    },
+    '& .MuiDialog-paperWidthSm': {
+      width: '100vw',
+      [theme.breakpoints.up('sm')]: {
+        width: 'unset'
+      }
+    },
+    '& .MuiDialog-paper': {
+      margin: 0,
+      [theme.breakpoints.up('sm')]: {
+        margin: theme.spacing(4)
+      }
     }
   },
   decoration: {
     margin: theme.spacing(4, 0, 8, 0)
   },
   formSection: {
-    padding: theme.spacing(0, 10)
+    padding: 0,
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(0, 10)
+    }
   },
   loginForm: {
-    width: 385,
-    margin: '0 auto',
+    width: '100%',
+    margin: 0,
     backgroundColor: theme.palette.backgroundAltColor,
     display: 'flex',
     flexDirection: 'column',
@@ -42,6 +60,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3, 0, 5, 0),
     '& > div:last-of-type': {
       marginTop: theme.spacing(4)
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 385,
+      margin: '0 auto'
     }
   },
   showError: {
@@ -50,15 +72,35 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.error.main,
     fontWeight: 600
   },
+  buttonsSection: {
+    justifyContent: 'space-between',
+    flexWrap: 'wrap-reverse',
+    padding: theme.spacing(1, 2),
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'nowrap',
+      padding: 'inherit'
+    },
+    '& button:last-of-type': {
+      marginLeft: 0,
+      marginBottom: theme.spacing(1),
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(1),
+        marginBottom: 0
+      }
+    }
+  },
   button: {
-    width: 120,
+    width: '100%',
     minHeight: 50,
     color: '#000',
     textTransform: 'none',
     fontWeight: 300,
     fontSize: '1.2rem',
     border: `1px solid rgba(0, 0, 0, 0)`,
-    borderRadius: 0
+    borderRadius: 0,
+    [theme.breakpoints.up('sm')]: {
+      width: 120
+    }
   },
   buttonMain: {
     border: `1px solid ${theme.palette.text.primary}`
@@ -67,7 +109,9 @@ const useStyles = makeStyles(theme => ({
 
 const CssTextField = withStyles(theme => ({
   root: {
-    width: 250,
+    width: `calc(100% - ${theme.spacing(8)}px)`,
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(4),
     marginBottom: theme.spacing(1),
     '& label, & label.Mui-focused': {
       color: theme.palette.text.primary,
@@ -80,6 +124,11 @@ const CssTextField = withStyles(theme => ({
       color: theme.palette.error.main,
       fontWeight: 600,
       fontSize: '0.7rem'
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 250,
+      marginLeft: 'unset',
+      marginRight: 'unset'
     }
   } 
 }))(TextField);
@@ -161,7 +210,7 @@ const DialogLogin = ({
           {errorMsg && errorMsg}
         </Typography>
       </DialogContent>
-      <DialogActions style={{ justifyContent: 'space-between' }}>
+      <DialogActions className={classes.buttonsSection}>
         <Button
           onClick={() => registerDisplayed()}
           variant="text"
