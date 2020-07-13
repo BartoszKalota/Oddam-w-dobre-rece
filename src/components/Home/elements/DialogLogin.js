@@ -77,8 +77,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap-reverse',
     padding: theme.spacing(1, 2),
     [theme.breakpoints.up('sm')]: {
-      flexWrap: 'nowrap',
-      padding: 'inherit'
+      flexWrap: 'nowrap'
     },
     '& button:last-of-type': {
       marginLeft: 0,
