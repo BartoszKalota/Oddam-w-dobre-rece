@@ -33,15 +33,15 @@ const useStyles = makeStyles(theme => ({
     }
   },
   headerContent: {
-    height: 710,
+    height: 740,
     alignItems: 'flex-end',
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     '@media (max-width:390px)': {
-      height: 755
+      height: 785
     },
     '@media (max-width:320px)': { // poniżej stylu dla max-width:390px ze względu na przesłanianie
-      height: 830
+      height: 860
     },
     [theme.breakpoints.up('sm')]: {
       height: 540

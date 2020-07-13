@@ -18,6 +18,10 @@ import DialogLogout from './DialogLogout';
 const useStyles = makeStyles(theme => ({
   authMenuContainer: {
     paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: 0
+    },
     [theme.breakpoints.up('md')]: {
       paddingRight: 0
     }
