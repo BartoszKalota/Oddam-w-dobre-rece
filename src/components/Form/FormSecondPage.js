@@ -21,7 +21,10 @@ import ImportantBar from './elements/ImportantBar';
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
     height: 830,  // wysokość obrazka w tle
-    background: `url(${bgrImg}) no-repeat right/cover`
+    background: `url(${bgrImg}) no-repeat center/cover`,
+    [theme.breakpoints.up('lg')]: {
+      background: `url(${bgrImg}) no-repeat right/cover`
+    }
   },
   step: {
     fontWeight: 300,
@@ -31,7 +34,8 @@ const useStyles = makeStyles(theme => ({
   },
   header: {
     fontWeight: 600,
-    marginBottom: theme.spacing(5)
+    marginBottom: theme.spacing(5),
+    textShadow: '2px 2px 3px #FFF'
   },
   selectTitle: {
     fontWeight: 300,

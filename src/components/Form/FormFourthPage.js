@@ -25,7 +25,11 @@ import ImportantBar from './elements/ImportantBar';
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
     height: 830,  // wysokość obrazka w tle
-    background: `url(${bgrImg}) no-repeat right/cover`
+    background: `url(${bgrImg}) no-repeat center/cover`,
+    overflow: 'auto',
+    [theme.breakpoints.up('lg')]: {
+      background: `url(${bgrImg}) no-repeat right/cover`
+    }
   },
   step: {
     fontWeight: 300,
@@ -35,7 +39,8 @@ const useStyles = makeStyles(theme => ({
   },
   header: {
     fontWeight: 600,
-    marginBottom: theme.spacing(2.5)
+    marginBottom: theme.spacing(2.5),
+    textShadow: '2px 2px 3px #FFF'
   },
   subHeader: {
     fontWeight: 600,
@@ -44,8 +49,18 @@ const useStyles = makeStyles(theme => ({
   inputSection: {
     display: 'flex',
     justifyContent: 'flex-start',
+    flexDirection: 'column',
+    '@media (min-width:1170px)': {
+      flexDirection: 'row'
+    },
     '& > div': {
       marginRight: theme.spacing(10)
+    },
+    '& > div:last-of-type': {
+      marginBottom: theme.spacing(6),
+      '@media (min-width:1170px)': {
+        marginBottom: 0
+      }
     }
   },
   inputContainer: {

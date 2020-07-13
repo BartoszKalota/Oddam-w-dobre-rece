@@ -13,7 +13,10 @@ import recyclingImg from '../../assets/Icon-4.svg';
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
     height: 830,  // wysokość obrazka w tle
-    background: `url(${bgrImg}) no-repeat right/cover`
+    background: `url(${bgrImg}) no-repeat center/cover`,
+    [theme.breakpoints.up('lg')]: {
+      background: `url(${bgrImg}) no-repeat right/cover`
+    }
   },
   header: {
     fontWeight: 600,
