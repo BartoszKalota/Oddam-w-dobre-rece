@@ -14,14 +14,64 @@ import StepSquare from './elements/StepSquare';
 
 const useStyles = makeStyles(theme => ({
   headerSection: {
-    height: 853,  // wysokość obrazka 'headerImage'
-    backgroundColor: theme.palette.background.paper
+    height: 'unset',
+    backgroundColor: theme.palette.background.paper,
+    flexWrap: 'wrap-reverse',
+    [theme.breakpoints.up('md')]: {
+      height: 853,  // wysokość obrazka 'headerImage'
+      flexWrap: 'wrap'
+    }
   },
   headerImage: {
-    background: `url(${headerImg}) no-repeat right/cover`
+    height: 500,
+    background: `url(${headerImg}) no-repeat center/cover`,
+    [theme.breakpoints.up('md')]: {
+      height: 'unset',
+      background: `url(${headerImg}) no-repeat right/cover`
+    }
   },
   headerContent: {
-    paddingRight: theme.spacing(8)
+    height: 740,
+    alignItems: 'flex-end',
+    paddingLeft: 0,
+    paddingRight: 0,
+    [theme.breakpoints.up('sm')]: {
+      height: 565
+    },
+    '@media (max-width:631px)': {
+      height: 760
+    },
+    '@media (max-width:492px)': {
+      height: 790
+    },
+    '@media (max-width:426px)': {
+      height: 845
+    },
+    '@media (max-width:381px)': { // poniżej stylu dla max-width:390px ze względu na przesłanianie
+      height: 895
+    },
+    '@media (max-width: 331px)': {
+      height: 1215,
+      '& h1': {
+        fontSize: '2rem'
+      }
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 'unset',
+      alignItems: 'center'
+    },
+    [theme.breakpoints.up('lg')]: {
+      paddingRight: theme.spacing(8),
+      paddingLeft: 0
+    }
+  },
+  headerContainer: {
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(0, 2),
+    [theme.breakpoints.up('md')]: {
+      marginBottom: 0,
+      padding: 0
+    }
   },
   headerTitle: {
     fontSize: '2.2rem',
@@ -34,7 +84,10 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 300
   },
   squareBox: {
-    width: 620
+    maxWidth: 620,
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap'
   }
 }));
 
@@ -42,9 +95,9 @@ const FormHeader = () => {
   const classes = useStyles();
   return (
     <Grid item container className={classes.headerSection} id="section1">
-      <Grid item xs={6} className={classes.headerImage} />
-      <Grid item container xs={5} alignItems="center" className={classes.headerContent}>
-        <Grid item container direction="column" alignItems="center">
+      <Grid item xs={12} md={4} lg={6} className={classes.headerImage} />
+      <Grid item container xs={12} md={8} lg={5} alignItems="center" className={classes.headerContent}>
+        <Grid item container direction="column" alignItems="center" className={classes.headerContainer}>
           <Typography
             component="h1"
             color="textPrimary"
@@ -70,7 +123,7 @@ const FormHeader = () => {
           </Box>
         </Grid>
       </Grid>
-      <Grid item xs={1} />
+      <Grid item xs={false} lg={1} />
     </Grid>
   );
 };
