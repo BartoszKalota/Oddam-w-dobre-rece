@@ -33,26 +33,28 @@ const LoggedInNavigation = ({ userEmail, logout }) => {
       <Typography variant="body1" component="p" className={classes.userText}>
         {`Cześć ${userEmail}!`}
       </Typography>
-      <Link to={ROUTES.FORM}>
+      <div>
+        <Link to={ROUTES.FORM}>
+          <Button
+            variant="outlined"
+            color="primary"
+            className={
+              clsx(classes.loggedNavButton, classes.loggedNavButtonMain)
+            }
+          >
+            Oddaj rzeczy
+          </Button>
+        </Link>
         <Button
-          variant="outlined"
-          color="primary"
+          variant="text"
+          onClick={() => logout()}
           className={
-            clsx(classes.loggedNavButton, classes.loggedNavButtonMain)
+            clsx(classes.loggedNavButton, classes.loggedNavButtonInferior)
           }
         >
-          Oddaj rzeczy
+          Wyloguj
         </Button>
-      </Link>
-      <Button
-        variant="text"
-        onClick={() => logout()}
-        className={
-          clsx(classes.loggedNavButton, classes.loggedNavButtonInferior)
-        }
-      >
-        Wyloguj
-      </Button>
+      </div>
     </>
   );
 }
