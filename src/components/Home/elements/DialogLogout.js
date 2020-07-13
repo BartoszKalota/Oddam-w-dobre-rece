@@ -10,7 +10,6 @@ import {
 
 import decoration from '../../../assets/Decoration.svg';
 import CloseButton from './CloseButton';
-import { createTheming } from 'react-jss';
 
 const useStyles = makeStyles(theme => ({
   dialogWindow: {
