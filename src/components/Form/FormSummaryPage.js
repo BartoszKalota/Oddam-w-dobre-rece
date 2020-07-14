@@ -121,7 +121,7 @@ const useStyles = makeStyles(theme => ({
   rowContent: {
     color: '#000',
     fontSize: '1.5rem',
-    textShadow: '2px 2px 3px #FFF',
+    textShadow: '2px 2px 2px #FFF',
     textAlign: 'center',
     fontWeight: 300,
     lineHeight: 1.1,
