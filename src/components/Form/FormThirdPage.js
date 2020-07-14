@@ -24,31 +24,69 @@ import ImportantBar from './elements/ImportantBar';
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
     height: 830,  // wysokość obrazka w tle
-    background: `url(${bgrImg}) no-repeat center/cover`,
+    background: `url(${bgrImg}) no-repeat left/cover`,
+    overflow: 'auto',
+    [theme.breakpoints.up('md')]: {
+      background: `url(${bgrImg}) no-repeat center/cover`
+    },
     [theme.breakpoints.up('lg')]: {
       background: `url(${bgrImg}) no-repeat right/cover`
     }
   },
+  contentContainer: {
+    padding: theme.spacing(0, 2),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(0, 8)
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: 0
+    }
+  },
   step: {
+    width: '100%',
+    textAlign: 'center',
     fontWeight: 300,
     fontSize: '1.5rem',
     marginTop: theme.spacing(3.5),
-    marginBottom: theme.spacing(6)
+    marginBottom: theme.spacing(6),
+    [theme.breakpoints.up('md')]: {
+      width: 'unset',
+      textAlign: 'unset'
+    }
   },
   header: {
+    width: '100%',
     fontWeight: 600,
-    marginBottom: theme.spacing(2.5)
+    textAlign: 'center',
+    marginBottom: theme.spacing(2.5),
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left'
+    }
   },
   subHeader: ({ readyToValidate, formError }) => {
     const style = {
+      width: '100%',
       fontWeight: 600,
+      textAlign: 'center',
       marginTop: theme.spacing(6.25),
-      textShadow: '2px 2px 3px #FFF'
+      textShadow: '2px 2px 3px #FFF',
+      [theme.breakpoints.up('sm')]: {
+        textAlign: 'left'
+      }
     };
     if (readyToValidate && !!formError) {
       style.marginTop = theme.spacing(4.25);
     }
     return style;
+  },
+  selectContainer: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row'
+    }
   },
   toggleBtnsSection: ({ toggleBtnWidths }) => {
     const getSpanStyle = (width) => ({
@@ -57,7 +95,13 @@ const useStyles = makeStyles(theme => ({
       borderRadius: 0
     });
     return {
-      width: 680,
+      maxWidth: 680,
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      [theme.breakpoints.up('sm')]: {
+        display: 'block'
+      },
       '& .MuiFormControlLabel-root:nth-of-type(1) .MuiIconButton-label': getSpanStyle(toggleBtnWidths[0]),
       '& .MuiFormControlLabel-root:nth-of-type(2) .MuiIconButton-label': getSpanStyle(toggleBtnWidths[1]),
       '& .MuiFormControlLabel-root:nth-of-type(3) .MuiIconButton-label': getSpanStyle(toggleBtnWidths[2]),
@@ -70,8 +114,22 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.1rem',
     marginTop: theme.spacing(2)
   },
+  buttonSection: {
+    justifyContent: 'space-between',
+    flexWrap: 'wrap-reverse',
+    padding: theme.spacing(0, 2),
+    marginTop: theme.spacing(6),
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'unset',
+      padding: theme.spacing(0, 8)
+    },
+    [theme.breakpoints.up('md')]: {
+      justifyContent: 'flex-start',
+      padding: 0
+    }
+  },
   button: {
-    minWidth: 180,
+    minWidth: '100%',
     minHeight: 80,
     textTransform: 'none',
     fontSize: '1.5rem',
@@ -79,7 +137,10 @@ const useStyles = makeStyles(theme => ({
     color: '#000',
     border: `1px solid ${theme.palette.text.primary}`,
     borderRadius: 0,
-    marginBottom: theme.spacing(6)
+    marginBottom: theme.spacing(6),
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 180
+    }
   },
   buttonBack: {
     marginRight: theme.spacing(6.25)
@@ -107,6 +168,9 @@ const selectStyles = (theme) => ({
       color: '#000',
       top: 'calc(50% - 31px)',
       right: 0
+    },
+    '@media (max-width:400px)': {
+      minWidth: 245
     }
   },
   dropdownStyle: {
@@ -163,9 +227,17 @@ const renderSelect = ({ input, options }) => (
 const CssFormControlLabel = withStyles(theme => ({
   root: {
     marginTop: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    marginLeft: 0,
+    marginRight: theme.spacing(1.5),
+    marginLeft: theme.spacing(1.5),
     position: 'relative',
+    [theme.breakpoints.up('sm')]: {
+      marginRight: theme.spacing(3),
+      marginLeft: 0
+    },
+    '@media (max-width:430px)': {
+      marginRight: 'auto',
+      marginLeft: 'auto'
+    },
     '& > span': {
       padding: 0
     },
@@ -211,11 +283,18 @@ const CssTextField = withStyles(theme => ({
   root: {
     width: 570,
     marginTop: theme.spacing(2.5),
+    marginLeft: 0,
+    marginRight: 0,
     border: `1px solid ${theme.palette.text.primary}`,
     '& input': {
       fontSize: '1.5rem',
       fontWeight: 300,
       padding: '5.5px 14px'
+    },
+    '@media (max-width:705px)': {
+      width: `calc(100% - ${theme.spacing(2)}px)`,
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1)
     }
   }
 }))(TextField);
@@ -264,9 +343,9 @@ const FormThirdPage = ({
         importantDescr={importantDescr}
       />
       <Grid container className={classes.sectionContainer}>
-        <Grid item xs={1} />
-        <Grid item container xs={10} direction="column" justify="space-between">
-          <Grid item container direction="column" alignItems="flex-start">
+        <Grid item xs={false} md={1} />
+        <Grid item container xs={12} md={10} direction="column" justify="space-between">
+          <Grid item container direction="column" alignItems="flex-start" className={classes.contentContainer}>
             <Typography variant="body1" component="p" color="textPrimary" className={classes.step}>
               Krok 3/4
             </Typography>
@@ -274,16 +353,18 @@ const FormThirdPage = ({
               {formHeader}
             </Typography>
             <div>
-              <Field
-                name={selectName}
-                component={renderSelect}
-                options={selectOptions}
-              />
-              {readyToValidate && formError && (
-                <Typography component="p" className={classes.errorMsg}>
-                  {formError.location}
-                </Typography>
-              )}
+              <div className={classes.selectContainer}>
+                <Field
+                  name={selectName}
+                  component={renderSelect}
+                  options={selectOptions}
+                />
+                {readyToValidate && formError && (
+                  <Typography component="p" className={classes.errorMsg}>
+                    {formError.location}
+                  </Typography>
+                )}
+              </div>
               <Typography variant="h5" component="p" className={classes.subHeader}>
                 {toggleBtnsTitle}
               </Typography>
@@ -312,7 +393,7 @@ const FormThirdPage = ({
               />
             </div>
           </Grid>
-          <Grid item container>
+          <Grid item container className={classes.buttonSection}>
             <Button
               variant="outlined"
               onClick={() => prevPage()}
@@ -329,7 +410,7 @@ const FormThirdPage = ({
             </Button>
           </Grid>
         </Grid>
-        <Grid item xs={1} />
+        <Grid item xs={false} md={1} />
       </Grid>
     </form>
   );

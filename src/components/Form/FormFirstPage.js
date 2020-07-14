@@ -30,12 +30,12 @@ const useStyles = makeStyles(theme => ({
     }
   },
   contentContainer: {
-    padding: theme.spacing(0, 2, 0, 8),
+    padding: theme.spacing(0, 5),
     '@media (max-width:440px)': {
-      padding: theme.spacing(0, 2, 0, 2)
+      padding: theme.spacing(0, 3)
     },
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(0, 8, 0, 8)
+      padding: theme.spacing(0, 8)
     },
     [theme.breakpoints.up('md')]: {
       padding: 0
