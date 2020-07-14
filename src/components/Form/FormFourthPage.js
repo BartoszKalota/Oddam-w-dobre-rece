@@ -87,7 +87,7 @@ const useStyles = makeStyles(theme => ({
     },
     '& > div': {
       marginRight: 0,
-      padding: theme.spacing(0, 2),
+      padding: theme.spacing(0, 1),
       [theme.breakpoints.up('sm')]: {
         marginRight: theme.spacing(10),
         padding: 0
