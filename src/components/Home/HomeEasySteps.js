@@ -22,6 +22,13 @@ const useStyles = makeStyles(theme => ({
   easyStepsSection: {
     padding: theme.spacing(6, 0, 10, 0)
   },
+  header: {
+    padding: theme.spacing(0, 2),
+    textAlign: 'center',
+    [theme.breakpoints.up('sm')]: {
+      padding: 0
+    }
+  },
   decoration: {
     margin: theme.spacing(3, 0, 4, 0)
   },
@@ -30,7 +37,16 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(9, 0)
   },
   singleStep: {
-    maxWidth: 150
+    maxWidth: 150,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+    '&:last-of-type': {
+      marginBottom: 0
+    },
+    [theme.breakpoints.up('md')]: {
+      marginBottom: 0
+    }
   },
   stepTitle: {
     lineHeight: 1.2,
@@ -44,8 +60,11 @@ const useStyles = makeStyles(theme => ({
   stepDescr: {
     lineHeight: 1.3
   },
+  buttonSection: {
+    padding: theme.spacing(0, 2)
+  },
   button: {
-    width: 310,
+    width: '100%',
     minHeight: 120,
     fontSize: '2.2rem',
     fontWeight: 300,
@@ -53,8 +72,10 @@ const useStyles = makeStyles(theme => ({
     border: `1px solid ${theme.palette.text.primary}`,
     borderRadius: 0,
     lineHeight: 1.2,
-    padding: '16px 40%',
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
+    [theme.breakpoints.up('sm')]: {
+      width: 310
+    }
   }
 }));
 
@@ -63,7 +84,7 @@ const HomeEasySteps = ({ loggedIn, loginDisplayed }) => {
   const history = useHistory();
   return (
     <Grid className={classes.easyStepsSection} id="section2">
-      <Grid item container direction="column" alignItems="center">
+      <Grid item container direction="column" alignItems="center" className={classes.header}>
         <Typography variant="h4" component="h3" color="textPrimary">
           Wystarczą 4 proste kroki
         </Typography>
@@ -163,7 +184,7 @@ const HomeEasySteps = ({ loggedIn, loginDisplayed }) => {
         </Grid>
         <Grid item xs={1} />
       </Grid>
-      <Grid item container justify="center" style={{ display: 'grid' }}>
+      <Grid item container xs={12} justify="center" className={classes.buttonSection}>
         <Button
           variant="outlined"
           onClick={
@@ -171,7 +192,7 @@ const HomeEasySteps = ({ loggedIn, loginDisplayed }) => {
           }
           className={classes.button}
         >
-          Oddaj rzeczy
+          Oddaj<br/>rzeczy
         </Button>
       </Grid>
     </Grid>

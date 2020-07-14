@@ -6,12 +6,21 @@ import bgrImg from '../../assets/3-Columns-Background.png';
 
 const useStyles = makeStyles(theme => ({
   threeColumnsSection: {
-    backgroundImage: `url(${bgrImg})`
+    backgroundImage: `url(${bgrImg})`,
+    padding: theme.spacing(10, 2),
   },
   singleColumn: {
-    width: '30%',
-    maxWidth: 355,
-    padding: theme.spacing(10, 0)
+    width: '100%',
+    maxWidth: 'unset',
+    paddingBottom: theme.spacing(5),
+    [theme.breakpoints.up('md')]: {
+      width: '30%',
+      maxWidth: 355,
+      paddingBottom: 0
+    },
+    '&:last-of-type': {
+      paddingBottom: 0
+    }
   },
   titleNumber: {
     lineHeight: 0.8,
@@ -30,8 +39,8 @@ const HomeThreeColumns = () => {
   const classes = useStyles();
   return (
     <Grid item container className={classes.threeColumnsSection} id="section1+">
-      <Grid item xs={1} />
-      <Grid item container xs={10} justify="space-between">
+      <Grid item xs={false} md={1} />
+      <Grid item container xs={12} md={10} justify="space-between">
         <Grid item container direction="column" alignItems="center" className={classes.singleColumn}>
           <Typography
             variant="h1"
@@ -120,7 +129,7 @@ const HomeThreeColumns = () => {
           </Typography>
         </Grid>
       </Grid>
-      <Grid item xs={1} />
+      <Grid item xs={false} md={1} />
     </Grid>
   );
 }

@@ -27,6 +27,30 @@ const useStyles = makeStyles(theme => ({
   contactForm: {
     width: 530
   },
+  nameInputsSection: {
+    '& > div:first-of-type': {
+      maxWidth: '100%',
+      flexBasis: '100%',
+      paddingRight: 0,
+      [theme.breakpoints.up('sm')]: {
+        maxWidth: '50%',
+        flexBasis: '50%',
+        paddingRight: theme.spacing(1)
+      }
+    },
+    '& > div:last-of-type': {
+      maxWidth: '100%',
+      flexBasis: '100%',
+      paddingLeft: 0,
+      marginTop: theme.spacing(3),
+      [theme.breakpoints.up('sm')]: {
+        maxWidth: '50%',
+        flexBasis: '50%',
+        paddingLeft: theme.spacing(1),
+        marginTop: 0,
+      }
+    }
+  },
   showError: {
     '& .MuiInput-underline:after': {
       borderBottomColor: [[theme.palette.error.main], '!important']
@@ -125,12 +149,11 @@ const ContactForm = ({ handleSubmit, submitting, submitSucceeded, inputError }) 
         {submitSucceeded ? 'Wiadomość została wysłana! Wkrótce się skontaktujemy.' : ''}
       </Typography>
       <form onSubmit={handleSubmit} className={classes.contactForm}>
-        <Grid container>
+        <Grid container className={classes.nameInputsSection}>
           <Grid
             item container xs={6}
             direction="column"
             alignItems="flex-start"
-            style={{ paddingRight: 8 }}
             className={
               !!inputError ? classes.showError : ''
             }
@@ -150,7 +173,6 @@ const ContactForm = ({ handleSubmit, submitting, submitSucceeded, inputError }) 
             item container xs={6}
             direction="column"
             alignItems="flex-start"
-            style={{ paddingLeft: 8 }}
             className={
               !!inputError ? classes.showError : ''
             }

@@ -17,14 +17,43 @@ import decoration from '../../assets/Decoration.svg';
 
 const useStyles = makeStyles(theme => ({
   headerSection: {
-    height: 963,  // wysokość obrazka 'headerImage'
-    backgroundColor: theme.palette.background.paper
+    height: 'unset',
+    backgroundColor: theme.palette.background.paper,
+    flexWrap: 'wrap-reverse',
+    [theme.breakpoints.up('md')]: {
+      height: 963,  // wysokość obrazka 'headerImage'
+      flexWrap: 'wrap'
+    }
   },
   headerImage: {
-    background: `url(${headerImg}) no-repeat right/cover`
+    height: 655,
+    background: `url(${headerImg}) no-repeat right/cover`,
+    [theme.breakpoints.up('md')]: {
+      height: 'unset'
+    }
   },
   headerContent: {
-    paddingRight: theme.spacing(8)
+    height: 740,
+    alignItems: 'flex-end',
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    '@media (max-width:390px)': {
+      height: 785
+    },
+    '@media (max-width:320px)': { // poniżej stylu dla max-width:390px ze względu na przesłanianie
+      height: 860
+    },
+    [theme.breakpoints.up('sm')]: {
+      height: 540
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 'unset',
+      alignItems: 'center'
+    },
+    [theme.breakpoints.up('lg')]: {
+      paddingRight: theme.spacing(8),
+      paddingLeft: 0
+    }
   },
   headerTitle: {
     fontSize: '2.2rem',
@@ -63,8 +92,8 @@ const HomeHeader = ({ loggedIn, loginDisplayed }) => {
 
   return (
     <Grid item container className={classes.headerSection} id="section1">
-      <Grid item xs={6} className={classes.headerImage} />
-      <Grid item container xs={5} alignItems="center" className={classes.headerContent}>
+      <Grid item xs={12} md={5} lg={6} className={classes.headerImage} />
+      <Grid item container xs={12} md={6} lg={5} alignItems="center" className={classes.headerContent}>
         <Grid item container direction="column" alignItems="center">
           <Typography
             component="h1"
@@ -84,7 +113,7 @@ const HomeHeader = ({ loggedIn, loginDisplayed }) => {
           </Typography>
           <img src={decoration} alt="Decoration" />
           <Grid item container spacing={5} className={classes.buttonsSection}>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Button
                 variant="outlined"
                 onClick={handleClick}
@@ -93,7 +122,7 @@ const HomeHeader = ({ loggedIn, loginDisplayed }) => {
                 Oddaj rzeczy
               </Button>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Button
                 variant="outlined"
                 onClick={handleClick}
@@ -105,7 +134,7 @@ const HomeHeader = ({ loggedIn, loginDisplayed }) => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={1} />
+      <Grid item xs={false} md={1} />
     </Grid>
   );
 };

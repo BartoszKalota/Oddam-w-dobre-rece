@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
 import {
@@ -14,12 +15,27 @@ import DialogLogin from './DialogLogin';
 import DialogRegister from './DialogRegister';
 import DialogLogout from './DialogLogout';
 
+const useStyles = makeStyles(theme => ({
+  authMenuContainer: {
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: 0
+    },
+    [theme.breakpoints.up('md')]: {
+      paddingRight: 0
+    }
+  }
+}));
+
 const AuthNavigation = ({
   isOpened, mode,
   loginDisplayed, registerDisplayed, closeDialog,
   loggedInUserEmail,
   logout
-}) => {  
+}) => {
+  const classes = useStyles();
+
   const props = { isOpened, closeDialog };
   let dialogToRender;
   if (mode === LOGIN_MODE) {
@@ -35,7 +51,7 @@ const AuthNavigation = ({
   return (
     <>
       <Grid item xs={12}>
-        <Grid item container justify="flex-end" xs={11}>
+        <Grid item container justify="flex-end" xs={12} md={11} className={classes.authMenuContainer}>
           {loggedInUserEmail ? (
             <LoggedInNavigation
               userEmail={loggedInUserEmail}
@@ -48,7 +64,7 @@ const AuthNavigation = ({
             />
           )}
         </Grid>
-        <Grid item xs={1} />
+        <Grid item xs={false} md={1} />
       </Grid>
 
       {dialogToRender}

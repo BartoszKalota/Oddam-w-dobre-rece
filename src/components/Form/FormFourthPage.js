@@ -25,35 +25,95 @@ import ImportantBar from './elements/ImportantBar';
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
     height: 830,  // wysokość obrazka w tle
-    background: `url(${bgrImg}) no-repeat right/cover`
+    background: `url(${bgrImg}) no-repeat left/cover`,
+    overflow: 'auto',
+    [theme.breakpoints.up('md')]: {
+      background: `url(${bgrImg}) no-repeat center/cover`
+    },
+    [theme.breakpoints.up('lg')]: {
+      background: `url(${bgrImg}) no-repeat right/cover`
+    }
+  },
+  contentContainer: {
+    padding: theme.spacing(0, 2),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(0, 8)
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: 0
+    }
   },
   step: {
+    width: '100%',
+    textAlign: 'center',
     fontWeight: 300,
     fontSize: '1.5rem',
     marginTop: theme.spacing(3.5),
-    marginBottom: theme.spacing(6)
+    marginBottom: theme.spacing(6),
+    [theme.breakpoints.up('md')]: {
+      width: 'unset',
+      textAlign: 'unset'
+    }
   },
   header: {
+    width: '100%',
     fontWeight: 600,
-    marginBottom: theme.spacing(2.5)
+    textAlign: 'center',
+    textShadow: '2px 2px 3px #FFF',
+    marginBottom: theme.spacing(2.5),
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left'
+    }
   },
   subHeader: {
+    width: '100%',
     fontWeight: 600,
-    marginTop: theme.spacing(6.25)
+    textAlign: 'center',
+    marginTop: theme.spacing(6.25),
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left'
+    }
   },
   inputSection: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
+    flexDirection: 'column',
+    [theme.breakpoints.up('sm')]: {
+      width: 'unset'
+    },
+    '@media (min-width:1170px)': {
+      flexDirection: 'row'
+    },
     '& > div': {
-      marginRight: theme.spacing(10)
+      marginRight: 0,
+      padding: theme.spacing(0, 1),
+      [theme.breakpoints.up('sm')]: {
+        marginRight: theme.spacing(10),
+        padding: 0
+      }
+    },
+    '& > div:last-of-type': {
+      marginBottom: theme.spacing(6),
+      '@media (min-width:1170px)': {
+        marginBottom: 0
+      }
     }
   },
   inputContainer: {
     marginTop: theme.spacing(2.5),
     display: 'flex',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row'
+    }
   },
   textFieldContainer: {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 'unset'
+    },
     '& span': {
       color: theme.palette.error.main,
       fontSize: '1.1rem',
@@ -64,24 +124,50 @@ const useStyles = makeStyles(theme => ({
   textAreaContainer: {
     marginTop: theme.spacing(2.5),
     display: 'flex',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row'
+    }
   },
   inputLabel: {
-    width: 112,
+    width: '100%',
     color: '#000',
     fontSize: '1.5rem',
     fontWeight: 300,
     lineHeight: 1.1,
-    marginRight: theme.spacing(2),
-    marginTop: theme.spacing(0.5)
+    textAlign: 'center',
+    marginRight: 0,
+    marginTop: theme.spacing(0.5),
+    marginBottom: theme.spacing(1),
+    [theme.breakpoints.up('sm')]: {
+      width: 112,
+      textAlign: 'left',
+      marginRight: theme.spacing(2),
+      marginBottom: 0
+    }
   },
   errorMsg: {
     color: theme.palette.error.main,
     fontSize: '1.1rem',
     marginTop: theme.spacing(1)
   },
+  buttonSection: {
+    justifyContent: 'space-between',
+    flexWrap: 'wrap-reverse',
+    padding: theme.spacing(0, 2),
+    marginTop: theme.spacing(6),
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'unset',
+      padding: theme.spacing(0, 8)
+    },
+    [theme.breakpoints.up('md')]: {
+      justifyContent: 'flex-start',
+      padding: 0
+    }
+  },
   button: {
-    minWidth: 180,
+    minWidth: '100%',
     minHeight: 80,
     textTransform: 'none',
     fontSize: '1.5rem',
@@ -89,7 +175,10 @@ const useStyles = makeStyles(theme => ({
     color: '#000',
     border: `1px solid ${theme.palette.text.primary}`,
     borderRadius: 0,
-    marginBottom: theme.spacing(6)
+    marginBottom: theme.spacing(6),
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 180
+    }
   },
   buttonBack: {
     marginRight: theme.spacing(6.25)
@@ -98,7 +187,7 @@ const useStyles = makeStyles(theme => ({
 
 const CssTextField = withStyles(theme => ({
   root: {
-    width: 256,
+    width: '100%',
     border: `1px solid ${theme.palette.text.primary}`,
     backgroundColor: theme.palette.dropdownMenuBgr,
     '& input, & textarea': {
@@ -109,6 +198,9 @@ const CssTextField = withStyles(theme => ({
     },
     '& fieldset': {
       border: 0
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 256
     }
   }
 }))(TextField);
@@ -136,7 +228,7 @@ const renderTextArea = ({ input }) => (
 
 const CssKeyboardDatePicker = withStyles(theme => ({
   root: {
-    width: 256,
+    width: '100%',
     border: `1px solid ${theme.palette.text.primary}`,
     backgroundColor: theme.palette.dropdownMenuBgr,
     '& input': {
@@ -153,6 +245,9 @@ const CssKeyboardDatePicker = withStyles(theme => ({
     },
     '& fieldset': {
       border: 0
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 256
     }
   }
 }))(KeyboardDatePicker);
@@ -177,7 +272,7 @@ const renderDateInput = ({ input, selectedDate, setSelectedDate }) => (
 
 const CssTimePicker = withStyles(theme => ({
   root: {
-    width: 256,
+    width: '100%',
     border: `1px solid ${theme.palette.text.primary}`,
     backgroundColor: theme.palette.dropdownMenuBgr,
     '& input': {
@@ -188,6 +283,9 @@ const CssTimePicker = withStyles(theme => ({
     },
     '& fieldset': {
       border: 0
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 256
     }
   }
 }))(TimePicker);
@@ -255,9 +353,9 @@ const FormFourthPage = ({
         importantDescr={importantDescr}
       />
       <Grid container className={classes.sectionContainer}>
-        <Grid item xs={1} />
-        <Grid item container xs={10} direction="column" justify="space-between">
-          <Grid item container direction="column" alignItems="flex-start">
+        <Grid item xs={false} md={1} />
+        <Grid item container xs={12} md={10} direction="column" justify="space-between">
+          <Grid item container direction="column" alignItems="flex-start" className={classes.contentContainer}>
             <Typography variant="body1" component="p" color="textPrimary" className={classes.step}>
               Krok 4/4
             </Typography>
@@ -336,7 +434,7 @@ const FormFourthPage = ({
               </div>
             </div>
           </Grid>
-          <Grid item container>
+          <Grid item container className={classes.buttonSection}>
             <Button
               variant="outlined"
               onClick={() => prevPage()}
@@ -353,7 +451,7 @@ const FormFourthPage = ({
             </Button>
           </Grid>
         </Grid>
-        <Grid item xs={1} />
+        <Grid item xs={false} md={1} />
       </Grid>
     </form>
   );
