@@ -21,26 +21,62 @@ import ImportantBar from './elements/ImportantBar';
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
     height: 830,  // wysokość obrazka w tle
-    background: `url(${bgrImg}) no-repeat center/cover`,
+    background: `url(${bgrImg}) no-repeat left/cover`,
+    [theme.breakpoints.up('md')]: {
+      background: `url(${bgrImg}) no-repeat center/cover`
+    },
     [theme.breakpoints.up('lg')]: {
       background: `url(${bgrImg}) no-repeat right/cover`
     }
   },
+  contentContainer: {
+    padding: theme.spacing(0, 2),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(0, 8)
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: 0
+    }
+  },
   step: {
+    width: '100%',
+    textAlign: 'center',
     fontWeight: 300,
     fontSize: '1.5rem',
     marginTop: theme.spacing(3.5),
-    marginBottom: theme.spacing(6)
+    marginBottom: theme.spacing(6),
+    [theme.breakpoints.up('md')]: {
+      width: 'unset',
+      textAlign: 'unset'
+    }
   },
   header: {
     fontWeight: 600,
+    textAlign: 'center',
     marginBottom: theme.spacing(5),
-    textShadow: '2px 2px 3px #FFF'
+    textShadow: '2px 2px 3px #FFF',
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left'
+    }
+  },
+  selectContainer: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row'
+    }
   },
   selectTitle: {
     fontWeight: 300,
     fontSize: '1.5rem',
-    marginRight: theme.spacing(3)
+    marginBottom: theme.spacing(3),
+    marginRight: 0,
+    [theme.breakpoints.up('sm')]: {
+      marginBottom: 0,
+      marginRight: theme.spacing(3)
+    }
   },
   errorMsg: {
     color: theme.palette.error.main,
@@ -48,8 +84,21 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginLeft: theme.spacing(28.25)
   },
+  buttonSection: {
+    justifyContent: 'space-between',
+    flexWrap: 'wrap-reverse',
+    padding: theme.spacing(0, 2),
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'unset',
+      padding: theme.spacing(0, 8)
+    },
+    [theme.breakpoints.up('md')]: {
+      justifyContent: 'flex-start',
+      padding: 0
+    }
+  },
   button: {
-    minWidth: 180,
+    minWidth: '100%',
     minHeight: 80,
     textTransform: 'none',
     fontSize: '1.5rem',
@@ -57,7 +106,10 @@ const useStyles = makeStyles(theme => ({
     color: '#000',
     border: `1px solid ${theme.palette.text.primary}`,
     borderRadius: 0,
-    marginBottom: theme.spacing(6)
+    marginBottom: theme.spacing(6),
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 180
+    }
   },
   buttonBack: {
     marginRight: theme.spacing(6.25)
@@ -85,12 +137,15 @@ const selectStyles = (theme) => ({
       color: '#000',
       top: 'calc(50% - 31px)',
       right: 0
+    },
+    '@media (max-width:400px)': {
+      minWidth: 245
     }
   },
   dropdownStyle: {
     minWidth: ['90px', '!important'],
     transform: ['translateY(15px)', '!important'],
-    backgroundColor: 'transparent',
+    backgroundColor: theme.palette.dropdownMenuBgr,
     color: '#000',
     boxShadow: 'none',
     border: `1px solid ${theme.palette.text.primary}`,
@@ -103,6 +158,9 @@ const selectStyles = (theme) => ({
     },
     '& li:first-of-type': {
       display: 'none'
+    },
+    [theme.breakpoints.up('sm')]: {
+      backgroundColor: 'transparent'
     }
   }
 });
@@ -170,9 +228,9 @@ const FormSecondPage = ({
         importantDescr={importantDescr}
       />
       <Grid container className={classes.sectionContainer}>
-        <Grid item xs={1} />
-        <Grid item container xs={10} direction="column" justify="space-between">
-          <Grid item container direction="column" alignItems="flex-start">
+        <Grid item xs={false} md={1} />
+        <Grid item container xs={12} md={10} direction="column" justify="space-between">
+          <Grid item container direction="column" alignItems="flex-start" className={classes.contentContainer}>
             <Typography
               variant="body1"
               component="p"
@@ -188,7 +246,7 @@ const FormSecondPage = ({
             >
               {formHeader}
             </Typography>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div className={classes.selectContainer}>
               <Typography
                 variant="body1"
                 component="p"
@@ -208,7 +266,7 @@ const FormSecondPage = ({
               </Typography>
             )}
           </Grid>
-          <Grid item container>
+          <Grid item container className={classes.buttonSection}>
             <Button
               variant="outlined"
               onClick={() => prevPage()}
@@ -225,7 +283,7 @@ const FormSecondPage = ({
             </Button>
           </Grid>
         </Grid>
-        <Grid item xs={1} />
+        <Grid item xs={false} md={1} />
       </Grid>
     </form>
   );

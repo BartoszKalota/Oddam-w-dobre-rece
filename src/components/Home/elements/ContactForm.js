@@ -29,23 +29,25 @@ const useStyles = makeStyles(theme => ({
   },
   nameInputsSection: {
     '& > div:first-of-type': {
-      maxWidth: '50%',
-      flexBasis: '50%',
-      paddingRight: theme.spacing(1),
-      '@media (max-width:400px)': {
-        maxWidth: '100%',
-        flexBasis: '100%',
-        paddingRight: 0
+      maxWidth: '100%',
+      flexBasis: '100%',
+      paddingRight: 0,
+      [theme.breakpoints.up('sm')]: {
+        maxWidth: '50%',
+        flexBasis: '50%',
+        paddingRight: theme.spacing(1)
       }
     },
     '& > div:last-of-type': {
-      maxWidth: '50%',
-      flexBasis: '50%',
-      paddingLeft: theme.spacing(1),
-      '@media (max-width:400px)': {
-        maxWidth: '100%',
-        flexBasis: '100%',
-        paddingLeft: 0
+      maxWidth: '100%',
+      flexBasis: '100%',
+      paddingLeft: 0,
+      marginTop: theme.spacing(3),
+      [theme.breakpoints.up('sm')]: {
+        maxWidth: '50%',
+        flexBasis: '50%',
+        paddingLeft: theme.spacing(1),
+        marginTop: 0,
       }
     }
   },
@@ -171,7 +173,6 @@ const ContactForm = ({ handleSubmit, submitting, submitSucceeded, inputError }) 
             item container xs={6}
             direction="column"
             alignItems="flex-start"
-            style={{ paddingLeft: 8 }}
             className={
               !!inputError ? classes.showError : ''
             }

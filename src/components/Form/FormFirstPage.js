@@ -55,7 +55,11 @@ const useStyles = makeStyles(theme => ({
   },
   header: {
     fontWeight: 600,
-    marginBottom: theme.spacing(5)
+    textAlign: 'center',
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left'
+    }
   },
   errorMsg: {
     color: theme.palette.error.main,

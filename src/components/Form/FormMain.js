@@ -14,11 +14,14 @@ import FormSentPage from './FormSentPage';
 import BackdropScreen from '../Home/elements/BackdropScreen';
 
 const useStyles = makeStyles(theme => ({
-  mainSection: {
+  mainSection: isPending => ({
     minHeight: 1005,  // gdy dane jeszcze się nie załadują, ekran ładowania i tym samym sekcja będą mieć odpowiednią wysokość
     marginBottom: theme.spacing(5),
-    position: 'relative'
-  }
+    position: 'relative',
+    '& .MuiBackdrop-root': {
+      display: !isPending ? 'none' : 'flex' // bez tego MuiBackdrop ze stylem 'visibility: hidden' przedłuża footer o pustą przestrzeń (pozycjonowanie relative/absolute w tym przypadku nie zadziałało)
+    }
+  })
 }));
 
 const FormMain = ({
@@ -26,7 +29,7 @@ const FormMain = ({
   isPending, firebaseData, firebaseError,
   sendFilledFormMain
 }) => {
-  const classes = useStyles();
+  const classes = useStyles(isPending);
   const [page, setPage] = useState(1);
   const nextPage = () => setPage(prevState => prevState + 1);
   const prevPage = () => setPage(prevState => prevState - 1);
