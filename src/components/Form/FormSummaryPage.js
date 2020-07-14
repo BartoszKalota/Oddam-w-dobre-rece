@@ -13,59 +13,138 @@ import recyclingImg from '../../assets/Icon-4.svg';
 const useStyles = makeStyles(theme => ({
   sectionContainer: {
     height: 830,  // wysokość obrazka w tle
-    background: `url(${bgrImg}) no-repeat right/cover`
+    background: `url(${bgrImg}) no-repeat left/cover`,
+    overflow: 'auto',
+    [theme.breakpoints.up('md')]: {
+      background: `url(${bgrImg}) no-repeat center/cover`
+    },
+    [theme.breakpoints.up('lg')]: {
+      background: `url(${bgrImg}) no-repeat right/cover`
+    }
+  },
+  contentContainer: {
+    padding: theme.spacing(0, 2),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(0, 8)
+    },
+    [theme.breakpoints.up('md')]: {
+      padding: 0
+    }
   },
   header: {
+    width: '100%',
     fontWeight: 600,
+    textAlign: 'center',
     marginTop: theme.spacing(8.75),
-    marginBottom: theme.spacing(5)
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left'
+    }
   },
   subHeader: {
-    fontWeight: 600
+    fontWeight: 600,
+    textAlign: 'center',
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left'
+    }
   },
   mainDivText: {
     display: 'flex',
     alignItems: 'center',
+    flexDirection: 'column',
     marginTop: theme.spacing(2.5),
     '& p': {
-      width: '50vw',
-      fontSize: '1.5rem'
+      width: '100%',
+      textAlign: 'center',
+      fontSize: '1.5rem',
+      [theme.breakpoints.up('sm')]: {
+        textAlign: 'left'
+      },
+      [theme.breakpoints.up('md')]: {
+        width: '50vw'
+      }
+    },
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row'
     }
   },
   imgStyle: {
     width: 50,
     height: 50,
-    marginRight: theme.spacing(2.5)
+    marginBottom: theme.spacing(2),
+    marginRight: 0,
+    [theme.breakpoints.up('sm')]: {
+      marginBottom: 0,
+      marginRight: theme.spacing(2.5)
+    }
   },
   dataSection: {
     display: 'flex',
     justifyContent: 'flex-start',
-    marginTop: theme.spacing(6),
+    flexWrap: 'wrap',
     '& > div': {
-      marginRight: theme.spacing(10)
+      width: '100%',
+      marginTop: theme.spacing(6),
+      marginRight: 0,
+      [theme.breakpoints.up('sm')]: {
+        width: 'unset',
+        marginRight: theme.spacing(10)
+      }
     }
   },
   rowContainer: {
     marginTop: theme.spacing(2.5),
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'column',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row'
+    }
   },
   rowTitle: {
-    width: 112,
+    width: 'unset',
+    minWidth: 112,
     color: '#000',
     fontSize: '1.5rem',
     fontWeight: 300,
     lineHeight: 1.1,
-    marginRight: theme.spacing(2)
+    textAlign: 'center',
+    marginRight: 0,
+    marginBottom: theme.spacing(1),
+    [theme.breakpoints.up('sm')]: {
+      width: 112,
+      textAlign: 'left',
+      marginRight: theme.spacing(2),
+      marginBottom: 0
+    }
   },
   rowContent: {
     color: '#000',
     fontSize: '1.5rem',
+    textShadow: '2px 2px 2px #FFF',
+    textAlign: 'center',
     fontWeight: 300,
-    lineHeight: 1.1
+    lineHeight: 1.1,
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left'
+    }
+  },
+  buttonSection: {
+    justifyContent: 'space-between',
+    flexWrap: 'wrap-reverse',
+    padding: theme.spacing(0, 2),
+    marginTop: theme.spacing(6),
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'unset',
+      padding: theme.spacing(0, 8)
+    },
+    [theme.breakpoints.up('md')]: {
+      justifyContent: 'flex-start',
+      padding: 0
+    }
   },
   button: {
-    minWidth: 244,
+    minWidth: '100%',
     minHeight: 80,
     textTransform: 'none',
     fontSize: '1.5rem',
@@ -73,11 +152,17 @@ const useStyles = makeStyles(theme => ({
     color: '#000',
     border: `1px solid ${theme.palette.text.primary}`,
     borderRadius: 0,
-    marginBottom: theme.spacing(6)
+    marginBottom: theme.spacing(6),
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 244
+    }
   },
   buttonBack: {
-    minWidth: 180,
-    marginRight: theme.spacing(6.25)
+    minWidth: '100%',
+    marginRight: theme.spacing(6.25),
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 180
+    }
   }
 }));
 
@@ -157,9 +242,9 @@ const FormSummaryPage = ({
   return (
     <form onSubmit={handleSubmit}>
       <Grid container className={classes.sectionContainer}>
-        <Grid item xs={1} />
-        <Grid item container xs={10} direction="column" justify="space-between">
-          <Grid item container direction="column" alignItems="flex-start">
+        <Grid item xs={false} md={1} />
+        <Grid item container xs={12} md={10} direction="column" justify="space-between">
+          <Grid item container direction="column" alignItems="flex-start" className={classes.contentContainer}>
             <Typography variant="h4" component="h4" className={classes.header}>
               Podsumowanie Twojej darowizny
             </Typography>
@@ -213,7 +298,7 @@ const FormSummaryPage = ({
               </div>
             </div>
           </Grid>
-          <Grid item container>
+          <Grid item container className={classes.buttonSection}>
             <Button
               variant="outlined"
               onClick={() => prevPage()}
@@ -230,7 +315,7 @@ const FormSummaryPage = ({
             </Button>
           </Grid>
         </Grid>
-        <Grid item xs={1} />
+        <Grid item xs={false} md={1} />
       </Grid>
     </form>
   );

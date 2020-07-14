@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     border: `1px solid ${theme.palette.text.primary}`,
     transform: 'rotate(45deg)',
-    margin: '0 14px'
+    margin: theme.spacing(0, 1.75, 3, 1.75)
   },
   stepText: {
     height: '100%',

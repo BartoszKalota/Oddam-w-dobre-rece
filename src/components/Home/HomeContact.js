@@ -47,9 +47,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   contactContainer: {
-    paddingRight: theme.spacing(2),
+    padding: theme.spacing(0, 2),
     [theme.breakpoints.up('md')]: {
-      paddingRight: 0
+      padding: 0
     }
   },
   decoration: {
@@ -65,8 +65,8 @@ const HomeContactAndFooter = () => {
   return (
     <Grid item container className={classes.sectionContainer} id="section5">
       <Grid container className={clsx(classes.sectionContainerOver, classes.contactSection)}>
-        <Grid item xs={1} sm={5} md={6} lg={7} />
-        <Grid item xs={11} sm={7} md={5} lg={4} container className={classes.contactContainer}>
+        <Grid item xs={false} sm={5} md={6} lg={7} />
+        <Grid item xs={12} sm={7} md={5} lg={4} container className={classes.contactContainer}>
           <Grid container direction="column" alignItems="center">
             <Typography variant="h4" component="h6" align="center" color="textPrimary">
               Skontaktuj się z nami

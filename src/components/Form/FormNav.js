@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import {
   Button,
   Grid,
@@ -14,24 +15,49 @@ import * as ROUTES from '../../config/routes';
 
 const useStyles = makeStyles(theme => ({
   navSection: isGradient => {
-    const style= {
+    const style = {
       position: 'fixed',
       top: 0,
       zIndex: 9,
-      background: isGradient
-        ? 'linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 39%, rgba(255,255,255,0.42) 43%, rgba(255,255,255,1) 49%, rgba(255,255,255,1) 100%)'
-        : '#FFF',
-      padding: theme.spacing(2, 0, 4, 0)
+      padding: theme.spacing(2, 0, 1.25, 0),
+      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(2, 0, 4, 0)
+      }
     };
     if (!isGradient) {
+      style.background = '#FFF';
       style.boxShadow = theme.shadows[5];
     }
     return style;
+  },
+  navSectionGradientHandlingClass: {  // obsługa gradientu w osobnej klasie, bo gdy ten kod był w klasie wyżej, działało niepoprawnie
+    background: '#FFF',
+    boxShadow: theme.shadows[5],
+    '& > div': {
+      paddingRight: theme.spacing(2),
+      paddingLeft: theme.spacing(2)
+    },
+    [theme.breakpoints.up('md')]: {
+      background: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0.42) 29%, rgba(255,255,255,1) 36%, rgba(255,255,255,1) 100%);',
+      boxShadow: 'unset',
+      '& > div': {
+        paddingRight: 0,
+        paddingLeft: 0
+      }
+    },
+    [theme.breakpoints.up('lg')]: {
+      background: 'linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 39%, rgba(255,255,255,0.42) 43%, rgba(255,255,255,1) 49%, rgba(255,255,255,1) 100%)'
+    }
   },
   userText: {
     fontSize: '0.9rem',
     lineHeight: 2.5,
     marginRight: 20
+  },
+  buttonsContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
   mainBtn: {
     textTransform: 'none',
@@ -79,29 +105,31 @@ const FormNav = ({ userEmail, logout }) => {
   };
   
   return (
-    <Grid item container className={classes.navSection} id="section0">
-      <Grid item container justify="flex-end" xs={11}>
+    <Grid item container className={clsx(classes.navSection, classes.navSectionGradientHandlingClass)} id="section0">
+      <Grid item container justify="flex-end" xs={12} md={11}>
         <Typography variant="body1" component="p" className={classes.userText}>
           {`Cześć ${userEmail}!`}
         </Typography>
-        <Link to={ROUTES.HOME}>
+        <div className={classes.buttonsContainer}>
+          <Link to={ROUTES.HOME}>
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.mainBtn}
+            >
+              Powrót na stronę główną
+            </Button>
+          </Link>
           <Button
-            variant="outlined"
-            color="primary"
-            className={classes.mainBtn}
+            variant="text"
+            onClick={handleClick}
+            className={classes.button}
           >
-            Powrót na stronę główną
+            Wyloguj
           </Button>
-        </Link>
-        <Button
-          variant="text"
-          onClick={handleClick}
-          className={classes.button}
-        >
-          Wyloguj
-        </Button>
+        </div>
       </Grid>
-      <Grid item xs={1} />
+      <Grid item xs={false} md={1} />
     </Grid>
   );
 };
