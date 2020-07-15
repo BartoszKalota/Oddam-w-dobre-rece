@@ -4,7 +4,7 @@ A responsive app enabling the registered users to give unnecessary items to trus
 ![Project screenshot](/src/assets/project_screen.jpg)
 
 # Live demo
-somelink
+https://oddaj-w-dobre-rece.netlify.app/
 
 # Features
 * Responsive Web Design (RWD) modes:
