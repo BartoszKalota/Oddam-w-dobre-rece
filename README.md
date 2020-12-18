@@ -1,10 +1,11 @@
 # 'Oddam w dobre ręce' - application
 A responsive app enabling the registered users to give unnecessary items to trusted institutions. This project is the part of the Coders Lab course.
 
-![Project screenshot](/src/assets/project_screen.jpg)
-
 # Live demo
 https://oddaj-w-dobre-rece.netlify.app/
+
+# Video demo
+[![Watch the video](./src/assets/video-demo.jpg)](https://youtu.be/f5kB5OPzGt0)
 
 # Features
 * Responsive Web Design (RWD) modes:
